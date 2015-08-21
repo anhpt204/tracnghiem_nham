@@ -1,0 +1,26 @@
+'''
+Created on Jul 29, 2015
+
+@author: pta
+'''
+
+from pyrouge import Rouge155
+
+DATA_SET = 'DUC2004'
+
+r = Rouge155()
+
+def eval(problem_name):
+     r.system_filename_pattern = problem_name +'.[DE,SaDE,MulDE, MulSaDE]'
+     r.model_filename_pattern = problem_name + '.[A-Z].#ID#.[A-Z].[A-Z]'
+     
+     r.write_config('/home/pta/projects/nlp/data/DUC2004/conf.xml')
+     
+if __name__ == '__main__':
+    
+    
+    r.system_dir = '/home/pta/projects/nlp/data/'+DATA_SET+ '/systems/'
+    r.model_dir = '/home/pta/projects/nlp/data/'+DATA_SET+'/models/'
+    
+    eval('d30003t')
+   

@@ -1,0 +1,28 @@
+#maxSpeedkmh = 40;// km per hour
+40
+#minSpeedkmh = 5;// minimum speed that a taxi can ride is 5km/h
+5
+#startWorkingTime = 6*3600 = 21600;// start work at 6am, convert into seconds
+21600
+#terminateRequestTime = 18*3600;// after 6pm, no request is generated
+64800
+#terminateWorkingTime = 30*3600;// finish work at 8pm, convert into seconds
+108000
+#maxWaitTime = 900;// 15 minutes maximum wait time of immediate request (e.g., pickup_time - call_time)
+900
+#Qk = 1;
+1
+#alpha = 131400;// initial fare charge for one passenger service (VND)
+131400
+#beta = 10000;// initial fare charge for one parcel service (VND)
+10000
+#gamma1 = 58;//58000/1000;// fare charge per meter (VND) for passenger services 
+58
+#gamma2 = 5;//5000/1000; // fare charge per meter (VND) for parcel services
+5
+#gamma3 = 2;//2000/1000; // fuel cost: 20 VND per meter = 2000 VND per km (10 litters for 100km -> 0.1*20000 = 2000VND for 1km)
+2
+#gamma4 = 40000;// discount factor for exceeding the direct delivery time of passengers
+40000
+#maxDeliveryDistanceFactor;// maximum factor of delivery distance
+2

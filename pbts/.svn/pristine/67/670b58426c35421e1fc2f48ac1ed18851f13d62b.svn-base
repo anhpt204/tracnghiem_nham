@@ -1,0 +1,44 @@
+n = 20241, m = 43101, minDis = 10.389482885739325, maxDis = 1967.7184321029633
+Simulator::loadItineraries, filename = best-insertion-itinerary-requests-people-3-parcel-3.ins1.txt
+analyze solution --> total benefits = 34497.49902253001
+analyze solution --> total discount = 1330.165839267662
+analyze solution --> total travel distance = 9051.821211513317
+analyze solution --> total fuel = 18103.642423026635
+analyze solution --> total served parcels = 241
+analyze solution --> total served people = 231
+analyze solution --> total revenue parcel = 20453.628390725455
+analyze solution --> total revenue people = 33477.678894098855
+n = 20241, m = 43101, minDis = 10.389482885739325, maxDis = 1967.7184321029633
+Simulator::loadItineraries, filename = best-insertion-itinerary-requests-people-3-parcel-3.ins2.txt
+analyze solution --> total benefits = 34581.954222088054
+analyze solution --> total discount = 1832.1477352505283
+analyze solution --> total travel distance = 9676.420723393689
+analyze solution --> total fuel = 19352.841446787377
+analyze solution --> total served parcels = 240
+analyze solution --> total served people = 242
+analyze solution --> total revenue parcel = 20989.03628525623
+analyze solution --> total revenue people = 34777.90711886972
+n = 20241, m = 43101, minDis = 10.389482885739325, maxDis = 1967.7184321029633
+Simulator::loadItineraries, filename = best-insertion-itinerary-requests-people-3-parcel-3.ins3.txt
+SolutionAnalyzer::analyzeItinerary, taxi 115 inconsistent mor than one people served at the same time
+SolutionAnalyzer::analyzeSolution at = null????
+n = 20241, m = 43101, minDis = 10.389482885739325, maxDis = 1967.7184321029633
+Simulator::loadItineraries, filename = best-insertion-itinerary-requests-people-3-parcel-3.ins4.txt
+analyze solution --> total benefits = 34078.64336677924
+analyze solution --> total discount = 1948.2362069952992
+analyze solution --> total travel distance = 9481.123173990105
+analyze solution --> total fuel = 18962.24634798021
+analyze solution --> total served parcels = 228
+analyze solution --> total served people = 253
+analyze solution --> total revenue parcel = 19864.5372190275
+analyze solution --> total revenue people = 35124.58870272726
+n = 20241, m = 43101, minDis = 10.389482885739325, maxDis = 1967.7184321029633
+Simulator::loadItineraries, filename = best-insertion-itinerary-requests-people-3-parcel-3.ins5.txt
+analyze solution --> total benefits = 36513.12035485056
+analyze solution --> total discount = 1766.5203396934041
+analyze solution --> total travel distance = 9572.45005630046
+analyze solution --> total fuel = 19144.90011260092
+analyze solution --> total served parcels = 244
+analyze solution --> total served people = 248
+analyze solution --> total revenue parcel = 20747.974694462606
+analyze solution --> total revenue people = 36676.56611268228

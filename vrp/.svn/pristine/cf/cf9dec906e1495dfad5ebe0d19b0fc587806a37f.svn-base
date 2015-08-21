@@ -1,0 +1,131 @@
+'''
+Created on Mar 19, 2015
+
+@author: pta
+'''
+import random
+
+class RoutingPlan:    
+
+    def __init__(self, setting, routes=[], cost=None):
+        self.setting = setting
+        self.routes = routes
+        self.cost = cost
+    
+    def clone(self):
+        newRoutingPlan = RoutingPlan()
+        newRoutingPlan.cost = self.cost
+        newRoutingPlan.routes =[]
+        
+        for route in self.routes:
+            newRoutingPlan.routes.append(route.clone())
+    
+    def isFeasible(self):
+        '''
+        check if this solution is feasible or not
+        a solution is feasible if all routes are feasible
+        '''
+        for route in self.routes:
+            if not route.isFeasible():
+                return False
+        return True
+    
+    def getSize(self):
+        size = 0
+        for route in self.routes:
+            if len(route.path) > 1:
+                size += 1
+        return size
+    
+    def getNumServicedRequests(self):
+        temp = 0
+        for route in self.routes:
+            temp += len(route.path)-1  # -1 for deport
+            
+        return temp
+    
+    def evaluate(self):
+        
+        return self.getSize(), -self.getNumServicedRequests()
+        
+    def getSubNeighborhoods_twoExchange(self):
+        # randomly select a request
+        request = random.Random().sample(self.setting.requests, 1)
+        
+        # get the route that contain this selected request
+        routeIdxContainRequest = None
+        requestIdx = None
+        for i in xrange(len(self.routes)):
+            route = self.routes[i]
+            for idx in xrange(1, len(route.path)):
+                # if this route contain the request
+                if route.path[idx] == request.requestId:
+                    routeIdxContainRequest = i
+                    requestIdx = idx
+                    break
+        if(routeIdxContainRequest == None):
+            return []
+        
+        # make subneighborboods
+        subNeighborhoods = []
+        selectedRoute = self.routes[routeIdxContainRequest].clone()
+        for j in xrange(1, len(selectedRoute.path)):
+            if j == requestIdx:
+                continue
+            # make a new neighbor by cloning old one
+            neighbor = self.clone()
+            # apply two exchange operator to the route that contain the selected request
+            neighbor.routes[routeIdxContainRequest].twoExchange(requestIdx, j)
+            subNeighborhoods.append(neighbor)
+            
+        return subNeighborhoods
+    
+    def getSubNeighborhoods_twoRouteOperator(self):
+        '''
+        @param operator: = 'relocation' or 'exchange' or 'crossover'
+        '''
+        operators = ['relocation', 'exchange', 'crossover']
+        
+        # randomly select a request
+        request = random.Random().sample(self.setting.requests, 1)
+        # randomly select an operator
+        operator = random.Random().sample(operators, 1)
+        # get the route that contain this selected request
+        routeIdxContainRequest = None
+        requestIdx = None
+        for i in xrange(len(self.routes)):
+            route = self.routes[i]
+            for idx in xrange(1, len(route.path)):
+                # if this route contain the request
+                if route.path[idx] == request.requestId:
+                    routeIdxContainRequest = i
+                    requestIdx = idx
+                    break
+        if(routeIdxContainRequest == None):
+            return []
+        
+        # make subneighborboods
+        subNeighborhoods = []
+        selectedRoute = self.routes[routeIdxContainRequest].clone()
+        for i in xrange(len(self.routes)):
+            if i == routeIdxContainRequest or len(self.routes[i].path) <=1 :
+                continue
+            
+            for j in xrange(1, len(self.routes[i].path)):
+                # make a neighbor by cloning this
+                neighbor = self.clone()
+                # apply relocation operator
+                if operator == 'relocation':
+                    neighbor.routes[routeIdxContainRequest].relocation(requestIdx, neighbor.routes[i], j)
+                elif operator == 'exchange':
+                    neighbor.routes[routeIdxContainRequest].exchange(requestIdx, neighbor.routes[i], j)
+                else:
+                    neighbor.routes[routeIdxContainRequest].crossover(requestIdx, neighbor.routes[i], j)
+
+                subNeighborhoods.append(neighbor)
+
+        return subNeighborhoods
+        
+    
+if __name__ == '__main__':
+    pass

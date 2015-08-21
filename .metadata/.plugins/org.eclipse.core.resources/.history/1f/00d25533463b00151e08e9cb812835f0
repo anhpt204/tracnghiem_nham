@@ -1,0 +1,446 @@
+#    This file is part of EAP.
+#
+#    EAP is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU Lesser General Public License as
+#    published by the Free Software Foundation, either version 3 of
+#    the License, or (at your option) any later version.
+#
+#    EAP is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+#    GNU Lesser General Public License for more details.
+#
+#    You should have received a copy of the GNU Lesser General Public
+#    License along with EAP. If not, see <http://www.gnu.org/licenses/>.
+import os
+import sys
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+
+import operator
+import math
+import random
+import datetime, time
+
+import numpy
+from scipy import linalg
+
+from deap import algorithms
+from deap import base
+from deap import creator
+from deap import tools
+from deap import gp
+from numpy.f2py.auxfuncs import throw_error
+
+from cmaes import *
+from problems import *
+
+# GP settings
+POPSIZE = 1000
+JOBS = 1
+MIN_DEPTH = 1
+MAX_DEPTH = 4
+BIG_NUMBER = 10000
+MAX_TRAILS = 1000
+# So lan thu khi he phuong trinh co nghiem
+MAX_TRAILS_NO = 100
+TRAINING_RATE = 4.0/30
+    
+trainingInputs =[]
+trainingOutputs = []
+testingInputs = []
+testingOutputs = []        
+# Define new functions
+def safeDiv(left, right):
+    try:
+        return left / right
+    except ZeroDivisionError:
+        return 1
+
+def AQDiv(left, right):
+    return left/(math.sqrt(1 + right*right))
+
+def sqrt(left):
+    return math.sqrt(math.fabs(left))
+
+pset = gp.PrimitiveSet("MAIN", NUMVARS)
+pset.addPrimitive(operator.add, 2)
+pset.addPrimitive(operator.sub, 2)
+pset.addPrimitive(operator.mul, 2)
+pset.addPrimitive(AQDiv, 2)
+# pset.addPrimitive(sqrt, 1)
+# pset.addPrimitive(safeDiv, 2)
+# pset.addPrimitive(operator.neg, 1)
+pset.addPrimitive(math.cos, 1)
+pset.addPrimitive(math.sin, 1)
+pset.addEphemeralConstant("rand101", lambda: random.randint(-1,1))
+# pset.renameArguments(ARG0='x0')
+# pset.renameArguments(ARG1='x1')
+# pset.renameArguments(ARG2='x2')
+# pset.renameArguments(ARG3='x3')
+
+creator.create("FitnessMin", base.Fitness, weights=(-1.0,))
+creator.create("Individual", gp.PrimitiveTree, fitness=creator.FitnessMin)
+
+toolbox = base.Toolbox()
+toolbox.register("expr", gp.genHalfAndHalf, pset=pset, min_=MIN_DEPTH, max_=MAX_DEPTH)
+toolbox.register("individual", tools.initIterate, creator.Individual, toolbox.expr)
+toolbox.register("population", tools.initRepeat, list, toolbox.individual)
+toolbox.register("compile", gp.compile, pset=pset)
+
+def evalSymbReg(individual):
+    # Transform the tree expression in a callable function
+    func = toolbox.compile(expr=individual)
+    # Evaluate the mean squared error between the expression
+    # and the real function : x**4 + x**3 + x**2 + x
+#     sqerrors = ((func(x) - x**4 - x**3 - x**2 - x)**2 for x in points)
+    error = 0
+    for i in xrange(len(trainingInputs)):
+        t = func(*trainingInputs[i])
+        error += math.fabs(t - trainingOutputs[i])
+    error = error / len(trainingInputs)
+    return math.sqrt(error),
+
+def evaluate(best_x, best_individuals, inputs, outputs):
+    '''
+    evaluate les system
+
+    @param best_x: Nghiem khi giai hpt
+    @param best_individuals: DS individuals duoc su dung de tao hpt
+    @param inputs: inputs of data that want to evaluate
+    @param outputs: 
+    '''
+    error = 0.0
+    for i in xrange(len(inputs)):
+        t = 0.0
+        for j in xrange(len(best_individuals)):
+            ind = best_individuals[j]
+            func = toolbox.compile(expr=ind)            
+            t += best_x[j] * func(*inputs[i])
+            
+        error += math.fabs(t - outputs[i])
+        
+    error = error / len(inputs)
+    return math.sqrt(error)
+
+toolbox.register("evaluate", evalSymbReg)
+toolbox.register("select", tools.selTournament, tournsize=3)
+toolbox.register("mate", gp.cxOnePoint)
+toolbox.decorate("mate", gp.staticLimit(operator.attrgetter('height'),80))
+toolbox.register("expr_mut", gp.genFull, min_=0, max_=2)
+toolbox.register("mutate", gp.mutUniform, expr=toolbox.expr_mut, pset=pset)
+toolbox.decorate("mutate", gp.staticLimit(operator.attrgetter('height'),80))
+
+def les(problem, job):
+    '''
+    Linear Equation System
+    '''
+#     1. semantic khac nhau
+#     2. khong co 2 hang ve trai = nhau, ve phai khac nhau
+#     3. semantic cua 1 tree khong the chi la 1 gia tri duy nhat
+    global testingInputs, testingOutputs, trainingInputs, trainingOutputs
+        
+    random.seed(1000 + job)
+    
+    
+    dir = '/home/pta/Dropbox/uci/regression/'
+    # training and testing file
+    train = dir + problem + ".training.in"
+    test = dir + problem + ".testing.in"
+    
+    #read training data
+    lines = open(train).readlines()
+    trainingInputs = []
+    trainingOutputs = []
+    
+    temp = {}
+    for line in lines[1:]:
+        xs = line.split()
+        input = [float(x) for x in xs[:-1]]
+        
+        if temp.has_key(tuple(input)):
+            continue
+        
+        trainingInputs.append(input)
+        
+        
+        # exact output
+        trainingOutputs.append(float(xs[-1]))
+        
+    subTrainingInputs = []
+    subTrainingOutputs = []
+    # number of sub training set
+    
+    N = int(len(trainingInputs) * TRAINING_RATE)
+    
+    indexes = random.sample([i for i in xrange(len(trainingInputs))], N)
+    
+    for i in indexes:
+        subTrainingInputs.append(trainingInputs[i])
+        subTrainingOutputs.append(trainingOutputs[i])
+        
+#     N = len(trainingOutputs)
+        
+    # read testing data
+    lines = open(test).readlines()
+    testingInputs = []
+    testingOutputs = []
+    
+    for line in lines[1:]:
+        xs = line.split()
+        testingInputs.append([float(x) for x in xs[:-1]])
+        testingOutputs.append(float(xs[-1]))
+        
+    pop = toolbox.population(n=POPSIZE)
+    
+    semantics = {}
+    # get semantics of all individuals
+    for ind in pop:
+        # Transform the tree expression in a callable function
+        func = toolbox.compile(expr=ind)
+        
+        # get semantic
+        semantic = [func(*x) for x in subTrainingInputs]
+        # convert to tuple
+        semantic = tuple(semantic)
+        
+        # check if the value is too big
+        tooBig = False
+        for x in semantic:
+            if math.fabs(x) > BIG_NUMBER:
+                tooBig = True
+                break
+        if(tooBig):
+            continue
+        
+        # condition 3: values in semantic is not the same value
+        ok = False
+        for x in semantic[1:]:
+            if x != semantic[0]:
+                ok = True
+                break;
+        if not ok:
+            continue
+        
+        # condition 1. add to dict to get distinct semantics
+        if not semantics.has_key(semantic):
+            semantics[semantic] = ind
+        
+    print 'tree lib size: ', len(semantics)    
+    # condition 2: left_equations in left side is difference
+    # randomly select N trees (semantics) and check if it satisfy or not
+    best_individuals = None
+    best_x = None
+    best_xi = None
+    best_fitness = 10**10
+    coNo = False
+    
+    num_have_solution = 0
+    
+    num_trails = 0
+    f_vo_nghiem = open('hpt_vo_nghiem.txt', 'w')                
+    f_co_nghiem = open('hpt_co_nghiem.txt', 'w')                
+
+    while num_trails < MAX_TRAILS:
+        num_trails += 1
+        
+        # semantics is dict in form {(semantic):ind}
+        
+        # get N equations
+        keys = random.sample(semantics.items(), N)
+        
+        left_equations = []
+        for _ in xrange(N):
+            left_equations.append([])
+        
+        # list of individuals will be used in the equations system
+        individuals = []
+        
+        for key, v in keys:
+            individuals.append(v)
+            for i in xrange(N):
+                left_equations[i].append(key[i])
+                
+        # check condition
+        temp = {}
+        ok = True
+        for row in left_equations:
+            row = tuple(row)
+            if temp.has_key(row):
+                ok = False
+                break    
+            else:
+                temp[row] = 1    
+        if not ok:
+            continue
+        
+        # check linear condition
+        is_linear = False
+        for i in xrange(N-1):
+            for j in xrange(i+1, N):
+                # check linear between two equations
+                if left_equations[j][0] == 0:
+                    if left_equations[i][0] == 0:
+                        continue
+                    else:
+                        break
+                
+                tmp = left_equations[i][0] / left_equations[j][0]
+                for k in xrange(1, len(left_equations)):
+                    if left_equations[j][k] == 0:
+                        if left_equations[i][k] == 0:
+                            continue
+                        else:
+                            is_linear = False
+                            break
+                        
+                    if left_equations[i][k] / left_equations[j][k] != tmp:
+                        is_linear = False
+                        break
+                    else:
+                        is_linear = True
+                if is_linear:
+                    break # break for j
+            if is_linear:
+                break # i
+                        
+        # if ok
+        if not is_linear: 
+            # print hpt
+            lines = []
+            for left_equation, out in zip(left_equations, subTrainingOutputs):
+                line = ' '.join(str(x) for x in left_equation) + ' ' + str(out) + '\n'
+                lines.append(line)
+                
+            lines.append('\n')
+            
+            try:
+                # solve Ax = b 
+                A = numpy.array(left_equations)
+                b = numpy.array(subTrainingOutputs)
+                #using lib from scipy
+#                 x = linalg.solve(A, b)
+
+                f_co_nghiem.writelines(lines)                
+                #using code gauss
+                
+                # make A[n, n+1]
+                A = [left_equations[i] + [trainingOutputs[i]] for i in xrange(len(left_equations)) ]
+                x = gauss(A)
+#                 x = cmaes(A)
+
+#                 for v in x:
+#                     if math.fabs(v) > BIG_NUMBER:
+#                         raise
+            
+#                 num_have_solution += 1
+#                 fitness = evaluate(x, individuals, trainingInputs, trainingOutputs)
+#                 
+#                 print 'fitness'+ str(num_have_solution) + ': ', fitness
+#                 if fitness < best_fitness:
+#                     best_individuals = individuals[:]
+#                     best_x = x[:]
+#                     best_fitness = fitness
+                    
+                if num_have_solution == MAX_TRAILS_NO:
+                    break
+            
+            except IOError as e:
+                print e.strerror
+            except:
+                print 'vo nghiem'
+                
+                
+                f_vo_nghiem.writelines(lines)
+#                 f_vo_nghiem.close()
+#                 return
+            
+    if num_have_solution > 0:
+        fittest = evaluate(best_x, best_individuals, testingInputs, testingOutputs)
+        fitness = evaluate(best_x, best_individuals, trainingInputs, trainingOutputs)
+                
+        # write size
+        size = 0
+        for indiv in best_individuals:
+            size += len(indiv)
+
+        return fitness, fittest, size        
+            #break
+    else:
+        return -1, -1, -1
+                
+def gauss(A):
+    n = len(A)
+
+    for i in range(0, n):
+        # Search for maximum in this column
+        maxEl = abs(A[i][i])
+        maxRow = i
+        for k in range(i+1, n):
+            if abs(A[k][i]) > maxEl:
+                maxEl = abs(A[k][i])
+                maxRow = k
+
+        # Swap maximum row with current row (column by column)
+        for k in range(i, n+1):
+            tmp = A[maxRow][k]
+            A[maxRow][k] = A[i][k]
+            A[i][k] = tmp
+
+        # Make all rows below this one 0 in current column
+        for k in range(i+1, n):
+            c = -A[k][i]/A[i][i]
+            for j in range(i, n+1):
+                if i == j:
+                    A[k][j] = 0
+                else:
+                    A[k][j] += c * A[i][j]
+
+    # Solve equation Ax=b for an upper triangular matrix A
+    x = [0 for i in range(n)]
+    for i in range(n-1, -1, -1):
+        x[i] = A[i][n]/A[i][i]
+        for k in range(i-1, -1, -1):
+            A[k][n] -= A[k][i] * x[i]
+    return x
+
+    
+
+
+
+if __name__ == "__main__":
+    
+    for problem in problems:
+        print problem
+        
+        out = open('out/' + problem + ".les.out", 'wb')
+        fitness_runs = []
+        fittest_runs=[]
+        size_runs = []
+        time_runs =[]
+        
+        for job in xrange(JOBS):
+            
+            start_time = datetime.datetime.now()
+            
+            fitness, fittest, size = les(problem, job=job)
+            if(fitness == -1):
+                continue
+            
+            
+            end_time = datetime.datetime.now()        
+            start_time = time.mktime(start_time.timetuple())*1000        
+            running_time = time.mktime(end_time.timetuple())*1000 - start_time
+            
+            print job, fitness, fittest, size
+            
+            fitness_runs.append(fitness)
+            fittest_runs.append(fittest)
+            size_runs.append(size)
+            time_runs.append(running_time)
+            
+        out.write(str(numpy.median(fitness_runs)) + '\n')
+        out.write(str(numpy.median(fittest_runs)) + '\n')
+        out.write(str(numpy.average(time_runs)) + '\n')
+        out.write(str(numpy.average(size_runs)) + '\n')
+

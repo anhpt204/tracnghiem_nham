@@ -1,0 +1,10 @@
+'''
+Created on Jul 29, 2015
+
+@author: pta
+'''
+
+from pyrouge import Rouge155
+
+if __name__ == '__main__':
+    pass

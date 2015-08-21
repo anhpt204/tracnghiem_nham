@@ -1,0 +1,34 @@
+package ktuan;
+
+public class WWW_GenRequestFromSon {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		System.out.println("Start: GenRequest From Son");
+		GenRequestFromSon gen= new GenRequestFromSon();
+		SystemSARP sys= new SystemSARP();
+		sys.readConfix_Parameters(ParameterSARP.PATH_CONFIG_PARAMETER);
+		System.out.println(sys.toString());
+		MapSARP map= new MapSARP(sys);
+		map.readMap_Connected(ParameterSARP.PATH_MAP_CONNECTED);
+		GraphSARP graph= new GraphSARP(map);
+		
+		RequestSARP rqs = new  RequestSARP();
+		rqs.readListRequestFromFile(ParameterSARP.PATH_REQUEST);
+		
+		for (int cs=0;cs<rqs._listPeopleRq.size();cs++){
+			PeopleRequestDungPQ tmp = rqs._listPeopleRq.get(cs);
+			int idStart= tmp.pickup_point;
+			int idFinish= tmp.delivery_point;
+			//System.out.println(tmp.toString());
+			graph.dijkstraHeap(idStart);
+			double valueUpdate= graph._d[idFinish];
+			tmp.max_travel_distance= 2*valueUpdate;
+		}
+		rqs.reWriteRequestToFile(ParameterSARP.RE_WRITE_REQUEST);
+		System.out.println("Finish: GenRequest From Son");
+	}
+
+}

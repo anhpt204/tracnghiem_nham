@@ -1,0 +1,107 @@
+/* *********************************************************************** *
+ * project: org.matsim.*
+ * NetworkFactoryTest.java
+ *                                                                         *
+ * *********************************************************************** *
+ *                                                                         *
+ * copyright       : (C) 2008 by the members listed in the COPYING,        *
+ *                   LICENSE and WARRANTY file.                            *
+ * email           : info at matsim dot org                                *
+ *                                                                         *
+ * *********************************************************************** *
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *   See also COPYING, LICENSE and WARRANTY file                           *
+ *                                                                         *
+ * *********************************************************************** */
+
+package org.matsim.core.network;
+
+import org.matsim.api.core.v01.Id;
+import org.matsim.api.core.v01.TransportMode;
+import org.matsim.api.core.v01.network.Link;
+import org.matsim.api.core.v01.population.Route;
+import org.matsim.core.config.ConfigUtils;
+import org.matsim.core.population.PopulationFactoryImpl;
+import org.matsim.core.population.routes.AbstractRoute;
+import org.matsim.core.population.routes.GenericRoute;
+import org.matsim.core.population.routes.LinkNetworkRouteImpl;
+import org.matsim.core.population.routes.RouteFactory;
+import org.matsim.core.scenario.ScenarioUtils;
+import org.matsim.testcases.MatsimTestCase;
+
+/**
+ * @author mrieser
+ */
+public class NetworkFactoryTest extends MatsimTestCase {
+
+	public void testSetRouteFactory() {
+        PopulationFactoryImpl factory = (PopulationFactoryImpl) ScenarioUtils.createScenario(ConfigUtils.createConfig()).getPopulation().getFactory();
+
+		// test default
+		Route carRoute = factory.createRoute(TransportMode.car, null, null);
+		assertTrue(carRoute instanceof LinkNetworkRouteImpl);
+
+		Route route = factory.createRoute(TransportMode.pt, null, null);
+		assertTrue(route instanceof GenericRoute);
+
+		// overwrite car-mode
+		factory.setRouteFactory(TransportMode.car, new CarRouteMockFactory());
+		// add pt-mode
+		factory.setRouteFactory(TransportMode.pt, new PtRouteMockFactory());
+
+		// test car-mode
+		carRoute = factory.createRoute(TransportMode.car, null, null);
+		assertTrue(carRoute instanceof CarRouteMock);
+
+		// add pt-mode
+		Route ptRoute = factory.createRoute(TransportMode.pt, null, null);
+		assertTrue(ptRoute instanceof PtRouteMock);
+
+		// remove pt-mode
+		factory.setRouteFactory(TransportMode.pt, null);
+
+		// test pt again
+		route = factory.createRoute(TransportMode.pt, null, null);
+		assertTrue(route instanceof GenericRoute);
+	}
+
+	/*package*/ static class CarRouteMock extends AbstractRoute implements Cloneable {
+		CarRouteMock(final Id<Link> startLinkId, final Id<Link> endLinkId) {
+			super(startLinkId, endLinkId);
+		}
+		@Override
+		public CarRouteMock clone() {
+			return (CarRouteMock) super.clone();
+		}
+	}
+
+	/*package*/ static class PtRouteMock extends AbstractRoute implements Cloneable {
+		PtRouteMock(final Id<Link> startLinkId, final Id<Link> endLinkId) {
+			super(startLinkId, endLinkId);
+		}
+		@Override
+		public PtRouteMock clone() {
+			return (PtRouteMock) super.clone();
+		}
+	}
+
+	/*package*/ static class CarRouteMockFactory implements RouteFactory {
+		@Override
+		public Route createRoute(final Id<Link> startLinkId, final Id<Link> endLinkId) {
+			return new CarRouteMock(startLinkId, endLinkId);
+		}
+
+	}
+
+	/*package*/ static class PtRouteMockFactory implements RouteFactory {
+		@Override
+		public Route createRoute(final Id<Link> startLinkId, final Id<Link> endLinkId) {
+			return new PtRouteMock(startLinkId, endLinkId);
+		}
+
+	}
+}

@@ -1,0 +1,10 @@
+import random
+
+files = ('/home/pta/projects/ECJ20/ecj20/ec/app/myexperiences/phishing_data/training.txt',
+         '/home/pta/projects/ECJ20/ecj20/ec/app/myexperiences/phishing_data/testing.txt')
+
+for i in xrange(len(files)):
+    file = files[i]
+    lines = open(file, 'r').readlines()
+    ls = random.sample(lines, len(lines))
+    open(file, 'w').writelines(ls)

@@ -1,0 +1,54 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+{% extends "basic.html" %}
+
+{% block content %}
+	<style type="text/css">
+    	.main { margin-left: 25px; margin-top: 30px; border-top: 1px solid #CCCCCC}
+    	.search { margin-top: 50px;text-align: center }
+    	.time { font-size: 0.8em; margin-top: 2px; }
+    	.body { font-size: 1.1em; margin-top: 2px; }
+    	.relations { text-align: right; font-size: 13px }
+    	.step-links a { font-size: 0.89em; }
+    	.sense {
+        	font-size: 1.2em; margin-top: 20px; border-bottom: 1px solid #ccc;
+        	padding-left: 4px; margin-left: 5px;
+    	}
+    	.messages { margin-left: 20px; }
+    	.pagination { margin-top: 20px; margin-left: -20px; }
+	</style>
+
+	<form action="{% url mysites.vwn.views.search %}" method="post"> {%csrf_token%}
+		<div class="search">
+			Nhập từ: {{word.lexform}}
+			<input type="submit" value="Tìm" />
+		</div>
+		<div class="main">
+			<h2>Kết quả tìm kiếm từ '{{word_search}}'</h2>
+			{% for pos in type %}
+				<a>{{pos}} | {{pos.id}}</a>
+			{% endfor %}
+			<ul>
+				{% for sense in senses %}
+					   <div class="sense">Nghĩa {{sense.sensenr}}:
+					    <a href="{% url mysites.vwn.views.search_result sense.synset.word.pk %}">{{sense.synset.word}}</a>
+					    {% for synonym in synonyms %}
+					    	{% for wordsense in synonym %}
+						    	{% if wordsense.synset.id == sense.synset.id %}
+						    		 <a href="{% url mysites.vwn.views.search_result wordsense.word.pk %}">{{wordsense.word}}</a>
+						    	{% endif %}
+					    	{% endfor %}
+					    {% endfor %}
+					    |{{sense.synset.gloss}}
+					    <div class="relations">
+					    	{% for relation in relations %}
+					    		<a href="{% url mysites.vwn.views.get_relations relation.pk sense.synset.pk %}">{{relation}}</a>
+					    	{% endfor %}
+					    </div>
+					   </div>
+				{% endfor %}
+
+			</ul>
+		</div>
+	</form>
+{% endblock %}
+

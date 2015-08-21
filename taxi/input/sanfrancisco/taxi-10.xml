@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+<!DOCTYPE vehicles SYSTEM "http://matsim.org/files/dtd/vehicles_v1.dtd">
+
+<vehicles>
+	<vehicle id="taxi_1" start_link="215" t_0="0" t_1="8000" />
+	<vehicle id="taxi_2" start_link="215" t_0="0" t_1="8000" />
+	<vehicle id="taxi_3" start_link="215" t_0="0" t_1="8000" />
+	<vehicle id="taxi_4" start_link="215" t_0="0" t_1="8000" />
+	<vehicle id="taxi_5" start_link="215" t_0="0" t_1="8000" />
+	<vehicle id="taxi_6" start_link="215" t_0="0" t_1="8000" />
+	<vehicle id="taxi_7" start_link="215" t_0="0" t_1="8000" />
+	<vehicle id="taxi_8" start_link="215" t_0="0" t_1="8000" />
+	<vehicle id="taxi_9" start_link="215" t_0="0" t_1="8000" />
+	<vehicle id="taxi_10" start_link="215" t_0="0" t_1="8000" />
+	<vehicle id="taxi_11" start_link="215" t_0="0" t_1="8000" />
+	<vehicle id="taxi_12" start_link="215" t_0="0" t_1="8000" />
+	<vehicle id="taxi_13" start_link="215" t_0="0" t_1="8000" />
+	<vehicle id="taxi_14" start_link="215" t_0="0" t_1="8000" />
+	<vehicle id="taxi_15" start_link="215" t_0="0" t_1="8000" />
+	<vehicle id="taxi_16" start_link="215" t_0="0" t_1="8000" />
+	<vehicle id="taxi_17" start_link="215" t_0="0" t_1="8000" />
+	<vehicle id="taxi_18" start_link="215" t_0="0" t_1="8000" />
+	<vehicle id="taxi_19" start_link="215" t_0="0" t_1="8000" />
+	<vehicle id="taxi_20" start_link="215" t_0="0" t_1="8000" />
+
+</vehicles>

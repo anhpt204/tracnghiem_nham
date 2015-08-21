@@ -1,0 +1,93 @@
+-- VERSION_4
+-- START DISKCACHE
+/home/pta/projects/.metadata/.plugins/org.eclipse.core.resources/.projects/vrp/com.python.pydev.analysis/v2_indexcache
+data.__init__|1426725803000|/home/pta/projects/vrp/data/__init__.py
+vrptw.__init__|1426735254000|/home/pta/projects/vrp/vrptw/__init__.py
+route.routingPlan|1427785357000|/home/pta/projects/vrp/route/routingPlan.py
+optimizer.moveOperations|1426663744000|/home/pta/projects/vrp/optimizer/moveOperations.py
+optimizer.__init__|1426577121000|/home/pta/projects/vrp/optimizer/__init__.py
+route.route|1427776017000|/home/pta/projects/vrp/route/route.py
+vrptw.solver|1427264495000|/home/pta/projects/vrp/vrptw/solver.py
+optimizer.utils|1426642132000|/home/pta/projects/vrp/optimizer/utils.py
+route.__init__|1426725574000|/home/pta/projects/vrp/route/__init__.py
+data.request|1427773482000|/home/pta/projects/vrp/data/request.py
+optimizer.costCalculator|1426667253000|/home/pta/projects/vrp/optimizer/costCalculator.py
+data.settings|1427772785000|/home/pta/projects/vrp/data/settings.py
+optimizer.lns|1427785728000|/home/pta/projects/vrp/optimizer/lns.py
+optimizer.sa_lns|1427272005000|/home/pta/projects/vrp/optimizer/sa_lns.py
+-- END DISKCACHE
+-- START DICTIONARY
+21
+7=route.routingPlan
+2=optimizer.moveOperations
+8=route.route
+18=Setting.calCostMatrix
+11=Request
+20=Request.__init__
+5=vrptw.solver
+17=RoutingPlan.__init__
+19=Setting.__init__
+13=RoutingPlan
+6=data.request
+15=Route.__init__
+3=optimizer.costCalculator
+1=optimizer.lns
+9=data.settings
+14=Route.calCostAndDemand
+21=Route.update
+4=optimizer.sa_lns
+12=Setting
+10=Route
+16=RoutingPlan.updateCost
+-- END DICTIONARY
+-- START TREE 1
+16
+bou|1|bound!10@
+cro|1|crossover!18@
+dfs|1|DFSExplore!10@
+euc|1|euclideanDistance!26@
+exc|1|exchange!18@
+get|6|getInitialSolution!34@get_neighborhood!18@getCustomers!10@getInitialSolution!10@get_subneighborhood_two_exchange!18@getSettings!42@
+lar|1|largeNeighborhoodSearch!10@
+mdl|3|mdl_relocation!26@mdl_tw_violation!26@mdl!26@
+pro|1|PROBLEM!43@
+rel|1|relocation!18@
+req|1|Request!49@
+rou|4|routeCost!26@RoutingPlan!57@Route!65@routeMinimize!34@
+sel|1|selectCustomers!10@
+set|1|Setting!73@
+sol|2|solution_compare!10@solution_compare!34@
+two|1|two_exchange!18@
+-- END TREE
+-- START TREE 2
+29
+__i|4|__init__!10&66@__init__!11&50@__init__!12&74@__init__!13&58@
+bet|1|betterThan!13&58@
+cal|2|calCostAndDemand!10&66@calCostMatrix!12&74@
+clo|2|clone!13&58@clone!10&66@
+con|1|contain!10&66@
+cos|6|cost!14&67@cost!15&67@cost!16&59@cost!17&59@costMatrix!18&75@costMatrix!19&75@
+cro|1|crossover!10&66@
+dem|3|demand!14&67@demand!15&67@demand!20&51@
+ear|6|earlistStartOfServiceTime!21&67@earlistStartOfServiceTime!15&67@earlistReturnTime!21&67@earlistReturnTime!15&67@earliestDepartureTime!21&67@earliestDepartureTime!15&67@
+eva|1|evaluate!13&58@
+exc|1|exchange!10&66@
+get|7|getSubNeighborhoods_twoExchange!13&58@getMinimalDelay!13&58@getSubNeighborhoods_Relocation!13&58@getSize!13&58@getSubNeighborhoods_twoRouteOperator!13&58@getNumServicedRequests!13&58@getSubNeighborhoods!13&58@
+isf|2|isFeasible!13&58@isFeasible!10&66@
+lat|4|latestArrivalTime!21&67@latestArrivalTime!15&67@latestDepartureTime!21&67@latestDepartureTime!15&67@
+mdl|1|mdl_relocation!13&58@
+nor|1|normalizedCost!19&75@
+num|1|numOfVehicles!19&75@
+pat|1|path!15&67@
+rel|2|relocation!10&66@relatedness!20&51@
+req|2|requestId!20&51@requests!19&75@
+rou|4|route1!10&67@route3!10&67@routes!17&59@route2!10&67@
+ser|1|serviceTime!20&51@
+set|2|setting!17&59@setting!15&67@
+tw|1|tw!20&51@
+two|1|twoExchange!10&66@
+upd|2|updateCost!13&58@update!10&66@
+veh|1|vehicleCapacity!19&75@
+x|1|x!20&51@
+y|1|y!20&51@
+-- END TREE

@@ -1,0 +1,6 @@
+MODULES_MANAGER_V2
+manage|/home/pta/projects/testdj/manage.py
+testdj.__init__|/home/pta/projects/testdj/testdj/__init__.py
+testdj.settings|/home/pta/projects/testdj/testdj/settings.py
+testdj.urls|/home/pta/projects/testdj/testdj/urls.py
+testdj.wsgi|/home/pta/projects/testdj/testdj/wsgi.py

@@ -1,0 +1,19 @@
+parent.0 = ../base.params
+
+# Here's where you specify the problem and the function set:
+
+
+eval.problem.type = keijzer-6
+gp.tc.0.fset = AddSubMulDivSinCos
+gp.fs.13.size = 7
+
+# Here's how you'd specify the training and/or testing files.
+
+
+eval.problem.testing-file = /home/pta/Dropbox/uci/regression/keijzer-6.testing.in
+eval.problem.training-file = /home/pta/Dropbox/uci/regression/keijzer-6.training.in
+
+
+eval.problem = ec.pta.BVProblem
+
+stat=ec.app.phishing.PhishingStatistics

@@ -1,0 +1,19 @@
+parent.0 = ../base.params
+
+# Here's where you specify the problem and the function set:
+
+
+eval.problem.type = winequality-red
+gp.tc.0.fset = AddSubMulDivERC
+gp.fs.20.size = 16
+
+# Here's how you'd specify the training and/or testing files.
+
+
+eval.problem.testing-file = /home/pta/Dropbox/uci/regression/winequality-red.testing.in
+eval.problem.training-file = /home/pta/Dropbox/uci/regression/winequality-red.training.in
+
+
+eval.problem = ec.pta.BVProblem
+
+stat=ec.app.phishing.PhishingStatistics

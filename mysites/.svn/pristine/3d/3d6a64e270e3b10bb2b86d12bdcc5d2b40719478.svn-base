@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>VIETNAMESE WORDNET</title>
+		<meta name="author" content="PTA" />
+		<!-- Date: 2012-09-26 -->
+	<style type="text/css">
+    	.main { margin-left: 25px; margin-top: 30px; border-bottom: 1px solid #CCCCCC; background-color: background-color: rgb(255,255,255);
+    	
+    	}
+    	.header { margin-left: 25px; margin-top: 30px; border-bottom: 1px solid #CCCCCC; background-color: #5f9e9E;
+    	
+    	}
+    	.textLogin{font-size:medium;}
+    	.search { margin-top: 50px;text-align: center }
+    	.time { font-size: 0.8em; margin-top: 2px; }
+    	.body { font-size: 1.1em; margin-top: 2px; }
+    	.relations { text-align: right; font-size: 13px }
+    	.step-links a { font-size: 0.89em; }
+    	.sense {
+        	font-size: 1.2em; margin-top: 20px; border-bottom: 1px solid #ccc;
+        	padding-left: 4px; margin-left: 5px;
+    	}
+    	.messages { margin-left: 20px; }
+    	.pagination { margin-top: 20px; margin-left: -20px; }
+	</style>
+		
+	</head>
+	<body>
+		<div id="sidebar"> {% block sidebar %} {% endblock %}</div>
+		<div id = "container">
+			<div id = "menu" class="header" >
+				{% block nav-global %}
+					<table>
+						<tr>
+							<td><img src="{{ MEDIA_URL }}templates/logo.png"/></td>
+							<td width="100%"><h1 align="center"> <font color="white"> Mạng ngữ nghĩa từ vựng tiếng Việt</font></h1></td>
+						</tr>
+					</table>									
+					<div align="right" class="textLogin"><a href="{% url admin:index %}"> <font color="white">Đăng nhập</font></a></div>
+
+				{% endblock %}
+			</div>
+			<div id="content" >{% block content %}{% endblock %}</div>
+		</div>
+	</body>
+</html>

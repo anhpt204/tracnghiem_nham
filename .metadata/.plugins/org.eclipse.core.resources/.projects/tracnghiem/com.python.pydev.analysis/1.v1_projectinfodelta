@@ -1,0 +1,12 @@
+INSTUPquiz.views
+/home/pta/projects/tracnghiem/quiz/views.py
+INFOS:&&2|1|2|0&&2|3|2|0&&2|4|2|0&&1|5|2|0&&3|6|2|5&&3|7|2|5&&1|8|2|0&&3|6|2|8&&3|7|2|8&&2|9|2|8
+template_name=7
+model=6
+index=1
+quiz_finish=4
+DethiStartView=8
+login_user=3
+quiz.views=2
+CathiDetailView=5
+get_context_data=9

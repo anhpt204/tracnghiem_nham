@@ -1,0 +1,64 @@
+---------------------------------------------
+DE ROUGE-1 Average_R: 0.77563 (95%-conf.int. 0.73946 - 0.80568)
+DE ROUGE-1 Average_P: 0.10842 (95%-conf.int. 0.08968 - 0.12952)
+DE ROUGE-1 Average_F: 0.17857 (95%-conf.int. 0.15293 - 0.20670)
+---------------------------------------------
+DE ROUGE-2 Average_R: 0.25846 (95%-conf.int. 0.23034 - 0.28546)
+DE ROUGE-2 Average_P: 0.03181 (95%-conf.int. 0.02713 - 0.03672)
+DE ROUGE-2 Average_F: 0.05348 (95%-conf.int. 0.04701 - 0.06011)
+---------------------------------------------
+DE ROUGE-3 Average_R: 0.08167 (95%-conf.int. 0.06965 - 0.09377)
+DE ROUGE-3 Average_P: 0.00981 (95%-conf.int. 0.00803 - 0.01173)
+DE ROUGE-3 Average_F: 0.01653 (95%-conf.int. 0.01391 - 0.01928)
+---------------------------------------------
+DE ROUGE-4 Average_R: 0.03483 (95%-conf.int. 0.02848 - 0.04082)
+DE ROUGE-4 Average_P: 0.00403 (95%-conf.int. 0.00316 - 0.00494)
+DE ROUGE-4 Average_F: 0.00681 (95%-conf.int. 0.00551 - 0.00821)
+---------------------------------------------
+DE ROUGE-L Average_R: 0.74018 (95%-conf.int. 0.70274 - 0.77109)
+DE ROUGE-L Average_P: 0.10257 (95%-conf.int. 0.08512 - 0.12200)
+DE ROUGE-L Average_F: 0.16915 (95%-conf.int. 0.14528 - 0.19547)
+---------------------------------------------
+DE ROUGE-W-1.2 Average_R: 0.22276 (95%-conf.int. 0.20932 - 0.23440)
+DE ROUGE-W-1.2 Average_P: 0.05597 (95%-conf.int. 0.04675 - 0.06610)
+DE ROUGE-W-1.2 Average_F: 0.08174 (95%-conf.int. 0.07232 - 0.09174)
+---------------------------------------------
+DE ROUGE-S* Average_R: 0.59207 (95%-conf.int. 0.53992 - 0.63478)
+DE ROUGE-S* Average_P: 0.01568 (95%-conf.int. 0.01055 - 0.02179)
+DE ROUGE-S* Average_F: 0.02830 (95%-conf.int. 0.01969 - 0.03860)
+---------------------------------------------
+DE ROUGE-SU* Average_R: 0.59352 (95%-conf.int. 0.54150 - 0.63611)
+DE ROUGE-SU* Average_P: 0.01584 (95%-conf.int. 0.01066 - 0.02202)
+DE ROUGE-SU* Average_F: 0.02858 (95%-conf.int. 0.01989 - 0.03896)
+---------------------------------------------
+MulDE ROUGE-1 Average_R: 0.26593 (95%-conf.int. 0.24919 - 0.28278)
+MulDE ROUGE-1 Average_P: 0.33876 (95%-conf.int. 0.32283 - 0.35502)
+MulDE ROUGE-1 Average_F: 0.29402 (95%-conf.int. 0.28006 - 0.30896)
+---------------------------------------------
+MulDE ROUGE-2 Average_R: 0.03530 (95%-conf.int. 0.02986 - 0.04098)
+MulDE ROUGE-2 Average_P: 0.04474 (95%-conf.int. 0.03770 - 0.05163)
+MulDE ROUGE-2 Average_F: 0.03902 (95%-conf.int. 0.03303 - 0.04505)
+---------------------------------------------
+MulDE ROUGE-3 Average_R: 0.00668 (95%-conf.int. 0.00477 - 0.00870)
+MulDE ROUGE-3 Average_P: 0.00854 (95%-conf.int. 0.00599 - 0.01129)
+MulDE ROUGE-3 Average_F: 0.00743 (95%-conf.int. 0.00526 - 0.00974)
+---------------------------------------------
+MulDE ROUGE-4 Average_R: 0.00248 (95%-conf.int. 0.00151 - 0.00347)
+MulDE ROUGE-4 Average_P: 0.00317 (95%-conf.int. 0.00200 - 0.00444)
+MulDE ROUGE-4 Average_F: 0.00276 (95%-conf.int. 0.00169 - 0.00384)
+---------------------------------------------
+MulDE ROUGE-L Average_R: 0.24852 (95%-conf.int. 0.23358 - 0.26352)
+MulDE ROUGE-L Average_P: 0.31669 (95%-conf.int. 0.30171 - 0.33131)
+MulDE ROUGE-L Average_F: 0.27483 (95%-conf.int. 0.26207 - 0.28841)
+---------------------------------------------
+MulDE ROUGE-W-1.2 Average_R: 0.07198 (95%-conf.int. 0.06795 - 0.07611)
+MulDE ROUGE-W-1.2 Average_P: 0.17068 (95%-conf.int. 0.16351 - 0.17842)
+MulDE ROUGE-W-1.2 Average_F: 0.10012 (95%-conf.int. 0.09566 - 0.10504)
+---------------------------------------------
+MulDE ROUGE-S* Average_R: 0.06677 (95%-conf.int. 0.05943 - 0.07464)
+MulDE ROUGE-S* Average_P: 0.10578 (95%-conf.int. 0.09673 - 0.11510)
+MulDE ROUGE-S* Average_F: 0.07855 (95%-conf.int. 0.07123 - 0.08650)
+---------------------------------------------
+MulDE ROUGE-SU* Average_R: 0.06834 (95%-conf.int. 0.06094 - 0.07629)
+MulDE ROUGE-SU* Average_P: 0.10827 (95%-conf.int. 0.09911 - 0.11770)
+MulDE ROUGE-SU* Average_F: 0.08040 (95%-conf.int. 0.07304 - 0.08839)

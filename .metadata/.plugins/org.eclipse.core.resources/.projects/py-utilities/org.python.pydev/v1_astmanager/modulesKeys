@@ -1,0 +1,15 @@
+MODULES_MANAGER_V2
+convertNetwork|/home/pta/projects/py-utilities/convertNetwork.py
+ecj|/home/pta/projects/py-utilities/ecj.py
+gen_ecj_X|/home/pta/projects/py-utilities/gen_ecj_X.py
+gen_ecj_fs|/home/pta/projects/py-utilities/gen_ecj_fs.py
+gen_ecj_params|/home/pta/projects/py-utilities/gen_ecj_params.py
+get_urls_from_xml|/home/pta/projects/py-utilities/get_urls_from_xml.py
+googleparse|/home/pta/projects/py-utilities/googleparse.py
+gpem2014|/home/pta/projects/py-utilities/gpem2014.py
+hien_get_results|/home/pta/projects/py-utilities/hien_get_results.py
+htmlparse|/home/pta/projects/py-utilities/htmlparse.py
+newgp2015|/home/pta/projects/py-utilities/newgp2015.py
+normalize|/home/pta/projects/py-utilities/normalize.py
+simplify|/home/pta/projects/py-utilities/simplify.py
+test|/home/pta/projects/py-utilities/test.py

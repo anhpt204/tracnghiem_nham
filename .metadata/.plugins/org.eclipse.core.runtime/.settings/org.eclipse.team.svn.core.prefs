@@ -1,0 +1,10 @@
+eclipse.preferences.version=1
+externalMigrateFromAuthorizationDatabase/isMigrated=true
+migrateFromAuthorizationDatabase/isMigrated=true
+repositories/001f41895336001512a6a721ec2ee24a=001f41895336001512a6a721ec2ee24a;https\://svn.code.sf.net/p/pta-vrp/svn/vrp;https\://svn.code.sf.net/p/pta-vrp/svn/vrp;branches;tags;trunk;true;e3cfad51-4320-4551-9d46-82c5e1bf6f84;https\://svn.code.sf.net/p/pta-vrp/svn;;false;;;0
+repositories/00e1bb925336001512a6a721ec2ee24a=00e1bb925336001512a6a721ec2ee24a;https\://mysites.googlecode.com/svn/mysites;https\://mysites.googlecode.com/svn/mysites;branches;tags;trunk;true;8ef5610c-a109-2af2-9a0f-42adaa148981;https\://mysites.googlecode.com/svn;;false;;;0
+repositories/5082c1a05336001512a6a721ec2ee24a=5082c1a05336001512a6a721ec2ee24a;https\://gp-regression.googlecode.com/svn/ECJ-Regression;https\://gp-regression.googlecode.com/svn/ECJ-Regression;branches;tags;trunk;true;b7c566ae-80b3-1c6c-5c52-a7818677f1c1;https\://gp-regression.googlecode.com/svn;;false;;;0
+repositories/60ab3bd95336001512a6a721ec2ee24a=60ab3bd95336001512a6a721ec2ee24a;https\://svn.code.sf.net/p/gpem2015/svn/GP;https\://svn.code.sf.net/p/gpem2015/svn/GP;branches;tags;trunk;true;b0a8e03c-51ff-46b1-937c-3cdc9ca3950e;https\://svn.code.sf.net/p/gpem2015/svn;;false;;;0
+repositories/9081c9685336001512a6a721ec2ee24a=9081c9685336001512a6a721ec2ee24a;https\://taxi-sarp.googlecode.com/svn;https\://taxi-sarp.googlecode.com/svn;branches;tags;trunk;true;cd0efe87-ed37-9962-a2c1-a4ffc5c4b309;https\://taxi-sarp.googlecode.com/svn;;false;;;0
+repositories/d0173b805336001512a6a721ec2ee24a=d0173b805336001512a6a721ec2ee24a;https\://py-utilities.googlecode.com/svn/py-utilities;https\://py-utilities.googlecode.com/svn/py-utilities;branches;tags;trunk;true;e0343e1b-7215-cf12-e762-8a67a9fd2b2c;https\://py-utilities.googlecode.com/svn;;false;;;0
+repositories/e032497e5336001512a6a721ec2ee24a=e032497e5336001512a6a721ec2ee24a;https\://deap-pta.googlecode.com/svn/deap-1.0.1;https\://deap-pta.googlecode.com/svn/deap-1.0.1;branches;tags;trunk;true;1d5227e1-38d0-6472-b7b1-e9758e61228c;https\://deap-pta.googlecode.com/svn;;false;;;0

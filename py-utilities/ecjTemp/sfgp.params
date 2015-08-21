@@ -1,0 +1,26 @@
+parent.0 = ../base.params
+
+# Here's where you specify the problem and the function set:
+
+
+eval.problem.type = name
+gp.tc.0.fset = fset_name
+gp.fs.fset_number.size = problem_size
+
+# Here's how you'd specify the training and/or testing files.
+
+
+eval.problem.testing-file = /home/pta/Dropbox/uci/problem_type/name.testing.in
+eval.problem.training-file = /home/pta/Dropbox/uci/problem_type/name.training.in
+
+pop.subpop.0.species.fitness = ec.pta.sfgp.StochasticFitness
+
+
+# Reproduction will use Tournament Selection 
+breed.reproduce.source.0 = ec.select.ProbabilisticTourSelection
+gp.koza.xover.source.0 = ec.select.ProbabilisticTourSelection
+gp.koza.mutate.source.0 = ec.select.ProbabilisticTourSelection
+
+eval.problem = ec.pta.sfgp.SFProblem
+
+stat =		ec.pta.sfgp.SFStatistics

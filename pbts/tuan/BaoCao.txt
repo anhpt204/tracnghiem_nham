@@ -1,0 +1,19 @@
+﻿Báo cáo
+
+File Input:
+requests-long-people-10-parcel-10.ins1.txt
+
+File Kết quả:
+result_requests-long-people-10-parcel-10.ins1.txt
+
+File Ket qua rut gon: <dung de bug bang tay>
+Reduce_result_requests-long-people-10-parcel-10.ins1.txt
+
+Total Profit :  24332503.90527
+Thoi gian chay(milisecond):12967
+Total Position  :      598
+Number Passenger:       73
+Number Parcel   :       66
+Number Parking  :       20
+Number Taxis    :      300
+

@@ -1,0 +1,10 @@
+package ktuan;
+
+public class WWW_Herictic {
+	public static void main(String[] args){
+		long timeStart= System.currentTimeMillis();
+		Herictic herictic= new Herictic();
+		long timeFinish= System.currentTimeMillis();
+		System.out.println(String.format("Time Process All = %6d <milisecond>", (int)(timeFinish-timeStart)));
+	}
+}

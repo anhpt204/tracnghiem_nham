@@ -1,0 +1,24 @@
+1. Open file ECJ-Regression/ecj/ec/Evolve.java and edit the name of the problem that we want to test
+
+2. Open a new terminal and run these commands:
+
+2.1. cd to ec folder
+
+2.2. run this command to compile
+
+javac -cp /home/thuongpt/ECJ-Regression/ecj/:/home/thuongpt/ECJ-Regression/libraries/jfreechart-1.0.13.jar:/home/thuongpt/ECJ-Regression/libraries/itext-1.2.jar:/home/thuongpt/ECJ-Regression/libraries/jcommon-1.0.16.jar:/home/thuongpt/ECJ-Regression/libraries/jzlib-1.0.7.jar:/home/thuongpt/ECJ-Regression/libraries/pshecj.jar:/home/thuongpt/ECJ-Regression/libraries/kd.jar -d /home/thuongpt/ECJ-Regression/bin *.java */*.java */*/*.java */*/*/*.java
+
+2.3. cd to ECJ-Regression/bin
+
+2.4. java ec.Evolve
+
+
+
+
+javac -cp /home/pta/projects/ECJ-Regression/ecj/:/home/pta/projects/ECJ-Regression/libraries/jfreechart-1.0.13.jar:/home/pta/projects/ECJ-Regression/libraries/itext-1.2.jar:/home/pta/projects/ECJ-Regression/libraries/jcommon-1.0.16.jar:/home/pta/projects/ECJ-Regression/libraries/jzlib-1.0.7.jar:/home/pta/projects/ECJ-Regression/libraries/pshecj.jar:/home/pta/projects/ECJ-Regression/libraries/kd.jar -d /home/pta/projects/ECJ-Regression/bin *.java */*.java */*/*.java */*/*/*.java
+
+
+javac -cp /home/thuongpt/ECJ-Regression/ecj/:/home/thuongpt/ECJ-Regression/libraries/jfreechart-1.0.13.jar:/home/thuongpt/ECJ-Regression/libraries/itext-1.2.jar:/home/thuongpt/ECJ-Regression/libraries/jcommon-1.0.16.jar:/home/thuongpt/ECJ-Regression/libraries/jzlib-1.0.7.jar:/home/thuongpt/ECJ-Regression/libraries/commons_math3_3_2.jar:/home/thuongpt/ECJ-Regression/libraries/pshecj.jar:/home/thuongpt/ECJ-Regression/libraries/kd.jar -d /home/thuongpt/ECJ-Regression/bin *.java */*.java */*/*.java */*/*/*.java
+
+
+java -cp /home/thuongpt/ECJ-Regression/bin/:/home/thuongpt/ECJ-Regression/libraries/jfreechart-1.0.13.jar:/home/thuongpt/ECJ-Regression/libraries/itext-1.2.jar:/home/thuongpt/ECJ-Regression/libraries/jcommon-1.0.16.jar:/home/thuongpt/ECJ-Regression/libraries/jzlib-1.0.7.jar:/home/thuongpt/ECJ-Regression/libraries/commons_math3_3_2.jar:/home/thuongpt/ECJ-Regression/libraries/pshecj.jar:/home/thuongpt/ECJ-Regression/libraries/kd.jar ec.Evolve

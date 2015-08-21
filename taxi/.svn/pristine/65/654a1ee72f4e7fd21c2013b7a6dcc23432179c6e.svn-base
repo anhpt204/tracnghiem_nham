@@ -1,0 +1,82 @@
+/* *********************************************************************** *
+ * project: org.matsim.*
+ *                                                                         *
+ * *********************************************************************** *
+ *                                                                         *
+ * copyright       : (C) 2013 by the members listed in the COPYING,        *
+ *                   LICENSE and WARRANTY file.                            *
+ * email           : info at matsim dot org                                *
+ *                                                                         *
+ * *********************************************************************** *
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *   See also COPYING, LICENSE and WARRANTY file                           *
+ *                                                                         *
+ * *********************************************************************** */
+
+package org.matsim.core.router;
+
+import org.matsim.api.core.v01.Scenario;
+import org.matsim.core.config.Config;
+import org.matsim.core.controler.AbstractModule;
+import org.matsim.core.controler.Injector;
+import org.matsim.core.router.util.LeastCostPathCalculatorFactory;
+import org.matsim.pt.router.TransitRouterFactory;
+import org.matsim.pt.router.TransitRouterModule;
+
+public class TripRouterFactoryBuilderWithDefaults {
+
+	private TransitRouterFactory transitRouterFactory;
+	
+	private LeastCostPathCalculatorFactory leastCostPathCalculatorFactory;
+
+	public void setTransitRouterFactory(TransitRouterFactory transitRouterFactory) {
+		this.transitRouterFactory = transitRouterFactory;
+	}
+
+	public void setLeastCostPathCalculatorFactory(LeastCostPathCalculatorFactory leastCostPathCalculatorFactory) {
+		this.leastCostPathCalculatorFactory = leastCostPathCalculatorFactory;
+	}
+	
+	public DefaultTripRouterFactoryImpl build(Scenario scenario) {
+		Config config = scenario.getConfig();
+		
+		if (leastCostPathCalculatorFactory == null) {
+			leastCostPathCalculatorFactory = createDefaultLeastCostPathCalculatorFactory(scenario);
+		}
+
+		if (transitRouterFactory == null && config.scenario().isUseTransit()) {
+            transitRouterFactory = createDefaultTransitRouter(scenario);
+        }
+		
+		return new DefaultTripRouterFactoryImpl(scenario, leastCostPathCalculatorFactory, transitRouterFactory);
+	}
+
+	public static TransitRouterFactory createDefaultTransitRouter(final Scenario scenario) {
+        return Injector.createInjector(scenario.getConfig(),
+                new TransitRouterModule(),
+                new AbstractModule() {
+                    @Override
+                    public void install() {
+                        bindToInstance(Scenario.class, scenario);
+                    }
+                })
+        .getInstance(TransitRouterFactory.class);
+	}
+
+	public static LeastCostPathCalculatorFactory createDefaultLeastCostPathCalculatorFactory(final Scenario scenario) {
+        return Injector.createInjector(scenario.getConfig(),
+                new LeastCostPathCalculatorModule(),
+                new AbstractModule() {
+                    @Override
+                    public void install() {
+                        bindToInstance(Scenario.class, scenario);
+                    }
+                })
+        .getInstance(LeastCostPathCalculatorFactory.class);
+    }
+
+}

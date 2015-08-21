@@ -1,0 +1,75 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+{% extends "basic.html" %}
+
+{% block content %}
+	<style type="text/css">
+    	.main { margin-left: 25px; margin-top: 30px; border-top: 1px solid #CCCCCC;}
+    	.search { margin-top: 50px;text-align: center }
+    	.time { font-size: 0.8em; margin-top: 2px; }
+    	.body { font-size: 1.1em; margin-top: 2px; }
+    	.relations { text-align: right; font-size:small; margin-top: 15px; }
+    	.step-links a { font-size: 0.89em; }
+    	.sense {
+        	font-size: medium; margin-top: 20px; border-bottom: 1px hidden #ccc;
+        	padding-left: 4px; margin-left: 5px; background-color: #EEFEEE;
+    	}
+    	    	.sense_1 {
+        	font-size: medium; margin-top: 20px; border-bottom: 1px solid #ccc;
+        	padding-left: 4px; margin-left: 5px;background-color: #EEFEEE;
+    	}
+
+    	.sense_2 {
+        	font-size: medium; margin-top: 20px; border-bottom: 1px solid #ccc;
+        	padding-left: 4px; margin-left: 5px;background-color: #FFF5F5;
+    	}
+
+    	.example {text_align: left, font-size:smaller, font-style: italic; color: grey; margin-top: 15px}
+    	.messages { margin-left: 20px; }
+    	.pagination { margin-top: 20px; margin-left: -20px; }
+	</style>
+	
+	<form action="{% url 'vwn.views.search' %}" method="post"> {%csrf_token%}
+		<div class="search">
+			Nhập từ: {{word.lexform}}  
+			<input type="submit" value="Tìm" />
+		</div>
+		<div class="main">
+			{% if word_search %}		
+			{% for pos in type %}
+				<a href="{% url vwn.views.getSenses word_search.id pos.id %}">{{pos}}</a>				    
+			{% endfor %}
+			{%endif%}
+			<ul>
+				{% if senses.object_list %}
+				    <h2>Kết quả tìm kiếm từ '{{word_search}}'</h2>
+				{% endif %}
+				{% for sense in senses %}
+					   <div class= "{% cycle "sense_1" "sense_2" %}">
+					   	Nghĩa {{sense.sensenr}}: 
+					    <a href="{% url vwn.views.getSenses sense.synset.word.pk %}">{{sense.synset.word}}</a>
+					    {% for synonym in synonyms %}
+					    	{% for wordsense in synonym %}
+						    	{% if wordsense.synset.id == sense.synset.id %}
+						    		 <a href="{% url vwn.views.getSenses wordsense.word.pk %}">{{wordsense.word}}</a>
+						    	{% endif %} 					    		    
+					    	{% endfor %}
+					    {% endfor %} 
+					    |{{sense.synset.gloss}}
+					    
+					    <div class="example">
+					    	Ví dụ: {{sense.synset.example}}
+					    </div>
+					    <div class="relations">
+					    	{% for relation in relations %}
+					    		<a href="{% url vwn.views.get_relations relation.pk sense.synset.pk %}">{{relation}}</a>					    	    
+					    	{% endfor %}
+					    </div>
+					   </div>
+				{% endfor %} 
+					
+			</ul>				
+		</div>
+	</form>    
+{% endblock %}
+

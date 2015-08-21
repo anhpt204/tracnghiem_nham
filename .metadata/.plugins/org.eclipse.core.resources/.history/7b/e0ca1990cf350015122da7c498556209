@@ -1,0 +1,22 @@
+'''
+Created on Jul 29, 2015
+
+@author: pta
+'''
+
+from pyrouge import Rouge155
+
+DATA_SET = 'DUC2004'
+
+r = Rouge155()
+
+def eval(problem_name):
+     r.system_filename_pattern = ''
+     
+if __name__ == '__main__':
+    
+    
+    r.system_dir = '/home/pta/projects/nlp/data/'+DATA_SET+ '/systems/'
+    r.model_dir = '/home/pta/projects/nlp/data/'+DATA_SET+'/models/'
+    
+   

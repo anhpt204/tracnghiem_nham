@@ -1,0 +1,42 @@
+parent.0 = ../base.params
+
+# Here's where you specify the problem and the function set:
+
+
+eval.problem.type = vladislavleva-4
+gp.tc.0.fset = vladislavleva-a5
+
+
+# Here's how you'd specify the training and/or testing files.
+
+eval.problem.testing-file = /home/hanu/pta/projects/ECJ21/data/vladislavleva-4.testing.in
+eval.problem.training-file = /home/hanu/pta/projects/ECJ21/data/vladislavleva-4.training.in
+ 
+#SSC
+#pop.subpop.0.species.pipe.source.0 = ec.pta.SSCPipeline
+#pop.subpop.0.species.pipe.source.0.simsize	= 12
+#pop.subpop.0.species.pipe.source.0.lsen 		= 0.0001
+#pop.subpop.0.species.pipe.source.0.usen 		= 0.4 
+
+
+#LGX
+#pop.subpop.0.species.pipe.source.0 = ec.pta.LGXPipeline
+#pop.subpop.0.species.pipe.source.0.tries = 100
+
+#SGC
+pop.subpop.0.species.pipe.source.0 = ec.pta.SGCPipeline
+
+pop.subpop.0.species.pipe.source.0.n-children	= 30
+pop.subpop.0.species.pipe.source.0.subtreesize-rate	= 0.5
+pop.subpop.0.species.pipe.source.0.sgc-pro	= 0.4
+
+
+
+#MSSC
+#pop.subpop.0.species.pipe.source.0 = ec.pta.MSSCPipeline
+
+#SGSC
+#pop.subpop.0.species.pipe.source.0 = ec.pta.SGSCPipeline
+
+#MSGSC
+#pop.subpop.0.species.pipe.source.0 = ec.pta.MSGSCPipeline

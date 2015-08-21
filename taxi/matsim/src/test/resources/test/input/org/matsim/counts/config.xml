@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE config SYSTEM "http://www.matsim.org/files/dtd/config_v1.dtd">
+<config>
+
+	<module name="counts">
+		<param name="inputCountsFile" value="test/scenarios/triangle/counts.xml" />
+	</module>
+	
+	<module name="network">
+		<param name="inputNetworkFile" value="test/scenarios/triangle/network.xml" />
+	</module>
+</config>

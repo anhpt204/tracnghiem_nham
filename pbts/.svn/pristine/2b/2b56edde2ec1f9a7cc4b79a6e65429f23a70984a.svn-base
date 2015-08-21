@@ -1,0 +1,224 @@
+package ktuan;
+
+import java.util.ArrayList;
+
+public class VirtureGraph {
+
+	private static final int DENTA = 2;
+	public int _nbPassenger;
+	public int _nbParcel;
+	public ArrayList<Position> _listPositions;
+	public ArrayList<Integer> _convert;
+	public int _virtureId;
+	public ArrayList<Parking> _listParking;
+	public int _nbParkings;
+	public ArrayList<Integer> _listDepotsTaxi;
+	public int _nbTaxis;
+	public double[][] _distance;
+	public int[][] _min_travel_time;
+	public int[][] _max_travel_time;
+	public int[][] _min_travel_time_real;
+	public int[][] _max_travle_time_real;
+
+	public String toStringInfoRequestAfterCreateRequestVirtureGraph() {
+		String result = new String();
+		result = result.concat(String.format("Total Position  : %8d\n",
+				_listPositions.size()));
+		result = result.concat(String.format("Number Passenger: %8d\n",
+				_nbPassenger));
+		result = result.concat(String.format("Number Parcel   : %8d\n",
+				_nbParcel));
+		result = result.concat(String.format("Number Parking  : %8d\n",
+				_nbParkings));
+		result = result.concat(String.format("Number Taxis    : %8d\n",
+				_nbTaxis));
+		return result;
+	}
+
+	public void createRequestVirtureGraph(
+			ArrayList<PeopleRequestDungPQ> _listPeopleRq,
+			ArrayList<ParcelRequestDungPQ> _listParcelRq, GraphSARP graph, String pathParkingsAndDepots) {
+		_nbPassenger = _listPeopleRq.size();
+		_nbParcel = _listParcelRq.size();
+		_listPositions = new ArrayList<Position>();
+		_convert = new ArrayList<Integer>();
+		_convert.add(0);
+		_virtureId = 0;
+		addListPointSourcePassenger(_listPeopleRq);
+		addListPointSourceParcel(_listParcelRq);
+		addListDestinationPassenger(_listPeopleRq);
+		addListDestinationParcel(_listParcelRq);
+		readParkingAndDepots(pathParkingsAndDepots);
+		System.out.println("Total Position: " + _listPositions.size());
+		System.out.println("Number Passenger: " + _nbPassenger);
+		System.out.println("Number Parcel   : " + _nbParcel);
+		System.out.println("Number Parking  : " + _nbParkings);
+		System.out.println("Number Taxis    : " + _nbTaxis);
+		createGraphFromListConvert(graph);
+		System.out.println("createRequestVirtureGraph: "+_virtureId+"____"+_listPositions.size());
+	}
+
+	private void createGraphFromListConvert(GraphSARP graph) {
+		int n = _listPositions.size();
+		_distance = new double[n + DENTA][n + DENTA];
+		_min_travel_time = new int[n + DENTA][n + DENTA];
+		_max_travel_time = new int[n + DENTA][n + DENTA];
+		_min_travel_time_real = new int[n + DENTA][n + DENTA];
+		_max_travle_time_real = new int[n + DENTA][n + DENTA];
+		//
+		for (int i = 1; i <= n; i++) {
+			int idi = _convert.get(i);
+			graph.dijkstraHeap(idi);
+			for (int j = 1;j <= n; j++) {
+				int idj = _convert.get(j);
+				_distance[i][j] = graph._d[idj];
+				_min_travel_time[i][j] = graph._timeMin[idj];
+				_max_travel_time[i][j] = graph._timeMax[idj];
+				_min_travel_time_real[i][j]=_min_travel_time[i][j];
+				_max_travle_time_real[i][j]=_max_travel_time[i][j];
+			}
+		}
+		for (int i = 1; i <= n; i++) {
+			for (int j = 1; j <= n; j++) {
+				if (_min_travel_time[i][j] > 0)
+					_min_travel_time[i][j] = (_min_travel_time[i][j] - 1)
+							/ParameterSARP.DIV_MINUTE + 1;
+				if (_max_travel_time[i][j] > 0)
+					_max_travel_time[i][j] = (_max_travel_time[i][j])
+							/ParameterSARP.DIV_MINUTE;
+			}
+		}
+
+		for (int i = 0; i < n; i++)
+			if (_listPositions.get(i)._isPassengerSrcId == true) {
+				Position pos = _listPositions.get(i);
+				int id = pos._id;
+				int idj = id + _nbPassenger + _nbParcel;
+				pos._Di = _distance[id][idj];
+				if (pos._MaxDi <= 0)
+					pos._MaxDi = Double.MAX_VALUE / 1000;
+				pos._Ti = _min_travel_time_real[id][idj];
+				if (pos._MaxTi <= 0)
+					pos._MaxTi = 2 * pos._Ti;// Cai nay dang la tham lam
+				// Tham so dang dung cho ca cho nguoi va cho hang
+			}
+	}
+
+	private void readParkingAndDepots(String pathParkingsAndDepots) {
+		ParkingAndDepot pad = new ParkingAndDepot();
+		pad.readParkingAndDepot(pathParkingsAndDepots);
+		_listParking = new ArrayList<Parking>();
+		if (pad._listParking!=null)
+		for (int i = 0; i < pad._listParking.size(); i++) {
+			_virtureId++;
+			_convert.add(pad._listParking.get(i));
+			Position pos = new Position(_virtureId, 0, 0);
+			pos._Capacity = pad._listCapacity.get(i);
+			pos._isParking = true;
+			pos._type_position = ParameterSARP.STOP;
+			pos._idRequest = pad._listParking.get(i);
+			_listPositions.add(pos);
+			_listParking.add(new Parking(pos, ParameterSARP.MAX_TIME));
+		}
+		_nbParkings = pad._listParking.size();
+		_listDepotsTaxi = new ArrayList<Integer>();
+		for (int i = 0; i < pad._listIdDepots.size(); i++) {
+			_virtureId++;
+			_convert.add(pad._listIdDepots.get(i));
+			Position pos = new Position(_virtureId, 0, 0);
+			pos._isDepotOfTaxis = true;
+			pos._idRequest = i + 1;
+			_listPositions.add(pos);
+			_listDepotsTaxi.add(_virtureId);
+		}
+		_nbTaxis = pad._listIdDepots.size();
+	}
+
+	private void addListDestinationParcel(
+			ArrayList<ParcelRequestDungPQ> _listParcelRq) {
+		for (int i = 0; i < _listParcelRq.size(); i++) {
+			ParcelRequestDungPQ rq = _listParcelRq.get(i);
+			_virtureId++;
+			_convert.add(rq.delivery_point);
+			Position pos = new Position(_virtureId, 0, 0);
+			pos._isInRequest = true;
+			pos._early = (rq.early_delivery_time - 1)
+					/ ParameterSARP.DIV_MINUTE + 1;
+			pos._late = rq.late_delivery_time / ParameterSARP.DIV_MINUTE;
+			pos._type_request = ParameterSARP.TYPE_REQUEST_PARCEL;
+			pos._PICKUP_OR_DELIVERY = Position.REQUEST_DELIVERY;
+			pos._isPassengerSrcId = false;
+			pos._type_position = ParameterSARP.DELIVERY_PARCEL;
+			pos._idRequest = rq.id;
+			_listPositions.add(pos);
+		}
+
+	}
+
+	private void addListDestinationPassenger(
+			ArrayList<PeopleRequestDungPQ> _listPeopleRq) {
+		for (int i = 0; i < _listPeopleRq.size(); i++) {
+			PeopleRequestDungPQ rq = _listPeopleRq.get(i);
+			_virtureId++;
+			_convert.add(rq.delivery_point);
+			Position pos = new Position(_virtureId, 0, 0);
+			pos._isInRequest = true;
+			pos._early = (rq.early_delivery_time - 1)
+					/ ParameterSARP.DIV_MINUTE + 1;
+			pos._late = rq.late_delivery_time / ParameterSARP.DIV_MINUTE;
+			pos._type_request = ParameterSARP.TYPE_REQUEST_PEOPLE;
+			pos._PICKUP_OR_DELIVERY = Position.REQUEST_DELIVERY;
+			pos._isPassengerSrcId = false;
+			pos._type_position = ParameterSARP.DELIVERY_PEOPLE;
+			pos._idRequest = rq.id;
+			_listPositions.add(pos);
+		}
+
+	}
+
+	private void addListPointSourceParcel(
+			ArrayList<ParcelRequestDungPQ> _listParcelRq) {
+		for (int i = 0; i < _listParcelRq.size(); i++) {
+			ParcelRequestDungPQ rq = _listParcelRq.get(i);
+			_virtureId++;
+			_convert.add(rq.pickup_point);
+			Position pos = new Position(_virtureId, 0, 0);
+			pos._isInRequest = true;
+			pos._early = (rq.early_pickup_time - 1) / ParameterSARP.DIV_MINUTE
+					+ 1;
+			pos._late = rq.late_pickup_time / ParameterSARP.DIV_MINUTE;
+			pos._type_request = ParameterSARP.TYPE_REQUEST_PARCEL;
+			pos._isPassengerSrcId = true;
+			pos._type_position = ParameterSARP.PICKUP_PARCEL;
+			pos._idRequest = rq.id;
+			pos._PICKUP_OR_DELIVERY = Position.REQUEST_PICKUP;
+			pos._eta = ParameterSARP.OO;
+			_listPositions.add(pos);
+		}
+
+	}
+
+	private void addListPointSourcePassenger(
+			ArrayList<PeopleRequestDungPQ> _listPeopleRq) {
+		for (int i = 0; i < _listPeopleRq.size(); i++) {
+			PeopleRequestDungPQ rq = _listPeopleRq.get(i);
+			_virtureId++;
+			_convert.add(rq.pickup_point);// Diem den bao gom diem don
+			Position pos = new Position(_virtureId, 0, 0);
+			pos._isInRequest = true;
+			pos._early = (rq.early_pickup_time - 1) / ParameterSARP.DIV_MINUTE
+					+ 1;
+			pos._late = rq.late_pickup_time / ParameterSARP.DIV_MINUTE;
+			pos._type_request = ParameterSARP.TYPE_REQUEST_PEOPLE;
+			pos._PICKUP_OR_DELIVERY = Position.REQUEST_PICKUP;
+			pos._isPassengerSrcId = true;
+			pos._MaxDi = rq.max_travel_distance;
+			pos._eta = rq.maxNbStops;
+			pos._type_position = ParameterSARP.PICKUP_PEOPLE;
+			pos._idRequest = rq.id;
+			_listPositions.add(pos);
+
+		}
+	}
+
+}

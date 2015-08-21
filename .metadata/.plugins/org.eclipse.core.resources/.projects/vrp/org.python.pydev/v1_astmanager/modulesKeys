@@ -1,0 +1,15 @@
+MODULES_MANAGER_V2
+data.__init__|/home/pta/projects/vrp/data/__init__.py
+data.request|/home/pta/projects/vrp/data/request.py
+data.settings|/home/pta/projects/vrp/data/settings.py
+optimizer.__init__|/home/pta/projects/vrp/optimizer/__init__.py
+optimizer.costCalculator|/home/pta/projects/vrp/optimizer/costCalculator.py
+optimizer.lns|/home/pta/projects/vrp/optimizer/lns.py
+optimizer.moveOperations|/home/pta/projects/vrp/optimizer/moveOperations.py
+optimizer.sa_lns|/home/pta/projects/vrp/optimizer/sa_lns.py
+optimizer.utils|/home/pta/projects/vrp/optimizer/utils.py
+route.__init__|/home/pta/projects/vrp/route/__init__.py
+route.route|/home/pta/projects/vrp/route/route.py
+route.routingPlan|/home/pta/projects/vrp/route/routingPlan.py
+vrptw.__init__|/home/pta/projects/vrp/vrptw/__init__.py
+vrptw.solver|/home/pta/projects/vrp/vrptw/solver.py

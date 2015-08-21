@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<!DOCTYPE plans SYSTEM "http://www.matsim.org/files/dtd/plans_v4.dtd">
+<plans>
+<person id="1">
+	<plan>
+		<act type="h" x="-25000" facility="1" y="0" link="23" end_time="06:00" />
+		
+		<leg mode="car">
+		</leg>
+		
+		<act type="w" facility="2"  x="5000" y="-5000" link="21" dur="10:00" />
+
+		<leg mode="car">
+
+		</leg>
+		
+		<act type="h" x="-25000" facility="1" y="0" link="23"  />
+	</plan>
+</person>
+</plans>

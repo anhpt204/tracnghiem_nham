@@ -1,0 +1,81 @@
+parent.0 = ../../gp/koza/koza.params
+
+
+gp.tc.0.fset = phishing
+
+eval.problem.testing-file = /home/pta/projects/ECJ21/data/phishing.testing.in
+eval.problem.training-file = /home/pta/projects/ECJ21/data/phishing.training.in
+
+
+gp.fs.size = 1
+
+# phishing
+gp.fs.0 = ec.gp.GPFunctionSet
+gp.fs.0.name = phishing
+gp.fs.0.size = 21
+gp.fs.0.func.0 = ec.app.phishing.func.Add
+gp.fs.0.func.0.nc = nc2
+gp.fs.0.func.1 = ec.app.phishing.func.Mul
+gp.fs.0.func.1.nc = nc2
+gp.fs.0.func.2 = ec.app.phishing.func.Sub
+gp.fs.0.func.2.nc = nc2
+gp.fs.0.func.3 = ec.app.phishing.func.Div
+gp.fs.0.func.3.nc = nc2
+gp.fs.0.func.4 = ec.app.phishing.func.Sin
+gp.fs.0.func.4.nc = nc1
+gp.fs.0.func.5 = ec.app.phishing.func.Cos
+gp.fs.0.func.5.nc = nc1
+gp.fs.0.func.6 = ec.app.phishing.func.Exp
+gp.fs.0.func.6.nc = nc1
+gp.fs.0.func.7 = ec.app.phishing.func.Log
+gp.fs.0.func.7.nc = nc1
+gp.fs.0.func.8 = ec.app.phishing.func.Iff
+gp.fs.0.func.8.nc = nc3
+gp.fs.0.func.9 = ec.app.phishing.func.X1
+gp.fs.0.func.9.nc = nc0
+gp.fs.0.func.10 = ec.app.phishing.func.X2
+gp.fs.0.func.10.nc = nc0
+gp.fs.0.func.11 = ec.app.phishing.func.X3
+gp.fs.0.func.11.nc = nc0
+gp.fs.0.func.12 = ec.app.phishing.func.X4
+gp.fs.0.func.12.nc = nc0
+gp.fs.0.func.13 = ec.app.phishing.func.X5
+gp.fs.0.func.13.nc = nc0
+gp.fs.0.func.14 = ec.app.phishing.func.X6
+gp.fs.0.func.14.nc = nc0
+gp.fs.0.func.15 = ec.app.phishing.func.X7
+gp.fs.0.func.15.nc = nc0
+gp.fs.0.func.16 = ec.app.phishing.func.X8
+gp.fs.0.func.16.nc = nc0
+gp.fs.0.func.17 = ec.app.phishing.func.X9
+gp.fs.0.func.17.nc = nc0
+gp.fs.0.func.18 = ec.app.phishing.func.X10
+gp.fs.0.func.18.nc = nc0
+gp.fs.0.func.19 = ec.app.phishing.func.X11
+gp.fs.0.func.19.nc = nc0
+gp.fs.0.func.20 = ec.app.phishing.func.X12
+gp.fs.0.func.20.nc = nc0
+
+
+### Don't mess with this, it defines our problem and data 
+eval.problem = ec.app.phishing.Phishing
+eval.problem.data = ec.app.phishing.RegressionData
+eval.RI-rate = 0.5
+eval.num-samples = 1
+eval.training-size = 300
+
+pop.subpop.0.species.pipe.num-sources = 2
+pop.subpop.0.species.pipe.source.0 = ec.gp.koza.CrossoverPipeline
+#pop.subpop.0.species.pipe.source.0 = ec.app.myexperiences.GeoCrossoverPipeline
+pop.subpop.0.species.pipe.source.0.prob = 0.9
+#pop.subpop.0.species.pipe.source.1 = ec.breed.ReproductionPipeline
+pop.subpop.0.species.pipe.source.1 = ec.gp.koza.MutationPipeline
+pop.subpop.0.species.pipe.source.1.prob = 0.1
+
+seed.0 = 				4357
+#
+pop.subpop.0.size =			500
+
+quit-on-run-complete =			false
+jobs = 100
+

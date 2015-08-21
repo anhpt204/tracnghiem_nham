@@ -1,0 +1,37 @@
+-- VERSION_4
+-- START DISKCACHE
+/home/pta/projects/.metadata/.plugins/org.eclipse.core.resources/.projects/testdj/com.python.pydev.analysis/v2_indexcache
+testdj.wsgi|1438748990000|/home/pta/projects/testdj/testdj/wsgi.py
+testdj.urls|1438748990000|/home/pta/projects/testdj/testdj/urls.py
+testdj.__init__|1438748990000|/home/pta/projects/testdj/testdj/__init__.py
+manage|1438748990000|/home/pta/projects/testdj/manage.py
+testdj.settings|1438748990000|/home/pta/projects/testdj/testdj/settings.py
+-- END DISKCACHE
+-- START DICTIONARY
+3
+2=testdj.wsgi
+3=testdj.urls
+1=testdj.settings
+-- END DICTIONARY
+-- START TREE 1
+16
+all|1|ALLOWED_HOSTS!11@
+app|1|application!19@
+bas|1|BASE_DIR!11@
+dat|1|DATABASES!11@
+deb|1|DEBUG!11@
+ins|1|INSTALLED_APPS!11@
+lan|1|LANGUAGE_CODE!11@
+mid|1|MIDDLEWARE_CLASSES!11@
+roo|1|ROOT_URLCONF!11@
+sec|1|SECRET_KEY!11@
+sta|1|STATIC_URL!11@
+tem|1|TEMPLATE_DEBUG!11@
+tim|1|TIME_ZONE!11@
+url|1|urlpatterns!27@
+use|3|USE_L10N!11@USE_TZ!11@USE_I18N!11@
+wsg|1|WSGI_APPLICATION!11@
+-- END TREE
+-- START TREE 2
+0
+-- END TREE

@@ -1,0 +1,260 @@
+package pbts.datamanipulation;
+
+import java.util.Scanner;
+import java.io.*;
+import java.util.*;
+
+import pbts.shortestpaths.DijkstraBinaryHeap;
+import pbts.simulation.*;
+class PeopleRequestSanFrancisco{
+	int id;
+	int timeCall;
+	int pickupLocationID;
+	int deliveryLocationID;
+	int earlyPickupTime;
+	int latePickupTime;
+	int earlyDeliveryTime;
+	int lateDeliveryTime;
+	double maxTravelDistance;
+	int maxNbStops;
+	
+	public PeopleRequestSanFrancisco(int id, int timeCall, int pickupLocationID, int deliveryLocationID,
+			int earlyPickupTime, int latePickupTime, int earlyDeliveryTime, int lateDeliveryTime,
+			double maxTravelDistance, int maxNbStops){
+		this.id = id;
+		this.timeCall = timeCall;
+		this.pickupLocationID = pickupLocationID;
+		this.deliveryLocationID = deliveryLocationID;
+		this.earlyPickupTime = earlyPickupTime;
+		this.latePickupTime = latePickupTime;
+		this.earlyDeliveryTime = earlyDeliveryTime;
+		this.lateDeliveryTime = lateDeliveryTime;
+		this.maxTravelDistance = maxTravelDistance;
+		this.maxNbStops = maxNbStops;
+	}
+}
+public class RequestSanFrancisco {
+
+	RoadMap M;
+	
+	public void loadMap(String fn){
+		M = new RoadMap();
+		M.loadData(fn);
+	}
+	public void analyze(String fn){
+		try{
+			double t0 = System.currentTimeMillis();
+			double min_lat = 100000;
+			double max_lat = -min_lat;
+			double min_lng = 1000000;
+			double max_lng = -min_lng;
+			Scanner in = new Scanner(new File(fn));
+			int lines = 0;
+			HashSet<Integer> taxis = new HashSet<Integer>();
+			HashMap<Integer, Integer> mR = new HashMap<Integer, Integer>();
+			ArrayList<Integer> days = new ArrayList<Integer>();
+			HashMap<Integer, HashSet<Integer>> mTaxiDay = new HashMap<Integer, HashSet<Integer>>();
+			while(in.hasNext()){
+				int taxiID = in.nextInt();
+				lines++;
+				//System.out.println("Line "+ lines + ", taxiID = "+ taxiID);
+				if(taxiID == 0) break;
+				taxis.add(taxiID);
+				double s_t = in.nextDouble();
+				Date s_d = new Date((long)s_t*1000);
+				double s_lat = in.nextDouble();
+				double s_lng = in.nextDouble();
+				double e_t = in.nextDouble();
+				Date e_d = new Date((long)e_t*1000);
+				double e_lat = in.nextDouble();
+				double e_lng = in.nextDouble();
+				
+				min_lat = min_lat < s_lat ? min_lat : s_lat;
+				min_lat = min_lat < e_lat ? min_lat : e_lat;
+				max_lat = max_lat > s_lat ? max_lat : s_lat;
+				max_lat = max_lat > e_lat ? max_lat : e_lat;
+				
+				min_lng = min_lng < s_lng ? min_lng : s_lng;
+				min_lng = min_lng < e_lng ? min_lng : e_lng;
+				max_lng = max_lng > s_lng ? max_lng : s_lng;
+				max_lng = max_lng > e_lng ? max_lng : e_lng;
+				
+				System.out.println("Line " + lines + ", taxi " + taxiID + ", Start " + s_lat + "," + s_lng + " AT " + s_d.getDate() + "/" + s_d.getMonth() + "/" + 
+				s_d.getYear() + " - " + s_d.getHours() + ":" + s_d.getMinutes() + ":" + s_d.getSeconds() + ", End  " + e_lat + "," + e_lng + " AT " +  
+				e_d.getDate() + "/" + e_d.getMonth() + "/" + 
+				e_d.getYear() + " - " + e_d.getHours() + ":" + e_d.getMinutes() + ":" + e_d.getSeconds() + ", day " + e_d.getDay());
+				
+				int d = s_d.getDate();
+				if(mR.get(d) == null){
+					days.add(d);
+					mR.put(d, 1);
+				}else{
+					mR.put(d, mR.get(d) + 1);
+				}
+				if(mTaxiDay.get(d) == null){
+					mTaxiDay.put(d, new HashSet<Integer>());
+				}else{
+					mTaxiDay.get(d).add(taxiID);
+				}
+			}
+			for(int i = 0; i < days.size(); i++){
+				int d = days.get(i);
+				System.out.println("day " + d + ", has " + mR.get(d) + " requests, nbTaxis = " + mTaxiDay.get(d).size());
+			}
+			double t = (System.currentTimeMillis() - t0)*0.001;
+			System.out.println("taxis = " + taxis.size() + ", time = " + t);
+			in.close();
+			
+			System.out.println("Request --> min_lat = " + min_lat + ", max_lat = " + max_lat + ", min_lng = " + min_lng + ", max_lng = " + max_lng);
+		}catch(Exception ex){
+			ex.printStackTrace();
+		}
+	}
+	
+	public void extractRequest(String fn, String dir, double threshold, int delta_time_call, 
+			int delta_pickup_late, int delta_delivery_late, double maxTravelDistanceFactor, 
+			double minDistanceRequest, int maxNbStops){
+		try{
+			DijkstraBinaryHeap dijkstra = new DijkstraBinaryHeap(M.V, M.A);
+			
+			double t0 = System.currentTimeMillis();
+			double min_lat = 100000;
+			double max_lat = -min_lat;
+			double min_lng = 1000000;
+			double max_lng = -min_lng;
+			double minDis = 100000000;
+			double maxDis = -minDis;
+			Scanner in = new Scanner(new File(fn));
+			int lines = 0;
+			HashSet<Integer> taxis = new HashSet<Integer>();
+			HashMap<Integer, ArrayList<PeopleRequestSanFrancisco>> mR = new HashMap<Integer, ArrayList<PeopleRequestSanFrancisco>>();
+			ArrayList<Integer> days = new ArrayList<Integer>();
+			HashMap<Integer, HashSet<Integer>> mTaxiDay = new HashMap<Integer, HashSet<Integer>>();
+			int id = 0;
+			while(in.hasNext()){
+				int taxiID = in.nextInt();
+				lines++;
+				//if(lines > 5000) break;
+				//System.out.println("Line "+ lines + ", taxiID = "+ taxiID);
+				if(taxiID == 0) break;
+				taxis.add(taxiID);
+				double s_t = in.nextDouble();
+				Date s_d = new Date((long)s_t*1000);
+				double s_lat = in.nextDouble();
+				double s_lng = in.nextDouble();
+				double e_t = in.nextDouble();
+				Date e_d = new Date((long)e_t*1000);
+				double e_lat = in.nextDouble();
+				double e_lng = in.nextDouble();
+				
+				min_lat = min_lat < s_lat ? min_lat : s_lat;
+				min_lat = min_lat < e_lat ? min_lat : e_lat;
+				max_lat = max_lat > s_lat ? max_lat : s_lat;
+				max_lat = max_lat > e_lat ? max_lat : e_lat;
+				
+				min_lng = min_lng < s_lng ? min_lng : s_lng;
+				min_lng = min_lng < e_lng ? min_lng : e_lng;
+				max_lng = max_lng > s_lng ? max_lng : s_lng;
+				max_lng = max_lng > e_lng ? max_lng : e_lng;
+				
+				//System.out.println("Line " + lines + ", taxi " + taxiID + ", Start " + s_lat + "," + s_lng + " AT " + s_d.getDate() + "/" + s_d.getMonth() + "/" + 
+				//s_d.getYear() + " - " + s_d.getHours() + ":" + s_d.getMinutes() + ":" + s_d.getSeconds() + ", End  " + e_lat + "," + e_lng + " AT " +  
+				//e_d.getDate() + "/" + e_d.getMonth() + "/" + 
+				//e_d.getYear() + " - " + e_d.getHours() + ":" + e_d.getMinutes() + ":" + e_d.getSeconds() + ", day " + e_d.getDay());
+				
+				int d = s_d.getDate();
+				if(mR.get(d) == null){
+					days.add(d);
+					mR.put(d, new ArrayList<PeopleRequestSanFrancisco>());
+				}else{
+					//mR.put(d, mR.get(d) + 1);
+					int pickupLocationID = M.findNearestPoint(s_lat, s_lng, threshold);
+					if(pickupLocationID < 0) continue;
+					int deliveryLocationID = M.findNearestPoint(e_lat, e_lng, threshold);
+					if(deliveryLocationID < 0) continue;
+					int p_t = TimeHorizon.hms2Int(s_d.getHours(), s_d.getMinutes(), s_d.getSeconds());
+					int d_t = TimeHorizon.hms2Int(e_d.getHours(), e_d.getMinutes(), e_d.getSeconds());
+					int timeCall = p_t - delta_time_call;// 10 minutes
+					int earlyPickupTime = timeCall;
+					int latePickupTime = p_t + delta_pickup_late;
+					int earlyDeliveryTime = d_t;
+					int lateDeliveryTime = d_t + delta_delivery_late;
+					double dis = dijkstra.queryDistance(pickupLocationID, deliveryLocationID);
+					if(dis < minDistanceRequest) continue;
+					minDis = minDis < dis ? minDis : dis;
+					maxDis = maxDis > dis ? maxDis : dis;
+					double ti = System.currentTimeMillis() - t0;
+					ti = ti*0.001;
+					System.out.println("Line " + lines + ", days.sz = "+ days.size() + 
+							", distance = " + dis + ", minDis = " + minDis + 
+							", maxDis = " + maxDis + ", time = " + ti);
+					id++;
+					
+					mR.get(d).add(new PeopleRequestSanFrancisco(id,timeCall,pickupLocationID,
+							deliveryLocationID,earlyPickupTime, latePickupTime,earlyDeliveryTime,
+							lateDeliveryTime,dis*maxTravelDistanceFactor,maxNbStops));
+					
+				}
+				if(mTaxiDay.get(d) == null){
+					mTaxiDay.put(d, new HashSet<Integer>());
+				}else{
+					mTaxiDay.get(d).add(taxiID);
+				}
+			}
+			for(int i = 0; i < days.size(); i++){
+				int d = days.get(i);
+				try{
+					String fo = dir + "\\" + "request_day_" + d + ".txt";
+					PrintWriter out = new PrintWriter(fo);
+					out.println("r.id  r.timeCall  r.pickupLocationID " +  
+							"r.deliveryLocationID  r.earlyPickupTime  r.latePickupTime " +
+							" r.earlyDeliveryTime  r.lateDeliveryTime " + 
+							" r.maxTravelDistance  r.maxNbStops");
+					for(int j = 0; j < mR.get(d).size(); j++){
+						PeopleRequestSanFrancisco r = mR.get(d).get(j);
+						out.println(r.id + " " + r.timeCall + " " + r.pickupLocationID + " " + 
+						r.deliveryLocationID + " " + r.earlyPickupTime + " " + r.latePickupTime +
+						" " + r.earlyDeliveryTime + " " + r.lateDeliveryTime + " " + 
+						r.maxTravelDistance + " " + r.maxNbStops);
+					}
+					out.println(-1);
+					out.close();
+					System.out.println("day " + d + ", has " + mR.get(d).size() + " requests, nbTaxis = " + mTaxiDay.get(d).size());
+			
+				}catch(Exception ex){
+					ex.printStackTrace();
+				}
+			}
+			double t = (System.currentTimeMillis() - t0)*0.001;
+			System.out.println("taxis = " + taxis.size() + ", time = " + t);
+			in.close();
+			
+			System.out.println("Request --> min_lat = " + min_lat + ", max_lat = " + max_lat + ", min_lng = " + min_lng + ", max_lng = " + max_lng);
+		}catch(Exception ex){
+			ex.printStackTrace();
+		}
+	}
+	
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		//pbts.simulation.RoadMap map = new pbts.simulation.RoadMap();
+		//map.loadData("C:\\DungPQ\\research\\projects\\prediction-based-transport-scheduling\\data\\SanFrancisco-contracted.txt");
+	
+		RequestSanFrancisco RS = new RequestSanFrancisco();
+		RS.loadMap("C:\\DungPQ\\research\\projects\\prediction-based-transport-scheduling\\data\\SanFranciscoRoad-connected-contracted-5.txt");
+		//RS.analyze("C:\\DungPQ\\research\\projects\\prediction-based-transport-scheduling\\data\\2010_03.trips");
+		int threshold = 100;// 100m
+		int delta_time_call = 600;// 10 minutes
+		int delta_pickup_late = 300;// 5 m inutes
+		int delta_delivery_late = 1800;//30 minutes
+		double maxTravelDistanceFactor = 2;
+		int maxNbStops = 5;
+		double minDistanceRequestAccepted = 1000;// extract only request having distance >= 1000
+		RS.extractRequest("C:\\DungPQ\\research\\projects\\prediction-based-transport-scheduling\\data\\2010_03.trips",
+				"C:\\DungPQ\\research\\projects\\prediction-based-transport-scheduling\\data",
+				threshold,delta_time_call,delta_pickup_late,delta_delivery_late,maxTravelDistanceFactor,
+				minDistanceRequestAccepted,maxNbStops);
+		
+	}
+
+}

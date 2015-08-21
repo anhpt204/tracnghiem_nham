@@ -1,0 +1,112 @@
+package pbts.simulation;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Scanner;
+
+import pbts.entities.Arc;
+import pbts.entities.*;
+
+public class RoadMap {
+
+	/**
+	 * @param args
+	 */
+	
+	public HashMap<Integer, ArrayList<Arc>> A;// A[i] is the set of adjacent arcs of vertex i
+	public ArrayList<Integer> V;
+	public ArrayList<Arc> Arcs;
+	public HashMap<Integer, LatLng> mLatLng;
+	public int n,m;
+	public int maxID, minID;
+	public RoadMap(){
+		
+	}
+	public void setTravelTime(Arc a, int t){
+		a.t = t;
+	}
+	public int composeKeyOf2(int u, int v){
+		return u * (maxID+1) + v;
+	}
+	public void loadData(String filename){
+		try{
+			
+			Scanner in = new Scanner(new File(filename));
+			n = 0;
+			V = new ArrayList<Integer>();
+			A = new HashMap<Integer, ArrayList<Arc>>();
+			Arcs = new ArrayList<Arc>();
+			mLatLng = new HashMap<Integer, LatLng>();
+			double minDis = 999999999;
+			double maxDis = -minDis;
+			int minU = -1, minV = -1, maxU = -1, maxV = -1;
+			maxID = -1; minID = 999999999;
+			while(true){
+				int u = in.nextInt();
+				if(u == -1) break;
+				double lat = in.nextDouble();
+				double lng = in.nextDouble();
+				LatLng ll = new LatLng(lat,lng);
+				mLatLng.put(u, ll);
+				n++;
+				V.add(u);
+				A.put(u,  new ArrayList<Arc>());
+				if(u > maxID) maxID = u;
+				if(u < minID) minID = u;
+			}
+			
+			
+			m = 0;
+			while(true){
+				int u = in.nextInt();
+				if(u == -1) break;
+				int v = in.nextInt();
+				
+				double w = in.nextDouble();
+				if(u == v) continue;
+				if(minDis > w){ minDis = w; minU = u; minV = v;}
+				if(maxDis < w){ maxDis = w; maxU = u; maxV = v;}
+				Arc a = new Arc(u,v,w);
+				Arcs.add(a);
+				m++;
+				if(A.get(u) == null){
+					System.out.println("RoadMap::loadData, A.get(" + u + ") = null");
+					System.exit(-1);
+				}
+				A.get(u).add(a);
+			}
+			in.close();
+			/*
+			for(int i = 0; i < V.size(); i++){
+				int v = V.get(i);
+				System.out.print("A[" + v + "] = ");
+				for(int j = 0; j < A.get(v).size(); j++){
+					Arc a = A.get(v).get(j);
+						System.out.print(a.end + ", ");
+				}
+				System.out.println();
+			}
+			*/
+			System.out.println("n = " + V.size() + ", m = " + m + ", minDis = " + minDis + ", maxDis = " + maxDis + 
+					", min edge = (" + minU + "," + minV + ")");
+			
+		}catch(Exception ex){
+			ex.printStackTrace();
+		}
+
+	}
+	public Arc getArc(int u, int v){
+		for(int i = 0; i < A.get(u).size(); i++){
+			Arc a = A.get(u).get(i);
+			if(a.end == v) return a;
+		}
+		return null;
+	}
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

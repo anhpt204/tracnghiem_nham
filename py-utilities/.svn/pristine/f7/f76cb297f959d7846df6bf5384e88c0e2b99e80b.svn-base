@@ -1,0 +1,23 @@
+parent.0 = ../base.params
+
+# Here's where you specify the problem and the function set:
+
+
+eval.problem.type = name
+gp.tc.0.fset = fset_name
+gp.fs.fset_number.size = problem_size
+
+# Here's how you'd specify the training and/or testing files.
+
+
+eval.problem.testing-file = /home/tuananh/Dropbox/uci/problem_type/name.testing.in
+eval.problem.training-file = /home/tuananh/Dropbox/uci/problem_type/name.training.in
+
+
+#SGXM
+pop.subpop.0.species.pipe.source.0 = ec.pta.SGXMPipeline
+pop.subpop.0.species.pipe.source.1 = ec.pta.SGMRPipeline
+eval.problem = ec.app.regression.Geometric
+
+pop.subpop.0.species.pipe.source.0.prob = 0.6
+pop.subpop.0.species.pipe.source.1.prob = 0.3

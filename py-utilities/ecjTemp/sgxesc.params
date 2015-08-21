@@ -1,0 +1,28 @@
+parent.0 = ../base.params
+
+# Here's where you specify the problem and the function set:
+
+
+eval.problem.type = name
+gp.tc.0.fset = fset_name
+gp.fs.fset_number.size = problem_size
+
+# Here's how you'd specify the training and/or testing files.
+
+
+eval.problem.testing-file = /home/tuananh/Dropbox/uci/problem_type/name.testing.in
+eval.problem.training-file = /home/tuananh/Dropbox/uci/problem_type/name.training.in
+
+
+#************************************************************************
+# NEW PPSN 2014
+
+#common
+pop.subpop.0.species.pipe.source.0.sgc-pro	= 0.3
+pop.subpop.0.species.pipe.source.0.n-children	= 25
+
+#SGXE + SC
+pop.subpop.0.species.pipe.source.0 = ec.pta.SGXESCPipeline
+
+pop.subpop.0.species.pipe.source.0.prob = 100.0
+pop.subpop.0.species.pipe.source.1.prob = 0.0

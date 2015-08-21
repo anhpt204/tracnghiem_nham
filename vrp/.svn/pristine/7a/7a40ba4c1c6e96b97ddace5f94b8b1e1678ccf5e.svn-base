@@ -1,0 +1,26 @@
+'''
+Created on Mar 19, 2015
+
+@author: pta
+'''
+
+class Request:
+
+    requestId = None
+    x = None
+    y = None
+    demand = None
+    tw = None
+    serviceTime = None
+
+    
+    def __init__(self, requestId, x, y, demand, tw, serviceTime):
+        self.requestId = requestId
+        self.x = x
+        self.y = y
+        self.demand = demand
+        self.tw = tw
+        self.serviceTime = serviceTime
+
+if __name__ == '__main__':
+    pass

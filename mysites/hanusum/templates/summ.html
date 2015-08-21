@@ -1,0 +1,15 @@
+{%extends "base.html"%}
+
+{%block title %}HANU SUM{%endblock%}
+{%block content%}
+	<form method="post" action="{% url hanusum.views.summarise %}"> {%csrf_token%}
+		URL {{ form.url }}
+		<p><input type="submit" name="submit1" value="Summarise" /></p>
+		<p><input type="submit" name="submit2" value="Button" /></p>
+		<p><a href="{% url hanusum.views.summarise %}">Link</a></p>
+		{% if form.summ %}
+			<p>{{ form.sum|linebreaks }}</p>
+		{% endif %}			
+			
+	</form>
+{%endblock%}

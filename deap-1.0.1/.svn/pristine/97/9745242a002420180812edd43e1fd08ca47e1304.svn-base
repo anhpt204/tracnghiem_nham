@@ -1,0 +1,3 @@
+runtime: 2000.0
+Testing error: 0.0106711618769
+training error: 6.56363852158e-15

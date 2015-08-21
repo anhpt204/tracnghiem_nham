@@ -1,0 +1,4 @@
+runtime: 2000.0
+Testing error: 7.66728108081
+training error: 1.28736118987e-13
+size: 1149

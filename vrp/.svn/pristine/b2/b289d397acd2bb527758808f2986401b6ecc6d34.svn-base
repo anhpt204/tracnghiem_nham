@@ -1,0 +1,17 @@
+'''
+Created on Mar 17, 2015
+
+@author: pta
+
+Large Neighborhood Search
+'''
+from collections import namedtuple
+Route = namedtuple('Route', ['customers', 'depature_time', 'earliest_service_time', 'earliest_arrival_time',
+                             'lastest_arrival_time', 'cost', 'load'])
+RoutingPlan = namedtuple('RoutingPlan', ['routes', 'cost'])
+Customer = namedtuple('Customer', ['cust_no', 'x', 'y', 'demand', 'ready_time', 'due_date', 'service_time'])
+
+Setting = namedtuple('Setting', ['customers', 'veh_capacity', 'cost_matrix'])
+
+if __name__ == '__main__':
+    pass

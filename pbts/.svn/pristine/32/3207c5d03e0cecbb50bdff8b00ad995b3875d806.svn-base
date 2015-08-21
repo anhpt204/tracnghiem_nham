@@ -1,0 +1,41 @@
+SimulatorBookedRequest::processPeopleRequest --> request 1 is REJECTED
+SimulatorBookedRequest::processParcelRequest, sequence = 261,-261,, maxProfits = -22174.968430921504, sel_taxi = 250, nextStartTimePoint = 2691, fromIndex = 0, fromPoint = 4404
+SimulatorBookedRequest::processParcelRequest, sequence = 262,-262,, maxProfits = 2382.645477572005, sel_taxi = 166, nextStartTimePoint = 2697, fromIndex = 0, fromPoint = 12995
+SimulatorBookedRequest::processParcelRequest, sequence = 263,-263,, maxProfits = -17212.30455528705, sel_taxi = 82, nextStartTimePoint = 2698, fromIndex = 0, fromPoint = 4100
+Vehicle[166]::move, At 0:44:58[2698], taxi[166] changes status = PICKUP_PARCEL at point 12995
+SimulatorBookedRequest::processParcelRequest, sequence = 264,-264,, maxProfits = -47523.63676475253, sel_taxi = 121, nextStartTimePoint = 2699, fromIndex = 0, fromPoint = 5816
+SimulatorBookedRequest::processParcelRequest, sequence = 265,-265,, maxProfits = -23418.112262477487, sel_taxi = 199, nextStartTimePoint = 2704, fromIndex = 0, fromPoint = 6887
+Vehicle[82]::move, At 0:47:5[2825], taxi[82] changes status = PICKUP_PARCEL at point 12996
+Vehicle[121]::move, At 0:47:48[2868], taxi[121] changes status = PICKUP_PARCEL at point 12997
+Vehicle[199]::move, At 0:48:22[2902], taxi[199] changes status = PICKUP_PARCEL at point 12999
+Vehicle[250]::move, At 0:49:26[2966], taxi[250] changes status = PICKUP_PARCEL at point 12805
+Vehicle[82]::move, At 0:51:54[3114], taxi[82] changes status = DELIVERY_PARCEL at point 12898
+Vehicle[250]::move, At 0:57:47[3467], taxi[250] changes status = DELIVERY_PARCEL at point 12994
+Vehicle[166]::move, At 1:1:56[3716], taxi[166] changes status = DELIVERY_PARCEL at point 7246
+Vehicle[121]::move, At 1:3:38[3818], taxi[121] changes status = DELIVERY_PARCEL at point 12998
+Vehicle[199]::move, At 1:5:28[3928], taxi[199] changes status = DELIVERY_PARCEL at point 13000
+Vehicle[82]::move, At 1:9:41[4181], taxi[82] changes status = REST_AT_PARKING at point 4823
+Vehicle[250]::move, At 1:22:6[4926], taxi[250] changes status = REST_AT_PARKING at point 4823
+Vehicle[166]::move, At 1:25:21[5121], taxi[166] changes status = REST_AT_PARKING at point 4823
+Vehicle[199]::move, At 1:45:9[6309], taxi[199] changes status = REST_AT_PARKING at point 4823
+Vehicle[121]::move, At 1:59:58[7198], taxi[121] changes status = REST_AT_PARKING at point 4823
+Vehicle[82]::move, At 21:15:44[76544], taxi[82] changes status = STOP_WORK at point 4100
+Vehicle[250]::move, At 21:22:8[76928], taxi[250] changes status = STOP_WORK at point 4404
+Vehicle[199]::move, At 21:25:58[77158], taxi[199] changes status = STOP_WORK at point 6887
+Vehicle[166]::move, At 21:29:7[77347], taxi[166] changes status = STOP_WORK at point 12995
+Vehicle[121]::move, At 21:44:1[78241], taxi[121] changes status = STOP_WORK at point 5816
+distance of taxi[82] = 25.700400898546388km, cost fuel = 51K
+distance of taxi[121] = 77.72243259869082km, cost fuel = 155K
+distance of taxi[166] = 45.38209682834457km, cost fuel = 90K
+distance of taxi[199] = 55.63036549262702km, cost fuel = 111K
+distance of taxi[250] = 38.10040149509799km, cost fuel = 76K
+nbPeopleRequests = 1
+nbAcceptedPeople = 0
+nbParcelRequests = 5
+nbAcceptedParcelRequests = 0
+nbDisconnected Requests = 0
+total distance = 242.5356973133068km
+revenue = 0.0K
+cost fuel = 485K
+benefits = -485.0K
+nbUnusedTaxis = 277

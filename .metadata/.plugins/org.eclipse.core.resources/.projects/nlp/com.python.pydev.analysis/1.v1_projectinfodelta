@@ -1,0 +1,11 @@
+INSTUPsummarizer.evaluation
+/home/pta/projects/nlp/summarizer/evaluation.py
+INFOS:&&3|1|2|0&&3|3|2|0&&3|4|2|0&&2|5|2|0&&2|6|2|0&&2|7|2|0&&2|8|2|0
+Duc2004Eval=7
+PythonROUGE=5
+ROUGE_path=1
+data_path=3
+ROUGE_output_path=4
+Duc2007Eval=8
+summarizer.evaluation=2
+create_xml=6

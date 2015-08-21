@@ -1,0 +1,21 @@
+parent.0 = ../base.params
+
+# Here's where you specify the problem and the function set:
+
+
+eval.problem.type = keijzer-4
+gp.tc.0.fset = AddSubMulDivSinCosERC
+gp.fs.19.size = 8
+
+# Here's how you'd specify the training and/or testing files.
+
+
+eval.problem.testing-file = /home/pta/Dropbox/uci/regression/keijzer-4.testing.in
+eval.problem.training-file = /home/pta/Dropbox/uci/regression/keijzer-4.training.in
+
+
+##############################################
+#BACKPROPAGATION
+pop.subpop.0.species.pipe.source.0 = ec.pta.AGXPipeline
+pop.subpop.0.species.pipe.source.0.prob = 1.0
+pop.subpop.0.species.pipe.source.1.prob = 0.0

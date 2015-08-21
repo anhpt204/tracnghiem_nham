@@ -1,0 +1,370 @@
+'''
+Created on Dec 31, 2001
+
+@author: hanu
+'''
+import glob, os, sys, math, csv, codecs
+
+problems = [
+                #"nguyen-4",
+                "keijzer-1",
+                "keijzer-4",
+                "keijzer-6",
+                "keijzer-7",
+#                 "keijzer-8",
+                "keijzer-9",
+                "keijzer-10",
+                "keijzer-11",
+                "keijzer-12",
+                "keijzer-13",
+                "keijzer-14",
+                "keijzer-15",
+#                "nguyen-8",
+                "r1",
+                "r2",
+                "r3",
+#                
+#               "casp",
+#               "slump_test_FLOW",
+#               "slump_test_Compressive",
+#               "slump_test_SLUMP",
+#                 
+#               "airfoil_self_noise",
+#               "ccpp", 
+#               "concrete", 
+#               "winequality-red",
+#               "winequality-white", 
+#               "wpbc"
+
+
+                ]
+
+operators = [
+#                 "sc", 
+                 #'sgxe', 
+                 #'sgxm', 
+                 #"sgxe+sgmr", "sgxm+sgmr",  #10% mutation
+                 #'sgxesc20', 'sgxesc30', 'sgxmsc20', 
+                 #'sgxmsc30',
+                 #'sgxesc', 
+                 #'sgxmsc',
+                 #"sgxesc+sgmrsc", "sgxmsc+sgmrsc",
+                 #'rdo',
+                 #"agx"
+                'sfgp',
+#                 'bvgp'
+                 ]
+    
+    
+numgens = 300
+    
+
+def getResult():
+    root = '/home/pta/projects/ECJ-Regression/out/sc50'
+    
+    result = os.path.join(root, 'result.csv')
+    fs = csv.writer(open(result,'w'), quoting=csv.QUOTE_ALL)
+    rows = ['problem', 'fitness', 'fittest'] 
+    for problem in problems:
+        rows.append([problem])
+        best_fitness = 1000
+        
+        dir = os.path.join(root, problem)
+        files = glob.glob(dir+'/*.stat')
+
+        fittests = []
+        
+        for file in files:
+            lines = codecs.open(file).readlines()
+            vals = lines[-1].split()
+            t = float(vals[-6]) 
+            if( t < best_fitness):
+                best_fitness = t
+                    
+            fittests.append(float(vals[-1]))
+            
+        rows[-1].append(best_fitness)
+        
+        fittests.sort()
+        rows[-1].append(fittests[len(fittests)/2])
+        
+    for row in rows:
+        fs.writerow(row)
+
+def getDiversity(dir):
+    result = dir + '/diversity.csv'
+    fs = csv.writer(open(result, 'w'), quoting=csv.QUOTE_ALL)
+    files = glob.glob(dir + '/*.stat')
+    average = [0]*50 #for 50 generation
+    for file in files:
+        vals = []
+        print file
+        gens = codecs.open(file).readlines()
+        for i in xrange(len(gens)):
+            gen = gens[i]
+            temp = gen.strip().split(' ')[-2]
+            vals.append(float(temp))
+            average[i] += float(temp)
+        fs.writerow(vals)
+    
+    average = [item / len(files) for item in average]
+    fs.writerow(average)
+    
+    
+def getTrainingFitness(dir):
+    result = dir + '/training.fitness.csv'
+    fs = csv.writer(open(result, 'w'), quoting=csv.QUOTE_ALL)
+    files = glob.glob(dir + '/*.stat')
+    for file in files:
+        vals = []
+        print file
+        gens = codecs.open(file).readlines()
+        for gen in gens:
+            temp = gen.strip().split(' ')[-6]
+            vals.append(temp)
+        fs.writerow(vals)
+
+def getTestingFitness(dir):
+    result = dir + '/testing.fitness.csv'
+    fs = csv.writer(open(result, 'w'), quoting=csv.QUOTE_ALL)
+    files = glob.glob(dir + '/*.stat')
+    for file in files:
+        vals = []
+        print file
+        gens = codecs.open(file).readlines()
+        for gen in gens:
+            vs = gen.strip().split()
+            temp = vs[-1]
+            vals.append(temp)
+        fs.writerow(vals)
+        
+
+def getAllResult(root):
+    #operators = ['sc', 'ssc', 'mssc', "gsgp", "gsgp+sc20", "gsgp+ssc20", "gsgp+mssc20", "gsgp+sc30", "gsgp+ssc30", "gsgp+mssc30"]
+
+
+    
+#    numcolumns = 26
+    
+    #regression
+    # PhishingStatistics:
+    # 6: evaluation time 
+    # -3: fittest of the best on gen
+    # -9: fitness of the best on gen
+    
+#     indexColumns = [0, 6, -9, -3]
+    
+    #SFStatistics
+    # 6 evaluation time
+    # -1 fittest of the best on gen
+    # -5 variance of the best on gen
+    # -6 mean of the best on gen
+    # -7 fitness of the best on gen
+    indexColumns = [0, 6, -7, -6, -5, -1]
+        
+    
+    numOfCols = (len(indexColumns) + 1) * len(operators)
+    
+    
+    for problem in problems:
+        print problem, 
+        average=[]
+        for i in xrange(numgens):
+            average.append([0]*numOfCols)
+        
+        for operatorIndex in xrange(len(operators)):
+            operator = operators[operatorIndex]
+            print operator
+            
+            dir = os.path.join(root, operator, problem)
+            files = glob.glob(dir + '/*.stat')
+            
+            numruns = len(files)
+            
+            fittest = []
+            for i in xrange(numgens):
+                runs = []
+                for j in xrange(numruns):
+                    runs.append(0)
+                
+                fittest.append(runs)
+            
+            for j in xrange(numruns):
+                file = files[j]
+                #print file
+                gens = open(file).readlines()
+                for i in xrange(numgens):
+                    gen = gens[i]
+                    gen = gen.replace('[',"").replace("]","")
+                    xs = gen.strip().split()
+                    
+                    fittest[i][j] = float(xs[-1])
+                    
+                    for k in xrange(len(indexColumns) - 1): #-1 de danh cho fittest
+                        average[i][operatorIndex*(len(indexColumns) + 1) + k] += float(xs[indexColumns[k]])# / numruns;
+                        
+            #get median in fittest
+            k = operatorIndex*(len(indexColumns) + 1) + len(indexColumns)-1
+            
+            for i in xrange(numgens):
+                fittest[i].sort(cmp=None, key=None, reverse=False);
+                average[i][k] = fittest[i][numruns/2] * numruns # de sau chia cho numberuns
+                    
+                                        
+            operatorIndex += 1;
+            
+        
+        #write result
+        #regression
+        f = csv.writer(open(os.path.join('/home/pta/projects/ECJ-Regression/out/sfgp', problem + ".csv"), 'w'), quoting=csv.QUOTE_ALL)
+        
+        for i in xrange(len(average)):
+            for j in xrange(len(average[i])):
+                average[i][j] = average[i][j] / numruns
+                
+
+        for i in xrange(numgens):
+            f.writerow(average[i])
+                    
+def getAllResultClassification(root):
+    #operators = ['sc', 'ssc', 'mssc', "gsgp", "gsgp+sc20", "gsgp+ssc20", "gsgp+mssc20", "gsgp+sc30", "gsgp+ssc30", "gsgp+mssc30"]
+    operators = [
+                 #"sc", 
+                 #'sgxe', 'sgxm', 
+                 #"sgxe+sgmr", "sgxm+sgmr",  #10% mutation
+                 #'sgxesc20', 'sgxesc30', 'sgxmsc20', 
+                 #'sgxmsc30',
+                 
+                 #'sgxesc', 
+                 #'sgxmsc',
+                 #"sgxesc+sgmrsc", "sgxmsc+sgmrsc",
+                #'rdo',
+                #"agx"
+                
+                 ]
+    
+    problems = [
+              
+
+                #CLASSIFICATION
+                "data_banknote_authentication",
+                 "breast-cancer-wisconsin",
+                 "wdbc",
+                 "EEGEyeState",
+                 "haberman",
+                 "magic04",
+
+                ]
+    
+    numgens = 100
+#    numcolumns = 26
+    
+   
+    #classification
+    indexColumns = [0, 1, 2, -14, -5, -4, -3, -2, -1]
+    
+    
+    numOfCols = (len(indexColumns) + 1) * len(operators)
+    
+    
+    for problem in problems:
+        print problem, 
+        average=[]
+        for i in xrange(numgens):
+            average.append([0]*numOfCols)
+        
+        for operatorIndex in xrange(len(operators)):
+            operator = operators[operatorIndex]
+            print operator
+            
+            dir = os.path.join(root, operator, problem)
+            files = glob.glob(dir + '/*.stat')
+            
+            numruns = len(files)
+            
+            fittest = []
+            for i in xrange(numgens):
+                runs = []
+                for j in xrange(numruns):
+                    runs.append(0)
+                
+                fittest.append(runs)
+            
+            for j in xrange(numruns):
+                file = files[j]
+                #print file
+                gens = open(file).readlines()
+                for i in xrange(numgens):
+                    gen = gens[i]
+                    gen = gen.replace('[',"").replace("]","")
+                    xs = gen.strip().split()
+                    
+                    fittest[i][j] = float(xs[-1])
+                    
+                    for k in xrange(len(indexColumns)):
+                        average[i][operatorIndex*(len(indexColumns) + 1) + k] += float(xs[indexColumns[k]]) / numruns;
+                        
+            #get median in fittest
+#            k = operatorIndex*(len(indexColumns) + 1) + len(indexColumns)-1
+            
+#            for i in xrange(numgens):
+#                fittest[i].sort(cmp=None, key=None, reverse=False);
+#                average[i][k] = fittest[i][numruns/2]
+                    
+                                        
+            operatorIndex += 1;
+            
+            
+        #write result
+        #classification
+        f = csv.writer(open(os.path.join('/home/tuananh/Dropbox/PPSN14/classification/AddSubMulDivSinCosSqrtSquare', problem + ".csv"), 'w'), quoting=csv.QUOTE_ALL)
+        
+        for i in xrange(numgens):
+            f.writerow(average[i])          
+            
+def mergeCSVFiles():
+    csvDir1 = '/home/pta/projects/ECJ-Regression/out/sc'
+    csvDir2 = '/home/pta/projects/ECJ-Regression/out/sfgp'
+    outDir = '/home/pta/projects/ECJ-Regression/out'
+    
+    for problem in problems:
+        csvFile1 = os.path.join(csvDir1, problem + ".csv")
+        csvFile2 = os.path.join(csvDir2, problem + ".csv")
+        csvOut = os.path.join(outDir, problem + ".csv")
+        
+        f1 = csv.reader(open(csvFile1, 'rb'),  delimiter=',', quoting=csv.QUOTE_ALL)
+#         lines1 = f1.readlines()
+#         f1.close()
+        
+        f2 = csv.reader(open(csvFile2, 'rb'),  delimiter=',', quoting=csv.QUOTE_ALL)
+#         lines2 = f2.readlines()
+#         f2.close()
+        
+        out = csv.writer(open(csvOut, 'wb'), quoting=csv.QUOTE_ALL)
+        
+        for line1, line2  in zip(f1, f2):
+            line = line1 + line2
+#             line = [int(v) if v == "0.0" else float(v) for v in line]
+            out.writerow(line)
+                            
+if __name__ == '__main__':
+    dir = '/home/pta/projects/ECJ-Regression/out/sc/keijzer-1'
+    
+    
+#     getResult()
+    
+    #getDiversity(dir)
+    
+#     getTrainingFitness(dir)
+    
+#     getTestingFitness(dir)
+    
+    #regression
+#     getAllResult('/home/pta/projects/ECJ-Regression/out')
+
+    #classification
+    #getAllResultClassification('/home/tuananh/Documents/projects/ECJ-Classification/out/uci2')
+    
+    
+    mergeCSVFiles()
+    print 'DONE'

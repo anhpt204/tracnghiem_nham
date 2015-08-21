@@ -1,0 +1,39 @@
+'''
+Created on Mar 17, 2015
+
+@author: pta
+'''
+
+import random
+
+def two_exchange(perm):
+    result = perm[:] # make a copy
+    size = len(result)
+    # select indices of two random points in the tour
+    p1, p2 = random.randrange(0,size), random.randrange(0,size)
+    # do this so as not to overshoot tour boundaries
+    exclude = set([p1])
+    if p1 == 0:
+        exclude.add(size-1)
+    else:
+        exclude.add(p1-1)
+    
+    if p1 == size-1:
+        exclude.add(0)
+    else:
+        exclude.add(p1+1) 
+                       
+    while p2 in exclude:
+        p2 = random.randrange(0,size)
+
+    # to ensure we always have p1<p2        
+    if p2<p1:
+        p1, p2 = p2, p1
+     
+    # now reverse the tour segment between p1 and p2   
+    result[p1:p2] = reversed(result[p1:p2])
+    
+    return result
+
+if __name__ == '__main__':
+    pass

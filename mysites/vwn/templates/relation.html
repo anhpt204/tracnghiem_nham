@@ -1,0 +1,56 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+{% extends "basic.html" %}
+
+{% block content %}
+	<style type="text/css">
+    	.main { margin-left: 25px; margin-top: 30px; border-top: 1px solid #CCCCCC}
+    	.search { margin-top: 50px;text-align: center }
+    	.time { font-size: 0.8em; margin-top: 2px; }
+    	.body { font-size: 1.1em; margin-top: 2px; }
+    	.relations { text-align: right; font-size: 13px }
+    	.step-links a { font-size: 0.89em; }
+    	.sense_1 {
+        	font-size: medium; margin-top: 20px; border-bottom: 1px solid #ccc;
+        	padding-left: 4px; margin-left: 5px;background-color: #EEFEEE;
+    	}
+
+    	.sense_2 {
+        	font-size: medium; margin-top: 20px; border-bottom: 1px solid #ccc;
+        	padding-left: 4px; margin-left: 5px;background-color: #FFF5F5;
+    	}
+    	
+    	.main_word {font-size: 20px; margin-top: 20; margin-bottom:20px; background-color: #EE1EEE}
+    	.messages { margin-left: 20px; }
+    	.pagination { margin-top: 20px; margin-left: -20px; }
+	</style>
+	
+<!--	<form action="{% url vwn.views.search %}" method="post"> {%csrf_token%}
+		<div class="search">
+			Nhập từ: {{word.lexform}}  
+			<input type="submit" value="Tìm" />
+		</div>
+	</form>
+-->
+	<h2>Quan hệ: {{property}}</h2>
+	<div class="main_word">{{main_sense.0.word}} (<i>{{main_sense.0.synset.gloss}}</i>)</div>			
+
+	{% if dis_type %}	
+	    {% for relation in relations %}
+			<div class= "{% cycle "sense_1" "sense_2" %}">			    
+			{% for wordsense in relation %}
+				<ul><li><a href="{% url vwn.views.getSenses wordsense.word.pk %}">{{wordsense.word}} ({{wordsense.synset.gloss}})</a>		    
+			{% endfor %}
+			</div>	        
+	    {% endfor %}
+	{% else %}
+		{% for relation in relations %}
+			<ul> <li>
+			<div class= "{% cycle "sense_1" "sense_2" %}">
+			{% for wordsense in relation %}
+				<a href="{% url vwn.views.getSenses wordsense.word.pk %}">{{wordsense.word}}</a>		    
+			{% endfor %}
+			</div>
+		{% endfor %}	
+	{% endif %}
+{% endblock %}
+

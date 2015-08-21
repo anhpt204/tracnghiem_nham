@@ -1,0 +1,21 @@
+'''
+Created on Mar 17, 2015
+
+@author: pta
+
+Large Neighborhood Search
+'''
+
+# Move Operators
+
+def two_exchange(route, i, j):
+    sub_route_ij = route[i+1:j]
+    sub_route_ij.reverse()
+    new_route = route[:i] + sub_route_ij + route[j+1:]
+
+def or_exchange():
+    pass
+
+
+if __name__ == '__main__':
+    pass

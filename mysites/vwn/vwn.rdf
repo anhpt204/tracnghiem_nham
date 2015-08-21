@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE rdf:RDF [
+	 <!ENTITY rdf 'http://www.w3.org/1999/02/22-rdf-syntax-ns#'>
+	 <!ENTITY schema 'http://protege.stanford.edu/2012/9/schema/'>
+	 <!ENTITY rdfs 'http://www.w3.org/2000/01/rdf-schema#'>
+	 <!ENTITY instances 'http://protege.stanford.edu/2012/9/vwn/instances/'>
+]>
+<rdf:RDF xmlns:rdf="&rdf;"
+	 xmlns:schema="&schema;"
+	 xmlns:rdfs="&rdfs;"
+	 xmlns:instances="&instances;">
+<schema:Word rdf:about="&instances;word-power-1"/>
+<schema:Word rdf:about="&schema;word-cat-1"/>
+</rdf:RDF>

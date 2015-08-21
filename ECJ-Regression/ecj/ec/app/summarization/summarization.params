@@ -1,0 +1,50 @@
+parent.0 = ../../gp/koza/koza.params
+
+
+gp.tc.0.fset = summarization
+
+eval.problem.testing-file = /home/pta/projects/ECJ21/data/phishing.testing.in
+eval.problem.training-file = /home/pta/projects/ECJ21/data/phishing.training.in
+
+
+gp.fs.size = 1
+gp.fs.0 = ec.gp.GPFunctionSet
+gp.fs.0.name = summarization
+gp.fs.0.size = 8
+gp.fs.0.func.0 = ec.app.summarization.func.Add
+gp.fs.0.func.0.nc = nc2
+gp.fs.0.func.1 = ec.app.summarization.func.Mul
+gp.fs.0.func.1.nc = nc2
+gp.fs.0.func.2 = ec.app.summarization.func.Sub
+gp.fs.0.func.2.nc = nc2
+gp.fs.0.func.3 = ec.app.summarization.func.Div
+gp.fs.0.func.3.nc = nc2
+gp.fs.0.func.4 = ec.app.summarization.func.X1
+gp.fs.0.func.4.nc = nc0
+gp.fs.0.func.5 = ec.app.summarization.func.X2
+gp.fs.0.func.5.nc = nc0
+gp.fs.0.func.6 = ec.app.summarization.func.X3
+gp.fs.0.func.6.nc = nc0
+gp.fs.0.func.7 = ec.app.summarization.func.X4
+gp.fs.0.func.7.nc = nc0
+gp.fs.0.func.8 = ec.app.summarization.func.Iff
+gp.fs.0.func.8.nc = nc3
+
+
+eval.problem = ec.app.summarization.Summarization
+eval.problem.data = ec.app.summarization.RegressionData
+
+pop.subpop.0.species.pipe.num-sources = 2
+pop.subpop.0.species.pipe.source.0 = ec.gp.koza.CrossoverPipeline
+#pop.subpop.0.species.pipe.source.0 = ec.app.myexperiences.GeoCrossoverPipeline
+pop.subpop.0.species.pipe.source.0.prob = 0.9
+#pop.subpop.0.species.pipe.source.1 = ec.breed.ReproductionPipeline
+pop.subpop.0.species.pipe.source.1 = ec.gp.koza.MutationPipeline
+pop.subpop.0.species.pipe.source.1.prob = 0.1
+
+seed.0 = 				4357
+#
+pop.subpop.0.size =			200
+
+quit-on-run-complete =			false
+jobs = 30

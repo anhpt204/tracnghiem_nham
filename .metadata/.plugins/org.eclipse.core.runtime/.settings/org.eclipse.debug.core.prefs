@@ -1,0 +1,2 @@
+eclipse.preferences.version=1
+prefWatchExpressions=<?xml version\="1.0" encoding\="UTF-8" standalone\="no"?>\n<watchExpressions>\n<expression enabled\="true" text\="self.nodes[14].cover_list"/>\n<expression enabled\="true" text\="problem.nodes[16].cost_dict[14]"/>\n<expression enabled\="true" text\="problem.nodes[15].visited_cost"/>\n<expression enabled\="true" text\="semantics[tuple(left_equations[0])]"/>\n<expression enabled\="true" text\="left_equations[-1]"/>\n</watchExpressions>\n

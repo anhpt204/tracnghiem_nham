@@ -1,0 +1,477 @@
+# ec.Evolve
+# ==============================
+
+# This parameter has been deprecated
+# verbosity = 				0
+
+# one thread
+evalthreads = 				1
+breedthreads = 				1
+
+# ECJ used to use this as its initial random seed by default.  No longer, now
+# it's assumed to be the wall clock time by default.
+ seed.0 = 				4357
+#seed.0 =				  4431
+
+# simple generational evolution
+state = 				ec.simple.SimpleEvolutionState
+
+
+
+
+# ec.EvolutionState
+# ==============================
+# We're not writing checkpoint files.  If we were, we'd do it every
+# generation, and the prefix to all the files would be "ec.*"
+checkpoint =				false
+checkpoint-modulo =                     1
+prefix = 				ec
+
+#
+# We have a GP-specific initializer.  But we'll keep the
+# statistics as a SimpleStatistics (defined in simple.params)
+
+init = ec.gp.GPInitializer
+
+# We're using the standard (empty) finalization method
+finish = 	        		ec.simple.SimpleFinisher
+
+# We're using the standard (empty) exchange method
+exch = 					ec.simple.SimpleExchanger
+
+# We're using standard breeding -- no cross-population breeding
+breed =					ec.simple.SimpleBreeder
+
+# We're using standard evaluation -- no coevolution
+eval =					ec.simple.SimpleEvaluator
+
+# We're using simple statistics
+stat =					ec.simple.SimpleStatistics
+
+# ec.Initializer
+# ==============================
+
+pop = 					ec.Population
+
+
+# ec.Population
+# ==============================
+
+# No multiple populations
+pop.subpops =				1
+pop.subpop.0 = 				ec.Subpopulation
+
+# ec.Subpopulation
+# ==============================
+
+# subpop size is 1024 individuals
+pop.subpop.0.size =			500
+# don't bother trying to eliminate duplicates from the
+# initial population
+# ==You need to provide the species info for the subpopulation.==
+#
+# We define the fitness of an individual to use the traditional
+# Koza-style fitness metrics, just to make everyone happy :-)
+#
+
+pop.subpop.0.species.fitness = ec.gp.koza.KozaFitness
+
+# We have a single subpopulation containing a GPSpecies,
+# using GPIndividuals as the prototypical individual class.
+
+pop.subpop.0.species = ec.gp.GPSpecies
+pop.subpop.0.species.ind = ec.gp.GPIndividual
+
+# We retry 100 times for duplicates (this is the lil-gp default)
+# in our subpopulation 0
+
+pop.subpop.0.duplicate-retries = 100
+
+# That GPIndividual has a single tree, which uses the
+# "tc0" Tree Constraints (which we define below later)
+
+pop.subpop.0.species.ind.numtrees = 1
+pop.subpop.0.species.ind.tree.0 = ec.gp.GPTree
+pop.subpop.0.species.ind.tree.0.tc = tc0
+
+# The GPSpecies has 2 pipelines, Crossover and Reproduction,
+# chosen with 0.9 and 0.1 likelihood respectively.
+
+pop.subpop.0.species.pipe = ec.breed.MultiBreedingPipeline
+
+
+# Koza's decision here was odd...
+pop.subpop.0.species.pipe.generate-max = false
+
+# Subsidiary pipelines:
+pop.subpop.0.species.pipe.num-sources = 2
+pop.subpop.0.species.pipe.source.0 = ec.gp.koza.CrossoverPipeline
+#pop.subpop.0.species.pipe.source.0 = ec.app.myexperiences.GeoCrossoverPipeline
+pop.subpop.0.species.pipe.source.0.prob = 0.9
+#pop.subpop.0.species.pipe.source.1 = ec.breed.ReproductionPipeline
+pop.subpop.0.species.pipe.source.1 = ec.gp.koza.MutationPipeline
+pop.subpop.0.species.pipe.source.1.prob = 0.1
+
+#
+# Here we define the default values for Crossover,
+# Reproduction, Mutation, as well as our selection
+# approaches (Koza I).  These can be overridden on a per-species
+# level of course.
+#
+
+# Reproduction will use Tournament Selection 
+#breed.reproduce.source.0 = ec.select.TournamentSelection
+
+# Crossover will use Tournament Selection, try only 1
+# time, have a max depth of 17, and use KozaNodeSelector
+gp.koza.xover.source.0 = ec.select.TournamentSelection
+gp.koza.xover.source.1 = same
+gp.koza.xover.ns.0 = ec.gp.koza.KozaNodeSelector
+gp.koza.xover.ns.1 = same
+gp.koza.xover.maxdepth = 17
+# This is the default for Koza and lil-gp, though it's
+# a little wimpy; on the other hand, a higher number can
+# make things really slow
+gp.koza.xover.tries = 1
+
+
+
+# Point Mutation will use Tournament Selection, try only 1
+# time, have a max depth of 17, and use KozaNodeSelector
+# and GROW for building.  Also, Point Mutation uses a GrowBuilder
+# by default, with a default of min-depth=max-depth=5
+# as shown a ways below
+gp.koza.mutate.source.0 = ec.select.TournamentSelection
+gp.koza.mutate.ns.0 = ec.gp.koza.KozaNodeSelector
+gp.koza.mutate.build.0 = ec.gp.koza.GrowBuilder
+gp.koza.mutate.maxdepth = 17
+# This is the default for Koza and lil-gp, though it's
+# a little wimpy; on the other hand, a higher number can
+# make things really slow
+gp.koza.mutate.tries = 1
+
+
+
+
+#
+# The default tournament size for TournamentSelection is 7
+#
+
+select.tournament.size = 7
+
+
+
+
+# Since GROW is only used for subtree mutation, ECJ uses
+# the Koza-standard subtree mutation GROW values for the
+# default for GROW as a whole.  This default is
+# min-depth=max-depth=5, which I don't like very much,
+# but hey, that's the standard.  
+# This means that if someone decided to use GROW to generate
+# new individual trees, it's also use the defaults below
+# unless he overrided them locally.
+gp.koza.grow.min-depth = 5
+gp.koza.grow.max-depth = 5
+
+
+
+#
+# We specify a few things about ADFs  -- what kind 
+# of stack they use, and what kind of context
+#
+
+gp.problem.stack = ec.gp.ADFStack
+gp.adf-stack.context = ec.gp.ADFContext
+
+# 
+# Here we define the default values for KozaNodeSelection;
+# as always, these can be overridden by values hanging off
+# of the Crossover/Reproduction/Mutation/whatever pipelines,
+# like we did for node-building, but hey, whatever. 
+# The default is 10% terminals, 90% nonterminals when possible,
+# 0% "always pick the root", 0% "pick any node"
+
+gp.koza.ns.terminals = 0.1
+gp.koza.ns.nonterminals = 0.9
+gp.koza.ns.root = 0.0
+
+
+
+
+# You need to create at least one function set, 
+# called "f0", which your first tree will use.  
+# You don't need to include the class declaration here,
+# but it quiets warnings.
+
+gp.fs.size = 1
+gp.fs.0 = ec.gp.GPFunctionSet
+gp.fs.0.name = f0
+gp.fs.0.size = 21
+gp.fs.0.func.0 = ec.app.phishing.func.Add
+gp.fs.0.func.0.nc = nc2
+gp.fs.0.func.1 = ec.app.phishing.func.Mul
+gp.fs.0.func.1.nc = nc2
+gp.fs.0.func.2 = ec.app.phishing.func.Sub
+gp.fs.0.func.2.nc = nc2
+gp.fs.0.func.3 = ec.app.phishing.func.Div
+gp.fs.0.func.3.nc = nc2
+gp.fs.0.func.4 = ec.app.phishing.func.Sin
+gp.fs.0.func.4.nc = nc1
+gp.fs.0.func.5 = ec.app.phishing.func.Cos
+gp.fs.0.func.5.nc = nc1
+gp.fs.0.func.6 = ec.app.phishing.func.Exp
+gp.fs.0.func.6.nc = nc1
+gp.fs.0.func.7 = ec.app.phishing.func.Log
+gp.fs.0.func.7.nc = nc1
+gp.fs.0.func.8 = ec.app.phishing.func.Iff
+gp.fs.0.func.8.nc = nc3
+gp.fs.0.func.9 = ec.app.phishing.func.X1
+gp.fs.0.func.9.nc = nc0
+gp.fs.0.func.10 = ec.app.phishing.func.X2
+gp.fs.0.func.10.nc = nc0
+gp.fs.0.func.11 = ec.app.phishing.func.X3
+gp.fs.0.func.11.nc = nc0
+gp.fs.0.func.12 = ec.app.phishing.func.X4
+gp.fs.0.func.12.nc = nc0
+gp.fs.0.func.13 = ec.app.phishing.func.X5
+gp.fs.0.func.13.nc = nc0
+gp.fs.0.func.14 = ec.app.phishing.func.X6
+gp.fs.0.func.14.nc = nc0
+gp.fs.0.func.15 = ec.app.phishing.func.X7
+gp.fs.0.func.15.nc = nc0
+gp.fs.0.func.16 = ec.app.phishing.func.X8
+gp.fs.0.func.16.nc = nc0
+gp.fs.0.func.17 = ec.app.phishing.func.X9
+gp.fs.0.func.17.nc = nc0
+gp.fs.0.func.18 = ec.app.phishing.func.X10
+gp.fs.0.func.18.nc = nc0
+gp.fs.0.func.19 = ec.app.phishing.func.X11
+gp.fs.0.func.19.nc = nc0
+gp.fs.0.func.20 = ec.app.phishing.func.X12
+gp.fs.0.func.20.nc = nc0
+gp.fs.0.func.21 = ec.app.phishing.func.X13
+gp.fs.0.func.21.nc = nc0
+gp.fs.0.func.22 = ec.app.phishing.func.X14
+gp.fs.0.func.22.nc = nc0
+gp.fs.0.func.22 = ec.app.phishing.func.X14
+gp.fs.0.func.22.nc = nc0
+gp.fs.0.func.23 = ec.app.phishing.func.X15
+gp.fs.0.func.23.nc = nc0
+gp.fs.0.func.24 = ec.app.phishing.func.X16
+gp.fs.0.func.24.nc = nc0
+gp.fs.0.func.25 = ec.app.phishing.func.X17
+gp.fs.0.func.25.nc = nc0
+gp.fs.0.func.26 = ec.app.phishing.func.X18
+gp.fs.0.func.26.nc = nc0
+gp.fs.0.func.27 = ec.app.phishing.func.X19
+gp.fs.0.func.27.nc = nc0
+gp.fs.0.func.28 = ec.app.phishing.func.X20
+gp.fs.0.func.28.nc = nc0
+gp.fs.0.func.29 = ec.app.phishing.func.X21
+gp.fs.0.func.29.nc = nc0
+gp.fs.0.func.30 = ec.app.phishing.func.X22
+gp.fs.0.func.30.nc = nc0
+gp.fs.0.func.31 = ec.app.phishing.func.X23
+gp.fs.0.func.31.nc = nc0
+gp.fs.0.func.32 = ec.app.phishing.func.X24
+gp.fs.0.func.32.nc = nc0
+gp.fs.0.func.33 = ec.app.phishing.func.X25
+gp.fs.0.func.33.nc = nc0
+gp.fs.0.func.34 = ec.app.phishing.func.X26
+gp.fs.0.func.34.nc = nc0
+gp.fs.0.func.35 = ec.app.phishing.func.X27
+gp.fs.0.func.35.nc = nc0
+gp.fs.0.func.36 = ec.app.phishing.func.X28
+gp.fs.0.func.36.nc = nc0
+gp.fs.0.func.37 = ec.app.phishing.func.X29
+gp.fs.0.func.37.nc = nc0
+gp.fs.0.func.38 = ec.app.phishing.func.X30
+gp.fs.0.func.38.nc = nc0
+gp.fs.0.func.39 = ec.app.phishing.func.X31
+gp.fs.0.func.39.nc = nc0
+gp.fs.0.func.40 = ec.app.phishing.func.X32
+gp.fs.0.func.40.nc = nc0
+gp.fs.0.func.41 = ec.app.phishing.func.X33
+gp.fs.0.func.41.nc = nc0
+gp.fs.0.func.42 = ec.app.phishing.func.X34
+gp.fs.0.func.42.nc = nc0
+gp.fs.0.func.43 = ec.app.phishing.func.X35
+gp.fs.0.func.43.nc = nc0
+gp.fs.0.func.44 = ec.app.phishing.func.X36
+gp.fs.0.func.44.nc = nc0
+gp.fs.0.func.45 = ec.app.phishing.func.X37
+gp.fs.0.func.45.nc = nc0
+gp.fs.0.func.46 = ec.app.phishing.func.X38
+gp.fs.0.func.46.nc = nc0
+gp.fs.0.func.47 = ec.app.phishing.func.X39
+gp.fs.0.func.47.nc = nc0
+gp.fs.0.func.48 = ec.app.phishing.func.X40
+gp.fs.0.func.48.nc = nc0
+gp.fs.0.func.49 = ec.app.phishing.func.X41
+gp.fs.0.func.49.nc = nc0
+gp.fs.0.func.50 = ec.app.phishing.func.X42
+gp.fs.0.func.50.nc = nc0
+gp.fs.0.func.51 = ec.app.phishing.func.X43
+gp.fs.0.func.51.nc = nc0
+gp.fs.0.func.52 = ec.app.phishing.func.X44
+gp.fs.0.func.52.nc = nc0
+gp.fs.0.func.53 = ec.app.phishing.func.X45
+gp.fs.0.func.53.nc = nc0
+gp.fs.0.func.54 = ec.app.phishing.func.X46
+gp.fs.0.func.54.nc = nc0
+gp.fs.0.func.55 = ec.app.phishing.func.X47
+gp.fs.0.func.55.nc = nc0
+gp.fs.0.func.56 = ec.app.phishing.func.X48
+gp.fs.0.func.56.nc = nc0
+gp.fs.0.func.57 = ec.app.phishing.func.X49
+gp.fs.0.func.57.nc = nc0
+gp.fs.0.func.58 = ec.app.phishing.func.X50
+gp.fs.0.func.58.nc = nc0
+
+# placed here at the bottom so noerc.params can skip it
+#gp.fs.0.func.9 = ec.app.phishing.func.RegERC
+#gp.fs.0.func.9.nc = nc0
+
+# Here we define a single atomic type, "nil", which everyone will use.
+# There are no set types defined.
+
+gp.type.a.size = 1
+gp.type.a.0.name = nil
+gp.type.s.size = 0
+
+# Here we define one GPTreeConstraints object, "tc0",
+# which uses ec.gp.koza.HalfBuilder to create nodes,
+# only allows nodes from the GPFunctionSet "fset",
+# and has the single type "nil" as its tree type.
+# You don't need to include the class declaration here,
+# but it quiets warnings.
+
+gp.tc.size = 1
+gp.tc.0 = ec.gp.GPTreeConstraints
+gp.tc.0.name = tc0
+gp.tc.0.fset = f0
+gp.tc.0.returns = nil
+
+# The tree uses an ec.gp.koza.HalfBuilder to create
+# itself initially.
+# HalfBuilder will pick GROW half the time and FULL
+# the other half, with a ramp from 2 to 6 inclusive.
+# By ramp we mean that it first picks a random number between
+# 2 and 6 inclusive.  This then becomes the *maximum* tree size
+# (for the FULL approach, it's the tree size of the tree, for
+# GROW, the tree can get no bigger than this)
+
+gp.tc.0.init = ec.gp.koza.HalfBuilder
+
+# We set the default for HalfBuilder to be a ramp of 2--6,
+# with a grow probability of 0.5
+gp.koza.half.min-depth = 2
+gp.koza.half.max-depth = 6
+gp.koza.half.growp = 0.5
+
+
+
+
+# Here we define 7 GPNodeConstraints, nc0...nc6, which
+# describe nodes with 0...6 children respectively, which only
+# use a single type, "nil", for their argument and return types
+# You don't need to include the class declarations with everything
+# else below, but it quiets warnings
+
+gp.nc.size = 7
+
+gp.nc.0 = ec.gp.GPNodeConstraints
+gp.nc.0.name = nc0
+gp.nc.0.returns = nil
+gp.nc.0.size = 0
+
+gp.nc.1 = ec.gp.GPNodeConstraints
+gp.nc.1.name = nc1
+gp.nc.1.returns = nil
+gp.nc.1.size = 1
+gp.nc.1.child.0 = nil
+
+gp.nc.2 = ec.gp.GPNodeConstraints
+gp.nc.2.name = nc2
+gp.nc.2.returns = nil
+gp.nc.2.size = 2
+gp.nc.2.child.0 = nil
+gp.nc.2.child.1 = nil
+
+gp.nc.3 = ec.gp.GPNodeConstraints
+gp.nc.3.name = nc3
+gp.nc.3.returns = nil
+gp.nc.3.size = 3
+gp.nc.3.child.0 = nil
+gp.nc.3.child.1 = nil
+gp.nc.3.child.2 = nil
+
+gp.nc.4 = ec.gp.GPNodeConstraints
+gp.nc.4.name = nc4
+gp.nc.4.returns = nil
+gp.nc.4.size = 4
+gp.nc.4.child.0 = nil
+gp.nc.4.child.1 = nil
+gp.nc.4.child.2 = nil
+gp.nc.4.child.3 = nil
+
+gp.nc.5 = ec.gp.GPNodeConstraints
+gp.nc.5.name = nc5
+gp.nc.5.returns = nil
+gp.nc.5.size = 5
+gp.nc.5.child.0 = nil
+gp.nc.5.child.1 = nil
+gp.nc.5.child.2 = nil
+gp.nc.5.child.3 = nil
+gp.nc.5.child.4 = nil
+
+gp.nc.6 = ec.gp.GPNodeConstraints
+gp.nc.6.name = nc6
+gp.nc.6.returns = nil
+gp.nc.6.size = 6
+gp.nc.6.child.0 = nil
+gp.nc.6.child.1 = nil
+gp.nc.6.child.2 = nil
+gp.nc.6.child.3 = nil
+gp.nc.6.child.4 = nil
+gp.nc.6.child.5 = nil
+
+
+# ec.simple.SimpleBreeder
+# ==============================
+
+# By default elitism isn't done.  If you want to do elitism for, say,
+# the top 10 individuals in subpopulation 0, you'd say:
+
+# breed.elite.0 = 			10
+
+
+# ec.SimpleStatistics
+# ==============================
+
+# output statistics to the file "out.stat" in the directory
+# the run was started in
+stat.file				$out.stat
+
+#
+# We specify our problem here
+#
+
+eval.problem = ec.app.phishing.Phishing
+eval.problem.data = ec.app.phishing.RegressionData
+
+eval.problem.testing-file = /home/pta/projects/ECJ21/data/phishing.testing.in
+eval.problem.training-file = /home/pta/projects/ECJ21/data/phishing.training.in
+
+# The size of our training set, by default, is 20
+
+# Number of runs
+jobs = 100
+
+generations =				50
+quit-on-run-complete =			false
+
+#Semantic
+gp.koza.xover.simsize	= 0
+gp.koza.xover.lsen 		= 0.0001
+gp.koza.xover.usen 		= 0.4 

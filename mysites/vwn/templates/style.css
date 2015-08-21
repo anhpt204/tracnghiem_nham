@@ -1,0 +1,12 @@
+main { margin-left: 25px; margin-top: 30px; border-top: 1px solid #CCCCCC}
+search { margin-top: 50px;text-align: center }
+time { font-size: 0.8em; margin-top: 2px; }
+body { font-size: 1.1em; margin-top: 2px; }
+relations { text-align: right; }
+step-links a { font-size: 0.89em; }
+sense {
+      font-size: 1.4em; margin-top: 20px; border-bottom: 1px solid #ccc;
+      padding-left: 4px; margin-left: 5px;
+    }
+messages { margin-left: 20px; }
+pagination { margin-top: 20px; margin-left: -20px; }

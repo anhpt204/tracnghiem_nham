@@ -1,0 +1,28 @@
+parent.0 = ../base.params
+
+# Here's where you specify the problem and the function set:
+
+
+eval.problem.type = keijzer-13
+gp.tc.0.fset = keijzer2
+
+
+# Here's how you'd specify the training and/or testing files.
+
+eval.problem.testing-file = /home/pta/projects/ECJ/data/keijzer-13.testing.in
+eval.problem.training-file = /home/pta/projects/ECJ/data/keijzer-13.training.in
+ 
+#Michael
+pop.subpop.0.species.pipe.source.0 = ec.pta.SSCPipeline
+pop.subpop.0.species.pipe.source.0.simsize	= 12
+pop.subpop.0.species.pipe.source.0.lsen 		= 0.0001
+pop.subpop.0.species.pipe.source.0.usen 		= 0.4 
+
+
+#LGX
+#pop.subpop.0.species.pipe.source.0 = ec.pta.LGXPipeline
+#pop.subpop.0.species.pipe.source.0.tries = 100
+
+#SGC
+#pop.subpop.0.species.pipe.source.0 = ec.pta.SGCPipeline
+#pop.subpop.0.species.pipe.source.0.n-children	= 10

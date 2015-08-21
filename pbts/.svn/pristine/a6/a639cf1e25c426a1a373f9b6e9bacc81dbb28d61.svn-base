@@ -1,0 +1,99 @@
+"Itineraries-people-10-parcel-10-maxParcelInserted-0-maxStops-0.txt"
+analyze solution --> total benefits = 6733.480210604241
+analyze solution --> total discount = -4.169193328481118
+analyze solution --> total travel distance = 2689.4004890503184
+analyze solution --> total fuel = 5378.800978100637
+analyze solution --> total served parcels = 0
+analyze solution --> total served people = 79
+analyze solution --> total revenue parcel = 0.0
+analyze solution --> total revenue people = 12108.111995376397
+--------------------------
+"Itineraries-people-10-parcel-10-maxParcelInserted-1-maxStops-2.txt"
+analyze solution --> total benefits = 10527.81543922115
+analyze solution --> total discount = 126.23029700363531
+analyze solution --> total travel distance = 4939.50893176808
+analyze solution --> total fuel = 9879.01786353616
+analyze solution --> total served parcels = 68
+analyze solution --> total served people = 79
+analyze solution --> total revenue parcel = 8424.951604384556
+analyze solution --> total revenue people = 12108.111995376397
+--------------------------
+" Itineraries-people-10-parcel-10-maxParcelInserted-1-maxStops-0.txt"
+analyze solution --> total benefits = 10514.838838953076
+analyze solution --> total discount = -4.65212065357421
+analyze solution --> total travel distance = 5090.884006747596
+analyze solution --> total fuel = 10181.768013495192
+analyze solution --> total served parcels = 68
+analyze solution --> total served people = 79
+analyze solution --> total revenue parcel = 8583.8427364183
+analyze solution --> total revenue people = 12108.111995376397
+--------------------------
+"Itineraries-people-3-parcel-3-maxParcelInserted-1-maxStops-0.txt"
+analyze solution --> total benefits = 49343.35610202122
+analyze solution --> total discount = -16.113749180033295
+analyze solution --> total travel distance = 23774.646833406227
+analyze solution --> total fuel = 47549.29366681245
+analyze solution --> total served parcels = 328
+analyze solution --> total served people = 332
+analyze solution --> total revenue parcel = 48448.59228686628
+analyze solution --> total revenue people = 48427.94373278743
+--------------------------
+"Itineraries-people-3-parcel-3-maxParcelInserted-0-maxStops-0.txt"
+analyze solution --> total benefits = 27812.545326425636
+analyze solution --> total discount = -19.670040679401396
+analyze solution --> total travel distance = 10484.828013200387
+analyze solution --> total fuel = 20969.656026400775
+analyze solution --> total served parcels = 0
+analyze solution --> total served people = 332
+analyze solution --> total revenue parcel = 0.0
+analyze solution --> total revenue people = 48762.53131214704
+--------------------------
+"Itineraries-people-3-parcel-3-maxParcelInserted-1-maxStops-2.txt"
+analyze solution --> total benefits = 50993.900733538416
+analyze solution --> total discount = 1252.7630946835438
+analyze solution --> total travel distance = 22587.521792378397
+analyze solution --> total fuel = 45175.04358475679
+analyze solution --> total served parcels = 327
+analyze solution --> total served people = 331
+analyze solution --> total revenue parcel = 48707.49366735451
+analyze solution --> total revenue people = 48714.21374562437
+--------------------------
+"Itineraries-people-2-parcel-2-maxParcelInserted-1-maxStops-2.txt"
+analyze solution --> total benefits = 51230.05942915919
+analyze solution --> total discount = 826.6655706368979
+analyze solution --> total travel distance = 22267.46566515206
+analyze solution --> total fuel = 44534.93133030412
+analyze solution --> total served parcels = 336
+analyze solution --> total served people = 352
+analyze solution --> total revenue parcel = 46648.3247000176
+analyze solution --> total revenue people = 49943.33163008262
+--------------------------
+"Itineraries-people-2-parcel-2-maxParcelInserted-1-maxStops-0.txt"
+analyze solution --> total benefits = 51294.48659324901
+analyze solution --> total discount = -9.377673478784736
+analyze solution --> total travel distance = 23485.729437406055
+analyze solution --> total fuel = 46971.45887481211
+analyze solution --> total served parcels = 337
+analyze solution --> total served people = 353
+analyze solution --> total revenue parcel = 48057.833480206245
+analyze solution --> total revenue people = 50198.73431437618
+-------------------------
+"Itineraries-people-2-parcel-2-maxParcelInserted-0-maxStops-0.txt"
+analyze solution --> total benefits = 28519.792106304667
+analyze solution --> total discount = -2.841180052266763
+analyze solution --> total travel distance = 10812.215354491287
+analyze solution --> total fuel = 21624.430708982574
+analyze solution --> total served parcels = 0
+analyze solution --> total served people = 351
+analyze solution --> total revenue parcel = 0.0
+analyze solution --> total revenue people = 50141.381635235
+------------------------
+"Itineraries-people-1-parcel-1-maxParcelInserted-0-maxStops-0.txt"
+analyze solution --> total benefits = 60516.60777842002
+analyze solution --> total discount = 14.175930497540127
+analyze solution --> total travel distance = 20135.57532063078
+analyze solution --> total fuel = 40271.15064126156
+analyze solution --> total served parcels = 0
+analyze solution --> total served people = 695
+analyze solution --> total revenue parcel = 0.0
+analyze solution --> total revenue people = 100801.93435017912

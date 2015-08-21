@@ -1,0 +1,212 @@
+n = 20241, m = 43101, minDis = 10.389482885739325, maxDis = 1967.7184321029633
+Simulator::loadItineraries, filename = best-insertion-itinerary-requests-people-10-parcel-10.ins1.txt
+analyze solution --> total benefits = 8426.21323204209
+analyze solution --> total discount = 217.44370803195508
+analyze solution --> total travel distance = 2988.5573263273136
+analyze solution --> total fuel = 5977.114652654627
+analyze solution --> total served parcels = 69
+analyze solution --> total served people = 64
+analyze solution --> total revenue parcel = 5908.864328957911
+analyze solution --> total revenue people = 8711.907263770763
+-----------------------
+n = 20241, m = 43101, minDis = 10.389482885739325, maxDis = 1967.7184321029633
+Simulator::loadItineraries, filename = itinerary-requests-people-10-parcel-10.ins1.txt
+analyze solution --> total benefits = 6044.587493372923
+analyze solution --> total discount = 0.251177880512787
+analyze solution --> total travel distance = 4279.736192042425
+analyze solution --> total fuel = 8559.47238408485
+analyze solution --> total served parcels = 69
+analyze solution --> total served people = 63
+analyze solution --> total revenue parcel = 5908.864328957911
+analyze solution --> total revenue people = 8695.446726380373
+-----------------------
+n = 20241, m = 43101, minDis = 10.389482885739325, maxDis = 1967.7184321029633
+Simulator::loadItineraries, filename = itinerary-requests-people-10-parcel-10.ins2.txt
+analyze solution --> total benefits = 6628.4572700009385
+analyze solution --> total discount = -0.1776946763836662
+analyze solution --> total travel distance = 4316.696376633607
+analyze solution --> total fuel = 8633.392753267213
+analyze solution --> total served parcels = 68
+analyze solution --> total served people = 68
+analyze solution --> total revenue parcel = 5754.962725588717
+analyze solution --> total revenue people = 9506.709603003057
+n = 20241, m = 43101, minDis = 10.389482885739325, maxDis = 1967.7184321029633
+Simulator::loadItineraries, filename = itinerary-requests-people-10-parcel-10.ins3.txt
+analyze solution --> total benefits = 6841.052396829559
+analyze solution --> total discount = 1.3270635981177836
+analyze solution --> total travel distance = 4371.796093829106
+analyze solution --> total fuel = 8743.592187658212
+analyze solution --> total served parcels = 66
+analyze solution --> total served people = 65
+analyze solution --> total revenue parcel = 6189.03977380268
+analyze solution --> total revenue people = 9396.931874283215
+n = 20241, m = 43101, minDis = 10.389482885739325, maxDis = 1967.7184321029633
+Simulator::loadItineraries, filename = itinerary-requests-people-10-parcel-10.ins4.txt
+analyze solution --> total benefits = 7852.2944208272465
+analyze solution --> total discount = -1.1338750414564918
+analyze solution --> total travel distance = 4887.439143791189
+analyze solution --> total fuel = 9774.878287582378
+analyze solution --> total served parcels = 80
+analyze solution --> total served people = 81
+analyze solution --> total revenue parcel = 6197.601718913702
+analyze solution --> total revenue people = 11428.43711445447
+n = 20241, m = 43101, minDis = 10.389482885739325, maxDis = 1967.7184321029633
+Simulator::loadItineraries, filename = itinerary-requests-people-10-parcel-10.ins5.txt
+analyze solution --> total benefits = 7985.793747567327
+analyze solution --> total discount = -4.166600464846755
+analyze solution --> total travel distance = 4904.762785716998
+analyze solution --> total fuel = 9809.525571433996
+analyze solution --> total served parcels = 73
+analyze solution --> total served people = 74
+analyze solution --> total revenue parcel = 5883.135633537631
+analyze solution --> total revenue people = 11908.017084998843
+n = 20241, m = 43101, minDis = 10.389482885739325, maxDis = 1967.7184321029633
+Simulator::loadItineraries, filename = itinerary-requests-people-3-parcel-3.ins1.txt
+analyze solution --> total benefits = 24369.7762724652
+analyze solution --> total discount = 12.357703121377728
+analyze solution --> total travel distance = 14582.820328651927
+analyze solution --> total fuel = 29165.640657303855
+analyze solution --> total served parcels = 240
+analyze solution --> total served people = 224
+analyze solution --> total revenue parcel = 20307.6171634628
+analyze solution --> total revenue people = 33240.15746942765
+n = 20241, m = 43101, minDis = 10.389482885739325, maxDis = 1967.7184321029633
+Simulator::loadItineraries, filename = itinerary-requests-people-3-parcel-3.ins2.txt
+analyze solution --> total benefits = 26673.592687935445
+analyze solution --> total discount = -5.249926714625408
+analyze solution --> total travel distance = 14327.361712509284
+analyze solution --> total fuel = 28654.72342501857
+analyze solution --> total served parcels = 240
+analyze solution --> total served people = 236
+analyze solution --> total revenue parcel = 20989.03628525622
+analyze solution --> total revenue people = 34334.02990098317
+n = 20241, m = 43101, minDis = 10.389482885739325, maxDis = 1967.7184321029633
+Simulator::loadItineraries, filename = itinerary-requests-people-3-parcel-3.ins3.txt
+analyze solution --> total benefits = 27819.919377857546
+analyze solution --> total discount = 2.8035083302818453
+analyze solution --> total travel distance = 14469.78374500689
+analyze solution --> total fuel = 28939.56749001378
+analyze solution --> total served parcels = 242
+analyze solution --> total served people = 233
+analyze solution --> total revenue parcel = 20520.529912207963
+analyze solution --> total revenue people = 36241.76046399364
+n = 20241, m = 43101, minDis = 10.389482885739325, maxDis = 1967.7184321029633
+Simulator::loadItineraries, filename = itinerary-requests-people-3-parcel-3.ins4.txt
+analyze solution --> total benefits = 25827.073190000257
+analyze solution --> total discount = -4.358694415206053
+analyze solution --> total travel distance = 14209.502910239527
+analyze solution --> total fuel = 28419.005820479055
+analyze solution --> total served parcels = 228
+analyze solution --> total served people = 234
+analyze solution --> total revenue parcel = 19864.537219027494
+analyze solution --> total revenue people = 34377.18309703656
+n = 20241, m = 43101, minDis = 10.389482885739325, maxDis = 1967.7184321029633
+Simulator::loadItineraries, filename = itinerary-requests-people-3-parcel-3.ins5.txt
+analyze solution --> total benefits = 27821.314055835723
+analyze solution --> total discount = -1.9367116437180307
+analyze solution --> total travel distance = 14669.590650210488
+analyze solution --> total fuel = 29339.181300420976
+analyze solution --> total served parcels = 242
+analyze solution --> total served people = 242
+analyze solution --> total revenue parcel = 20583.756928342864
+analyze solution --> total revenue people = 36574.80171627013
+n = 20241, m = 43101, minDis = 10.389482885739325, maxDis = 1967.7184321029633
+Simulator::loadItineraries, filename = itinerary-requests-people-2-parcel-2.ins1.txt
+analyze solution --> total benefits = 38162.75669062773
+analyze solution --> total discount = 5.023328065643433
+analyze solution --> total travel distance = 19855.8039501178
+analyze solution --> total fuel = 39711.6079002356
+analyze solution --> total served parcels = 373
+analyze solution --> total served people = 312
+analyze solution --> total revenue parcel = 31391.31612956975
+analyze solution --> total revenue people = 46488.07178935923
+n = 20241, m = 43101, minDis = 10.389482885739325, maxDis = 1967.7184321029633
+Simulator::loadItineraries, filename = itinerary-requests-people-2-parcel-2.ins2.txt
+analyze solution --> total benefits = 43607.456664949044
+analyze solution --> total discount = -12.527007797734303
+analyze solution --> total travel distance = 20064.97555365607
+analyze solution --> total fuel = 40129.95110731214
+analyze solution --> total served parcels = 348
+analyze solution --> total served people = 366
+analyze solution --> total revenue parcel = 28399.31152652603
+analyze solution --> total revenue people = 55325.56923793739
+n = 20241, m = 43101, minDis = 10.389482885739325, maxDis = 1967.7184321029633
+Simulator::loadItineraries, filename = itinerary-requests-people-2-parcel-2.ins3.txt
+analyze solution --> total benefits = 40898.72033497972
+analyze solution --> total discount = -7.848137740118021
+analyze solution --> total travel distance = 20161.053433683333
+analyze solution --> total fuel = 40322.10686736667
+analyze solution --> total served parcels = 354
+analyze solution --> total served people = 354
+analyze solution --> total revenue parcel = 28829.869036926462
+analyze solution --> total revenue people = 52383.110027679795
+n = 20241, m = 43101, minDis = 10.389482885739325, maxDis = 1967.7184321029633
+Simulator::loadItineraries, filename = itinerary-requests-people-2-parcel-2.ins4.txt
+analyze solution --> total benefits = 42998.65490564748
+analyze solution --> total discount = 1.2509694177370942
+analyze solution --> total travel distance = 20241.864434314582
+analyze solution --> total fuel = 40483.728868629165
+analyze solution --> total served parcels = 361
+analyze solution --> total served people = 347
+analyze solution --> total revenue parcel = 30312.040070240142
+analyze solution --> total revenue people = 53171.59467345425
+n = 20241, m = 43101, minDis = 10.389482885739325, maxDis = 1967.7184321029633
+Simulator::loadItineraries, filename = itinerary-requests-people-2-parcel-2.ins5.txt
+analyze solution --> total benefits = 42145.875726321574
+analyze solution --> total discount = 2.9953123032606754
+analyze solution --> total travel distance = 19857.098593430204
+analyze solution --> total fuel = 39714.19718686041
+analyze solution --> total served parcels = 375
+analyze solution --> total served people = 335
+analyze solution --> total revenue parcel = 32384.941820078435
+analyze solution --> total revenue people = 49478.126405406845
+n = 20241, m = 43101, minDis = 10.389482885739325, maxDis = 1967.7184321029633
+Simulator::loadItineraries, filename = itinerary-requests-people-1-parcel-1.ins1.txt
+analyze solution --> total benefits = 89596.31819344599
+analyze solution --> total discount = 4.910720317328562
+analyze solution --> total travel distance = 35943.97157090721
+analyze solution --> total fuel = 71887.94314181442
+analyze solution --> total served parcels = 721
+analyze solution --> total served people = 679
+analyze solution --> total revenue parcel = 61068.130250376875
+analyze solution --> total revenue people = 100421.0418052008
+n = 20241, m = 43101, minDis = 10.389482885739325, maxDis = 1967.7184321029633
+Simulator::loadItineraries, filename = itinerary-requests-people-1-parcel-1.ins2.txt
+analyze solution --> total benefits = 91352.01777827172
+analyze solution --> total discount = 3.515840300674979
+analyze solution --> total travel distance = 36383.53813287939
+analyze solution --> total fuel = 72767.07626575878
+analyze solution --> total served parcels = 721
+analyze solution --> total served people = 684
+analyze solution --> total revenue parcel = 62181.973845699176
+analyze solution --> total revenue people = 101940.63603863187
+n = 20241, m = 43101, minDis = 10.389482885739325, maxDis = 1967.7184321029633
+Simulator::loadItineraries, filename = itinerary-requests-people-1-parcel-1.ins3.txt
+analyze solution --> total benefits = 88334.93890944391
+analyze solution --> total discount = -20.84968706488116
+analyze solution --> total travel distance = 35980.85745466839
+analyze solution --> total fuel = 71961.71490933678
+analyze solution --> total served parcels = 721
+analyze solution --> total served people = 665
+analyze solution --> total revenue parcel = 61101.49871129973
+analyze solution --> total revenue people = 99174.30542041615
+n = 20241, m = 43101, minDis = 10.389482885739325, maxDis = 1967.7184321029633
+Simulator::loadItineraries, filename = itinerary-requests-people-1-parcel-1.ins4.txt
+analyze solution --> total benefits = 90471.48787347457
+analyze solution --> total discount = 4.832258757412229
+analyze solution --> total travel distance = 35633.23665499711
+analyze solution --> total fuel = 71266.47330999422
+analyze solution --> total served parcels = 721
+analyze solution --> total served people = 661
+analyze solution --> total revenue parcel = 63325.445305919384
+analyze solution --> total revenue people = 98417.34813630694
+n = 20241, m = 43101, minDis = 10.389482885739325, maxDis = 1967.7184321029633
+Simulator::loadItineraries, filename = itinerary-requests-people-1-parcel-1.ins5.txt
+analyze solution --> total benefits = 90783.59940416591
+analyze solution --> total discount = -8.990380570396036
+analyze solution --> total travel distance = 36771.55049247206
+analyze solution --> total fuel = 73543.10098494412
+analyze solution --> total served parcels = 721
+analyze solution --> total served people = 668
+analyze solution --> total revenue parcel = 63942.551759062946
+analyze solution --> total revenue people = 100375.15824947652

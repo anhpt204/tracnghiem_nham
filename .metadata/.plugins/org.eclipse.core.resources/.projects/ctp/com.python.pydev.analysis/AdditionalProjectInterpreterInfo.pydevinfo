@@ -1,0 +1,43 @@
+-- VERSION_4
+-- START DISKCACHE
+/home/pta/projects/.metadata/.plugins/org.eclipse.core.resources/.projects/ctp/com.python.pydev.analysis/v2_indexcache
+problem|1439862356000|/home/pta/projects/ctp/problem.py
+ga|1439862311000|/home/pta/projects/ctp/ga.py
+-- END DISKCACHE
+-- START DICTIONARY
+6
+6=CTPProblem.__init__
+3=CTPProblem
+4=CTPNode
+1=problem
+5=CTPNode.__init__
+2=ga
+-- END DICTIONARY
+-- START TREE 1
+9
+ctp|2|CTPProblem!9@CTPNode!9@
+dat|1|data_path!19@
+eva|1|eval!18@
+ind|1|IND_SIZE!19@
+mai|1|main!18@
+pmx|1|PMX!18@
+pro|1|problem!19@
+spl|1|split!18@
+too|1|toolbox!19@
+-- END TREE
+-- START TREE 2
+13
+__i|2|__init__!3&10@__init__!4&10@
+cos|1|cost_dict!5&11@
+cov|2|cover_list!5&11@coverage_demand!5&11@
+dat|1|data_path!3&11@
+get|1|get_set_of_customers_covered_by!3&10@
+id|1|id!5&11@
+loa|2|load!5&11@load_data!3&10@
+max|1|max_nodes_per_route!6&11@
+nod|1|nodes!6&11@
+num|4|num_of_obligatory_nodes!6&11@num_of_vehicles!6&11@num_of_customers!6&11@num_of_nodes!6&11@
+pro|1|problem!3&11@
+veh|1|vehicle_capacity!6&11@
+vis|1|visited_cost!5&11@
+-- END TREE

@@ -1,0 +1,28 @@
+#maxSpeedkmh = 40;// km per hour
+40
+#minSpeedkmh = 5;// minimum speed that a taxi can ride is 5km/h
+5
+#startWorkingTime = 0 = 0;// start work at 6am, convert into seconds
+0
+#terminateRequestTime = 21*3600;// after 6pm, no request is generated
+75600
+#terminateWorkingTime = 23*3600;// finish work at 8pm, convert into seconds
+82800
+#maxWaitTime = 900;// 15 minutes maximum wait time of immediate request (e.g., pickup_time - call_time)
+900
+#Qk = 1;
+1
+#alpha = 3.5;// initial fare charge for one passenger service (USD per km)
+3.5
+#beta = 2.33;// initial fare charge for one parcel service (USD per km)
+2.33
+#gamma1 = 2.7;// fare charge per km (USD per km) for passenger services 
+2.7
+#gamma2 = 0.9; // fare charge per km (USD per km) for parcel services
+0.9
+#gamma3 = 0.8; // fuel cost per km (USD per km) 
+0.8
+#gamma4 = 3.50;// discount factor (USD) for exceeding the direct delivery time of passengers gamma1*1.2
+3.5
+#maxDeliveryDistanceFactor;// maximum factor of delivery distance
+2

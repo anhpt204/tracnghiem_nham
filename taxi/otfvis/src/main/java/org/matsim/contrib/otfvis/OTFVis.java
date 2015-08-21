@@ -1,0 +1,259 @@
+/* *********************************************************************** *
+ * project: org.matsim.*
+ * OTFVis.java
+ *                                                                         *
+ * *********************************************************************** *
+ *                                                                         *
+ * copyright       : (C) 2008, 2009 by the members listed in the COPYING,  *
+ *                   LICENSE and WARRANTY file.                            *
+ * email           : info at matsim dot org                                *
+ *                                                                         *
+ * *********************************************************************** *
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *   See also COPYING, LICENSE and WARRANTY file                           *
+ *                                                                         *
+ * *********************************************************************** */
+
+package org.matsim.contrib.otfvis;
+
+import org.apache.log4j.Logger;
+import org.matsim.api.core.v01.Scenario;
+import org.matsim.api.core.v01.network.Network;
+import org.matsim.core.api.experimental.events.EventsManager;
+import org.matsim.core.config.Config;
+import org.matsim.core.config.ConfigUtils;
+import org.matsim.core.config.ConfigWriter;
+import org.matsim.core.events.EventsUtils;
+import org.matsim.core.gbl.MatsimRandom;
+import org.matsim.core.mobsim.qsim.QSim;
+import org.matsim.core.mobsim.qsim.QSimFactory;
+import org.matsim.core.mobsim.qsim.pt.TransitQSimEngine;
+import org.matsim.core.mobsim.qsim.pt.TransitStopAgentTracker;
+import org.matsim.core.network.MatsimNetworkReader;
+import org.matsim.core.scenario.ScenarioImpl;
+import org.matsim.core.scenario.ScenarioUtils;
+import org.matsim.core.utils.io.MatsimFileTypeGuesser;
+import org.matsim.core.utils.io.MatsimFileTypeGuesser.FileType;
+import org.matsim.lanes.data.v20.LaneDefinitions20;
+import org.matsim.lanes.otfvis.io.OTFLaneWriter;
+import org.matsim.pt.otfvis.FacilityDrawer;
+import org.matsim.pt.transitSchedule.api.TransitSchedule;
+import org.matsim.signalsystems.builder.FromDataBuilder;
+import org.matsim.signalsystems.data.SignalsData;
+import org.matsim.signalsystems.data.signalgroups.v20.SignalGroupsData;
+import org.matsim.signalsystems.data.signalsystems.v20.SignalSystemsData;
+import org.matsim.signalsystems.mobsim.QSimSignalEngine;
+import org.matsim.signalsystems.mobsim.SignalEngine;
+import org.matsim.signalsystems.otfvis.io.OTFSignalWriter;
+import org.matsim.signalsystems.otfvis.io.SignalGroupStateChangeTracker;
+import org.matsim.vis.otfvis.*;
+import org.matsim.vis.snapshotwriters.AgentSnapshotInfoFactory;
+
+import javax.swing.*;
+import javax.swing.filechooser.FileFilter;
+import java.io.File;
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.util.Locale;
+
+/**
+ * A generic starter for the OnTheFly Visualizer that supports
+ * MATSim Visualizer Files (MVI) and MATSim Config Files for the live simulation and visualization.
+ *
+ * @author mrieser
+ */
+public class OTFVis {
+	private static final Logger log = Logger.getLogger(OTFVis.class);
+
+	private static void printUsage() {
+		System.out.println();
+		System.out.println("OTFVis");
+		System.out.println("Starts the MATSim OnTheFly-Visualizer.");
+		System.out.println();
+		System.out.println("usage 1: OTFVis mvi-file");
+		System.out.println("usage 2: OTFVis config-file");
+		System.out.println("usage 3: OTFVis network-file");
+		System.out.println("usage 4: OTFVis -(-)convert event-file network-file mvi-file [snapshot-period]");
+		System.out.println();
+		System.out.println("Usages 1-3: Starts the Visualizer");
+		System.out.println("mvi-file:      A MATSim visualizer file that contains a pre-recorder state");
+		System.out.println("               to be visualized (*.mvi).");
+		System.out.println("config-file:   A complete MATSim config file to run a simulation. In that case,");
+		System.out.println("               a QueueSimulation will be started and visualized in real-time, ");
+		System.out.println("               allowing to interactively query the state of single agents");
+		System.out.println("network-file:  A MATSim network file (*.xml).");
+		System.out.println();
+		System.out.println("Usage 4: Convert events into a mvi-file");
+		System.out.println("snapshot-period:  Optional. Specify how often a snapshot should be taken when");
+		System.out.println("                  reading the events, in seconds. Default: 600 seconds");
+		System.out.println();
+		System.out.println("---------------------");
+		System.out.println("2008-2010, matsim.org");
+		System.out.println();
+	}
+
+	public static void main(final String[] args) {
+		String [] args2 = args;
+		if (args2.length == 0) {
+			String filename = chooseFile();
+			play(filename);
+		} else if ( args2[0].equalsIgnoreCase("-convert") || args2[0].equalsIgnoreCase("--convert") ) {
+			convert(args2);
+		} else if (args2[0].equalsIgnoreCase("-help") || args2[0].equalsIgnoreCase("--help") || args2[0].equalsIgnoreCase("-?") ) {
+			convert(args2);
+		} else if (args2.length == 1) {
+			String filename = args2[0];
+			play(filename);
+		} else {
+			printUsage();
+		}
+
+	}
+
+	private static final void play(String filename) {
+		String lowerCaseFilename = filename.toLowerCase(Locale.ROOT);
+		if (lowerCaseFilename.endsWith(".mvi")) {
+			playMVI(filename);
+		} else if ((lowerCaseFilename.endsWith(".xml") || lowerCaseFilename.endsWith(".xml.gz"))) {
+			FileType type;
+			type = new MatsimFileTypeGuesser(filename).getGuessedFileType();
+			if (FileType.Config.equals(type)) {
+				playConfig(filename);
+			} else if (FileType.Network.equals(type)) {
+				playNetwork(filename);
+			} else {
+				printUsage();
+			}
+		}
+	}
+
+	private static final String chooseFile() {
+		JFileChooser fc = new JFileChooser();
+		fc.setFileFilter( new FileFilter() {
+			@Override public boolean accept( File f ) {
+				return f.isDirectory() || f.getName().toLowerCase(Locale.ROOT).endsWith( ".xml" );
+			}
+			@Override public String getDescription() { return "MATSim net or config file (*.xml)"; }
+		} );
+
+		fc.setFileFilter( new FileFilter() {
+			@Override public boolean accept( File f ) {
+				return f.isDirectory() || f.getName().toLowerCase(Locale.ROOT).endsWith( ".mvi" );
+			}
+			@Override public String getDescription() { return "OTFVis movie file (*.mvi)"; }
+		} );
+
+		int state = fc.showOpenDialog( null );
+		if ( state == JFileChooser.APPROVE_OPTION ) {
+			String filename = fc.getSelectedFile().getAbsolutePath();
+			return filename;
+		}
+		System.out.println( "No file selected." );
+		return null;
+	}
+
+	public static final void playMVI(final String[] args) {
+		playMVI(args[0]);
+	}
+
+	public static final void playMVI(String file) {
+		new OTFClientFile(file).run();
+	}
+
+	public static final void playConfig(final String configFilename){
+		playConfig(new String[]{configFilename});
+	}
+
+	public static final void playConfig(final String[] args) {
+		Config config = ConfigUtils.loadConfig(args[0]);
+		MatsimRandom.reset(config.global().getRandomSeed());
+		log.info("Complete config dump:");
+		StringWriter writer = new StringWriter();
+		new ConfigWriter(config).writeStream(new PrintWriter(writer));
+		log.info("\n\n" + writer.getBuffer().toString());
+		log.info("Complete config dump done.");
+		Scenario scenario = ScenarioUtils.loadScenario(config);
+		playScenario(scenario);
+	}
+	
+	public static void playScenario(Scenario scenario){
+		EventsManager events = EventsUtils.createEventsManager();
+		QSim qSim = (QSim) new QSimFactory().createMobsim(scenario, events);
+		if (scenario.getConfig().scenario().isUseSignalSystems()){
+			SignalEngine engine = new QSimSignalEngine(new FromDataBuilder(scenario, events).createAndInitializeSignalSystemsManager());
+			qSim.addQueueSimulationListeners(engine);
+		}
+		
+		OnTheFlyServer server = startServerAndRegisterWithQSim(scenario.getConfig(),scenario, events, qSim);
+		OTFClientLive.run(scenario.getConfig(), server);
+		
+		qSim.run();
+	}
+
+    public static OnTheFlyServer startServerAndRegisterWithQSim(Config config, Scenario scenario, EventsManager events, QSim qSim) {
+		OnTheFlyServer server = OnTheFlyServer.createInstance(scenario, events);
+		OTFVisMobsimListener queueSimulationFeature = new OTFVisMobsimListener(server);
+		qSim.addQueueSimulationListeners(queueSimulationFeature);
+		server.setSimulation(qSim);
+
+		if (config.scenario().isUseTransit()) {
+
+			Network network = scenario.getNetwork();
+			TransitSchedule transitSchedule = scenario.getTransitSchedule();
+			TransitQSimEngine transitEngine = qSim.getTransitEngine();
+			TransitStopAgentTracker agentTracker = transitEngine.getAgentTracker();
+			AgentSnapshotInfoFactory snapshotInfoFactory = qSim.getVisNetwork().getAgentSnapshotInfoFactory();
+			FacilityDrawer.Writer facilityWriter = new FacilityDrawer.Writer(network, transitSchedule, agentTracker, snapshotInfoFactory);
+			server.addAdditionalElement(facilityWriter);
+		}
+
+		if (config.scenario().isUseLanes() && (!config.scenario().isUseSignalSystems())) {
+			ConfigUtils.addOrGetModule(config, OTFVisConfigGroup.GROUP_NAME, OTFVisConfigGroup.class).setScaleQuadTreeRect(true);
+			OTFLaneWriter otfLaneWriter = new OTFLaneWriter(qSim.getVisNetwork(), (LaneDefinitions20) scenario.getScenarioElement(LaneDefinitions20.ELEMENT_NAME), scenario.getConfig());
+			server.addAdditionalElement(otfLaneWriter);
+		} else if (config.scenario().isUseSignalSystems()) {
+			ConfigUtils.addOrGetModule(config, OTFVisConfigGroup.GROUP_NAME, OTFVisConfigGroup.class).setScaleQuadTreeRect(true);
+			SignalGroupStateChangeTracker signalTracker = new SignalGroupStateChangeTracker();
+			events.addHandler(signalTracker);
+			SignalsData signalsData = (SignalsData) scenario.getScenarioElement(SignalsData.ELEMENT_NAME);
+			LaneDefinitions20 laneDefs = (LaneDefinitions20) scenario.getScenarioElement(LaneDefinitions20.ELEMENT_NAME);
+			SignalSystemsData systemsData = signalsData.getSignalSystemsData();
+			SignalGroupsData groupsData = signalsData.getSignalGroupsData();
+			OTFSignalWriter otfSignalWriter = new OTFSignalWriter(qSim.getVisNetwork(), laneDefs, scenario.getConfig(), systemsData, groupsData , signalTracker);
+			server.addAdditionalElement(otfSignalWriter);
+		}
+		server.pause();
+		return server;
+	}
+
+	public static final void playNetwork(final String filename) {
+		Config config = ConfigUtils.createConfig();
+		ScenarioImpl scenario = (ScenarioImpl) ScenarioUtils.createScenario(config);
+		new MatsimNetworkReader(scenario).readFile(filename);
+		EventsManager events = EventsUtils.createEventsManager();
+		OnTheFlyServer server = OnTheFlyServer.createInstance(scenario, events);
+		OTFClientLive.run(config, server);
+	}
+
+	public static final void convert(final String[] args) {
+		if ((args.length < 4) || (args.length > 5)) {
+			printUsage();
+			return;
+		}
+		String eventFile = args[1];
+		String networkFile = args[2];
+		String mviFile = args[3];
+		int snapshotPeriod = 600;
+		if (args.length == 5) {
+			snapshotPeriod = Integer.parseInt(args[4]);
+		}
+		Scenario scenario = ScenarioUtils.createScenario(ConfigUtils.createConfig());
+		new MatsimNetworkReader(scenario).readFile(networkFile);
+		OTFEvent2MVI.convert(scenario, eventFile, mviFile, snapshotPeriod);
+	}
+
+}

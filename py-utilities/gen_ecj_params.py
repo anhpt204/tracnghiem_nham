@@ -1,0 +1,156 @@
+'''
+Created on Jun 15, 2013
+
+@author: pta
+'''
+
+import os
+
+funcset_name = "AddSubMulDivSinCosERC"
+# problem size
+FSETSIZE = 7
+FSET_NUMBER = 19
+PROBLEM_TYPE = "regression" #"regression"
+        
+names = ["koza-1", "koza-2", "koza-3",
+        "nguyen-1", "nguyen-2", "nguyen-3", "nguyen-4", "nguyen-5", "nguyen-6", "nguyen-7", "nguyen-8", "nguyen-9", "nguyen-10",
+        "pagie-1", "pagie-2",
+        "korns-1", "korns-2", "korns-3", "korns-4", "korns-5", "korns-6", "korns-7", "korns-8", "korns-9", "korns-10", "korns-11", "korns-12", "korns-13", "korns-14", "korns-15",
+        "keijzer-1", "keijzer-2", "keijzer-3", "keijzer-4", "keijzer-5", "keijzer-6", "keijzer-7", "keijzer-8", "keijzer-9", "keijzer-10", "keijzer-11", "keijzer-12", "keijzer-13", "keijzer-14", "keijzer-15", 
+        "vladislavleva-1", "vladislavleva-2", "vladislavleva-3", "vladislavleva-4", "vladislavleva-5", "vladislavleva-6", "vladislavleva-7", "vladislavleva-8"
+         ]
+fsets = {
+#          "koza1":["koza-1", "koza-2", "koza-3", "nguyen-1", "nguyen-2", "nguyen-3", "nguyen-4", "nguyen-5", "nguyen-6", "nguyen-7", "nguyen-8"],
+#          "koza2":["nguyen-9", "nguyen-10", "pagie-1"],
+#          "koza3":["pagie-2"],
+#          "korns5":["korns-1", "korns-2", "korns-3", "korns-4", "korns-5", "korns-6", "korns-7", "korns-8", "korns-9", "korns-10", "korns-11", "korns-12", "korns-13", "korns-14", "korns-15"],
+#          "keijzer1":["keijzer-1", "keijzer-2", "keijzer-4", "keijzer-6", "keijzer-7", "keijzer-8", "keijzer-9"],
+#          "keijzer2":["keijzer-3", "keijzer-10", "keijzer-11", "keijzer-12", "keijzer-13", "keijzer-14", "keijzer-15"],
+#          "keijzer3":["keijzer-5"],
+#          "vladislavleva-b2":["vladislavleva-1", "vladislavleva-6"],
+#          "vladislavleva-c1":["vladislavleva-2"],
+#          "vladislavleva-c2":["vladislavleva-3", "vladislavleva-7"],
+#          "vladislavleva-a5":["vladislavleva-4"],
+#          "vladislavleva-a3":["vladislavleva-5"],
+#          "vladislavleva-a2":["vladislavleva-8"]
+            
+            #PPSN 2014
+            funcset_name:[
+                                        "keijzer-1", "keijzer-4", "keijzer-6", "keijzer-7", "keijzer-8", "keijzer-9",
+                                        "keijzer-10", "keijzer-11", "keijzer-12",
+                                        "keijzer-13", "keijzer-14", "keijzer-15",
+                                        "nguyen-8", 
+                                        "r1", "r2", "r3"
+                                        
+                                        
+                                        ],
+         }
+
+uci_regnames = [
+                "airfoil_self_noise", "ccpp", "concrete", "winequality-red",
+                "winequality-white", "wpbc", 
+                "casp",
+                "slump_test_FLOW",
+                "slump_test_Compressive",
+                "slump_test_SLUMP"
+                ]
+
+uci_classification = [
+                      "data_banknote_authentication",
+                      "breast-cancer-wisconsin",
+                      "wdbc",
+                      "EEGEyeState",
+                      "haberman",
+                      "magic04",
+                      ]
+
+uci_fsets = {funcset_name : uci_regnames
+             }
+
+problems_size = {
+                "keijzer-1":1, 
+                "keijzer-4":1,
+                "keijzer-6":1, 
+                "keijzer-7":1, 
+                "keijzer-8":1,
+                "keijzer-9":1,
+                "keijzer-10":2,
+                "keijzer-11":2, 
+                "keijzer-12":2,
+                "keijzer-13":2,
+                "keijzer-14":2, 
+                "keijzer-15":2,
+                "nguyen-8":1,
+                "r1":1, 
+                "r2":1,
+                "r3":1,
+                "airfoil_self_noise":5, 
+                "ccpp":4, 
+                "concrete":8, 
+                "winequality-red":11,
+                "winequality-white":11, 
+                "wpbc":31,
+                "casp":9,
+                "slump_test_Compressive":7,
+                "slump_test_FLOW":7,
+                "slump_test_SLUMP":7,
+
+                 #classification problems
+                 "data_banknote_authentication":4,
+                 "breast-cancer-wisconsin":9,
+                 "wdbc":30,
+                 "EEGEyeState":14,
+                 "haberman":3,
+                 "magic04":10,
+
+                 }
+
+__location__ = os.path.realpath(
+    os.path.join(os.getcwd(), os.path.dirname(__file__)))
+
+alg = "agx"
+
+source_file = os.path.join(__location__, alg + ".params")
+
+dir = os.path.join("/home/pta/projects/ECJ-Regression/params/", alg)
+
+source_lines = open(source_file).readlines()
+
+# for real-value problems
+# for fs in fsets:
+#     names = fsets[fs]
+
+# for uci problems
+for fs in uci_fsets:    
+    names = uci_fsets[fs]
+
+    
+    for name in names:
+        temp_lines = source_lines[:]
+        print temp_lines[5]
+        
+        #make dir
+#         new_dir = os.path.join(dir, name)
+#         os.mkdir(new_dir)
+        
+        new_file = os.path.join(dir, name + ".params")
+    
+        temp_lines[5] = temp_lines[5].replace("name", name)
+        print temp_lines[5]
+        
+        temp_lines[12] = temp_lines[12].replace('name', name)
+        temp_lines[13] = temp_lines[13].replace('name', name)
+
+        temp_lines[12] = temp_lines[12].replace('problem_type', PROBLEM_TYPE)
+        temp_lines[13] = temp_lines[13].replace('problem_type', PROBLEM_TYPE)
+    
+        #function set
+        temp_lines[6] = temp_lines[6].replace('fset_name', fs)
+        
+        
+        size = problems_size[name] + FSETSIZE;
+        
+        temp_lines[7] = temp_lines[7].replace('problem_size', str(size))
+        temp_lines[7] = temp_lines[7].replace('fset_number', str(FSET_NUMBER))
+        
+        open(new_file, 'w').writelines(temp_lines)

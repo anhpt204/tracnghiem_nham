@@ -1,0 +1,740 @@
+<ROUGE-EVAL version="1.5.5">
+<EVAL ID="1">
+<PEER-ROOT>
+/home/pta/projects/nlp/data/DUC2007/systemsMulSaDE
+</PEER-ROOT>
+<MODEL-ROOT>
+/home/pta/projects/nlp/data/DUC2007/models
+</MODEL-ROOT>
+<INPUT-FORMAT TYPE="SPL">
+</INPUT-FORMAT>
+<PEERS>
+<P ID="MulSaDE">D0701A.MulSaDE</P>
+</PEERS>
+<MODELS><M ID="A">D0701.M.250.A.A</M>
+<M ID="B">D0701.M.250.A.I</M>
+<M ID="C">D0701.M.250.A.G</M>
+<M ID="D">D0701.M.250.A.H</M>
+</MODELS>
+</EVAL>
+<EVAL ID="2">
+<PEER-ROOT>
+/home/pta/projects/nlp/data/DUC2007/systemsMulSaDE
+</PEER-ROOT>
+<MODEL-ROOT>
+/home/pta/projects/nlp/data/DUC2007/models
+</MODEL-ROOT>
+<INPUT-FORMAT TYPE="SPL">
+</INPUT-FORMAT>
+<PEERS>
+<P ID="MulSaDE">D0702A.MulSaDE</P>
+</PEERS>
+<MODELS><M ID="A">D0702.M.250.A.H</M>
+<M ID="B">D0702.M.250.A.J</M>
+<M ID="C">D0702.M.250.A.A</M>
+<M ID="D">D0702.M.250.A.I</M>
+</MODELS>
+</EVAL>
+<EVAL ID="3">
+<PEER-ROOT>
+/home/pta/projects/nlp/data/DUC2007/systemsMulSaDE
+</PEER-ROOT>
+<MODEL-ROOT>
+/home/pta/projects/nlp/data/DUC2007/models
+</MODEL-ROOT>
+<INPUT-FORMAT TYPE="SPL">
+</INPUT-FORMAT>
+<PEERS>
+<P ID="MulSaDE">D0703A.MulSaDE</P>
+</PEERS>
+<MODELS><M ID="A">D0703.M.250.A.C</M>
+<M ID="B">D0703.M.250.A.J</M>
+<M ID="C">D0703.M.250.A.D</M>
+<M ID="D">D0703.M.250.A.A</M>
+</MODELS>
+</EVAL>
+<EVAL ID="4">
+<PEER-ROOT>
+/home/pta/projects/nlp/data/DUC2007/systemsMulSaDE
+</PEER-ROOT>
+<MODEL-ROOT>
+/home/pta/projects/nlp/data/DUC2007/models
+</MODEL-ROOT>
+<INPUT-FORMAT TYPE="SPL">
+</INPUT-FORMAT>
+<PEERS>
+<P ID="MulSaDE">D0704A.MulSaDE</P>
+</PEERS>
+<MODELS><M ID="A">D0704.M.250.A.J</M>
+<M ID="B">D0704.M.250.A.H</M>
+<M ID="C">D0704.M.250.A.I</M>
+<M ID="D">D0704.M.250.A.A</M>
+</MODELS>
+</EVAL>
+<EVAL ID="5">
+<PEER-ROOT>
+/home/pta/projects/nlp/data/DUC2007/systemsMulSaDE
+</PEER-ROOT>
+<MODEL-ROOT>
+/home/pta/projects/nlp/data/DUC2007/models
+</MODEL-ROOT>
+<INPUT-FORMAT TYPE="SPL">
+</INPUT-FORMAT>
+<PEERS>
+<P ID="MulSaDE">D0705A.MulSaDE</P>
+</PEERS>
+<MODELS><M ID="A">D0705.M.250.A.H</M>
+<M ID="B">D0705.M.250.A.A</M>
+<M ID="C">D0705.M.250.A.J</M>
+<M ID="D">D0705.M.250.A.G</M>
+</MODELS>
+</EVAL>
+<EVAL ID="6">
+<PEER-ROOT>
+/home/pta/projects/nlp/data/DUC2007/systemsMulSaDE
+</PEER-ROOT>
+<MODEL-ROOT>
+/home/pta/projects/nlp/data/DUC2007/models
+</MODEL-ROOT>
+<INPUT-FORMAT TYPE="SPL">
+</INPUT-FORMAT>
+<PEERS>
+<P ID="MulSaDE">D0706B.MulSaDE</P>
+</PEERS>
+<MODELS><M ID="A">D0706.M.250.B.E</M>
+<M ID="B">D0706.M.250.B.I</M>
+<M ID="C">D0706.M.250.B.B</M>
+<M ID="D">D0706.M.250.B.D</M>
+</MODELS>
+</EVAL>
+<EVAL ID="7">
+<PEER-ROOT>
+/home/pta/projects/nlp/data/DUC2007/systemsMulSaDE
+</PEER-ROOT>
+<MODEL-ROOT>
+/home/pta/projects/nlp/data/DUC2007/models
+</MODEL-ROOT>
+<INPUT-FORMAT TYPE="SPL">
+</INPUT-FORMAT>
+<PEERS>
+<P ID="MulSaDE">D0707B.MulSaDE</P>
+</PEERS>
+<MODELS><M ID="A">D0707.M.250.B.J</M>
+<M ID="B">D0707.M.250.B.B</M>
+<M ID="C">D0707.M.250.B.H</M>
+<M ID="D">D0707.M.250.B.I</M>
+</MODELS>
+</EVAL>
+<EVAL ID="8">
+<PEER-ROOT>
+/home/pta/projects/nlp/data/DUC2007/systemsMulSaDE
+</PEER-ROOT>
+<MODEL-ROOT>
+/home/pta/projects/nlp/data/DUC2007/models
+</MODEL-ROOT>
+<INPUT-FORMAT TYPE="SPL">
+</INPUT-FORMAT>
+<PEERS>
+<P ID="MulSaDE">D0708B.MulSaDE</P>
+</PEERS>
+<MODELS><M ID="A">D0708.M.250.B.A</M>
+<M ID="B">D0708.M.250.B.J</M>
+<M ID="C">D0708.M.250.B.G</M>
+<M ID="D">D0708.M.250.B.B</M>
+</MODELS>
+</EVAL>
+<EVAL ID="9">
+<PEER-ROOT>
+/home/pta/projects/nlp/data/DUC2007/systemsMulSaDE
+</PEER-ROOT>
+<MODEL-ROOT>
+/home/pta/projects/nlp/data/DUC2007/models
+</MODEL-ROOT>
+<INPUT-FORMAT TYPE="SPL">
+</INPUT-FORMAT>
+<PEERS>
+<P ID="MulSaDE">D0709B.MulSaDE</P>
+</PEERS>
+<MODELS><M ID="A">D0709.M.250.B.I</M>
+<M ID="B">D0709.M.250.B.F</M>
+<M ID="C">D0709.M.250.B.B</M>
+<M ID="D">D0709.M.250.B.D</M>
+</MODELS>
+</EVAL>
+<EVAL ID="10">
+<PEER-ROOT>
+/home/pta/projects/nlp/data/DUC2007/systemsMulSaDE
+</PEER-ROOT>
+<MODEL-ROOT>
+/home/pta/projects/nlp/data/DUC2007/models
+</MODEL-ROOT>
+<INPUT-FORMAT TYPE="SPL">
+</INPUT-FORMAT>
+<PEERS>
+<P ID="MulSaDE">D0710C.MulSaDE</P>
+</PEERS>
+<MODELS><M ID="A">D0710.M.250.C.E</M>
+<M ID="B">D0710.M.250.C.C</M>
+<M ID="C">D0710.M.250.C.F</M>
+<M ID="D">D0710.M.250.C.D</M>
+</MODELS>
+</EVAL>
+<EVAL ID="11">
+<PEER-ROOT>
+/home/pta/projects/nlp/data/DUC2007/systemsMulSaDE
+</PEER-ROOT>
+<MODEL-ROOT>
+/home/pta/projects/nlp/data/DUC2007/models
+</MODEL-ROOT>
+<INPUT-FORMAT TYPE="SPL">
+</INPUT-FORMAT>
+<PEERS>
+<P ID="MulSaDE">D0711C.MulSaDE</P>
+</PEERS>
+<MODELS><M ID="A">D0711.M.250.C.A</M>
+<M ID="B">D0711.M.250.C.C</M>
+<M ID="C">D0711.M.250.C.F</M>
+<M ID="D">D0711.M.250.C.B</M>
+</MODELS>
+</EVAL>
+<EVAL ID="12">
+<PEER-ROOT>
+/home/pta/projects/nlp/data/DUC2007/systemsMulSaDE
+</PEER-ROOT>
+<MODEL-ROOT>
+/home/pta/projects/nlp/data/DUC2007/models
+</MODEL-ROOT>
+<INPUT-FORMAT TYPE="SPL">
+</INPUT-FORMAT>
+<PEERS>
+<P ID="MulSaDE">D0712C.MulSaDE</P>
+</PEERS>
+<MODELS><M ID="A">D0712.M.250.C.J</M>
+<M ID="B">D0712.M.250.C.G</M>
+<M ID="C">D0712.M.250.C.C</M>
+<M ID="D">D0712.M.250.C.D</M>
+</MODELS>
+</EVAL>
+<EVAL ID="13">
+<PEER-ROOT>
+/home/pta/projects/nlp/data/DUC2007/systemsMulSaDE
+</PEER-ROOT>
+<MODEL-ROOT>
+/home/pta/projects/nlp/data/DUC2007/models
+</MODEL-ROOT>
+<INPUT-FORMAT TYPE="SPL">
+</INPUT-FORMAT>
+<PEERS>
+<P ID="MulSaDE">D0713C.MulSaDE</P>
+</PEERS>
+<MODELS><M ID="A">D0713.M.250.C.C</M>
+<M ID="B">D0713.M.250.C.E</M>
+<M ID="C">D0713.M.250.C.A</M>
+<M ID="D">D0713.M.250.C.D</M>
+</MODELS>
+</EVAL>
+<EVAL ID="14">
+<PEER-ROOT>
+/home/pta/projects/nlp/data/DUC2007/systemsMulSaDE
+</PEER-ROOT>
+<MODEL-ROOT>
+/home/pta/projects/nlp/data/DUC2007/models
+</MODEL-ROOT>
+<INPUT-FORMAT TYPE="SPL">
+</INPUT-FORMAT>
+<PEERS>
+<P ID="MulSaDE">D0714D.MulSaDE</P>
+</PEERS>
+<MODELS><M ID="A">D0714.M.250.D.D</M>
+<M ID="B">D0714.M.250.D.F</M>
+<M ID="C">D0714.M.250.D.I</M>
+<M ID="D">D0714.M.250.D.E</M>
+</MODELS>
+</EVAL>
+<EVAL ID="15">
+<PEER-ROOT>
+/home/pta/projects/nlp/data/DUC2007/systemsMulSaDE
+</PEER-ROOT>
+<MODEL-ROOT>
+/home/pta/projects/nlp/data/DUC2007/models
+</MODEL-ROOT>
+<INPUT-FORMAT TYPE="SPL">
+</INPUT-FORMAT>
+<PEERS>
+<P ID="MulSaDE">D0715D.MulSaDE</P>
+</PEERS>
+<MODELS><M ID="A">D0715.M.250.D.B</M>
+<M ID="B">D0715.M.250.D.G</M>
+<M ID="C">D0715.M.250.D.D</M>
+<M ID="D">D0715.M.250.D.F</M>
+</MODELS>
+</EVAL>
+<EVAL ID="16">
+<PEER-ROOT>
+/home/pta/projects/nlp/data/DUC2007/systemsMulSaDE
+</PEER-ROOT>
+<MODEL-ROOT>
+/home/pta/projects/nlp/data/DUC2007/models
+</MODEL-ROOT>
+<INPUT-FORMAT TYPE="SPL">
+</INPUT-FORMAT>
+<PEERS>
+<P ID="MulSaDE">D0716D.MulSaDE</P>
+</PEERS>
+<MODELS><M ID="A">D0716.M.250.D.D</M>
+<M ID="B">D0716.M.250.D.C</M>
+<M ID="C">D0716.M.250.D.E</M>
+<M ID="D">D0716.M.250.D.F</M>
+</MODELS>
+</EVAL>
+<EVAL ID="17">
+<PEER-ROOT>
+/home/pta/projects/nlp/data/DUC2007/systemsMulSaDE
+</PEER-ROOT>
+<MODEL-ROOT>
+/home/pta/projects/nlp/data/DUC2007/models
+</MODEL-ROOT>
+<INPUT-FORMAT TYPE="SPL">
+</INPUT-FORMAT>
+<PEERS>
+<P ID="MulSaDE">D0717D.MulSaDE</P>
+</PEERS>
+<MODELS><M ID="A">D0717.M.250.D.H</M>
+<M ID="B">D0717.M.250.D.C</M>
+<M ID="C">D0717.M.250.D.D</M>
+<M ID="D">D0717.M.250.D.I</M>
+</MODELS>
+</EVAL>
+<EVAL ID="18">
+<PEER-ROOT>
+/home/pta/projects/nlp/data/DUC2007/systemsMulSaDE
+</PEER-ROOT>
+<MODEL-ROOT>
+/home/pta/projects/nlp/data/DUC2007/models
+</MODEL-ROOT>
+<INPUT-FORMAT TYPE="SPL">
+</INPUT-FORMAT>
+<PEERS>
+<P ID="MulSaDE">D0718D.MulSaDE</P>
+</PEERS>
+<MODELS><M ID="A">D0718.M.250.D.D</M>
+<M ID="B">D0718.M.250.D.A</M>
+<M ID="C">D0718.M.250.D.F</M>
+<M ID="D">D0718.M.250.D.B</M>
+</MODELS>
+</EVAL>
+<EVAL ID="19">
+<PEER-ROOT>
+/home/pta/projects/nlp/data/DUC2007/systemsMulSaDE
+</PEER-ROOT>
+<MODEL-ROOT>
+/home/pta/projects/nlp/data/DUC2007/models
+</MODEL-ROOT>
+<INPUT-FORMAT TYPE="SPL">
+</INPUT-FORMAT>
+<PEERS>
+<P ID="MulSaDE">D0719E.MulSaDE</P>
+</PEERS>
+<MODELS><M ID="A">D0719.M.250.E.E</M>
+<M ID="B">D0719.M.250.E.G</M>
+<M ID="C">D0719.M.250.E.D</M>
+<M ID="D">D0719.M.250.E.F</M>
+</MODELS>
+</EVAL>
+<EVAL ID="20">
+<PEER-ROOT>
+/home/pta/projects/nlp/data/DUC2007/systemsMulSaDE
+</PEER-ROOT>
+<MODEL-ROOT>
+/home/pta/projects/nlp/data/DUC2007/models
+</MODEL-ROOT>
+<INPUT-FORMAT TYPE="SPL">
+</INPUT-FORMAT>
+<PEERS>
+<P ID="MulSaDE">D0720E.MulSaDE</P>
+</PEERS>
+<MODELS><M ID="A">D0720.M.250.E.A</M>
+<M ID="B">D0720.M.250.E.B</M>
+<M ID="C">D0720.M.250.E.E</M>
+<M ID="D">D0720.M.250.E.C</M>
+</MODELS>
+</EVAL>
+<EVAL ID="21">
+<PEER-ROOT>
+/home/pta/projects/nlp/data/DUC2007/systemsMulSaDE
+</PEER-ROOT>
+<MODEL-ROOT>
+/home/pta/projects/nlp/data/DUC2007/models
+</MODEL-ROOT>
+<INPUT-FORMAT TYPE="SPL">
+</INPUT-FORMAT>
+<PEERS>
+<P ID="MulSaDE">D0721E.MulSaDE</P>
+</PEERS>
+<MODELS><M ID="A">D0721.M.250.E.E</M>
+<M ID="B">D0721.M.250.E.C</M>
+<M ID="C">D0721.M.250.E.G</M>
+<M ID="D">D0721.M.250.E.B</M>
+</MODELS>
+</EVAL>
+<EVAL ID="22">
+<PEER-ROOT>
+/home/pta/projects/nlp/data/DUC2007/systemsMulSaDE
+</PEER-ROOT>
+<MODEL-ROOT>
+/home/pta/projects/nlp/data/DUC2007/models
+</MODEL-ROOT>
+<INPUT-FORMAT TYPE="SPL">
+</INPUT-FORMAT>
+<PEERS>
+<P ID="MulSaDE">D0722E.MulSaDE</P>
+</PEERS>
+<MODELS><M ID="A">D0722.M.250.E.C</M>
+<M ID="B">D0722.M.250.E.B</M>
+<M ID="C">D0722.M.250.E.E</M>
+<M ID="D">D0722.M.250.E.F</M>
+</MODELS>
+</EVAL>
+<EVAL ID="23">
+<PEER-ROOT>
+/home/pta/projects/nlp/data/DUC2007/systemsMulSaDE
+</PEER-ROOT>
+<MODEL-ROOT>
+/home/pta/projects/nlp/data/DUC2007/models
+</MODEL-ROOT>
+<INPUT-FORMAT TYPE="SPL">
+</INPUT-FORMAT>
+<PEERS>
+<P ID="MulSaDE">D0723F.MulSaDE</P>
+</PEERS>
+<MODELS><M ID="A">D0723.M.250.F.A</M>
+<M ID="B">D0723.M.250.F.B</M>
+<M ID="C">D0723.M.250.F.C</M>
+<M ID="D">D0723.M.250.F.F</M>
+</MODELS>
+</EVAL>
+<EVAL ID="24">
+<PEER-ROOT>
+/home/pta/projects/nlp/data/DUC2007/systemsMulSaDE
+</PEER-ROOT>
+<MODEL-ROOT>
+/home/pta/projects/nlp/data/DUC2007/models
+</MODEL-ROOT>
+<INPUT-FORMAT TYPE="SPL">
+</INPUT-FORMAT>
+<PEERS>
+<P ID="MulSaDE">D0724F.MulSaDE</P>
+</PEERS>
+<MODELS><M ID="A">D0724.M.250.F.B</M>
+<M ID="B">D0724.M.250.F.F</M>
+<M ID="C">D0724.M.250.F.A</M>
+<M ID="D">D0724.M.250.F.C</M>
+</MODELS>
+</EVAL>
+<EVAL ID="25">
+<PEER-ROOT>
+/home/pta/projects/nlp/data/DUC2007/systemsMulSaDE
+</PEER-ROOT>
+<MODEL-ROOT>
+/home/pta/projects/nlp/data/DUC2007/models
+</MODEL-ROOT>
+<INPUT-FORMAT TYPE="SPL">
+</INPUT-FORMAT>
+<PEERS>
+<P ID="MulSaDE">D0725F.MulSaDE</P>
+</PEERS>
+<MODELS><M ID="A">D0725.M.250.F.E</M>
+<M ID="B">D0725.M.250.F.D</M>
+<M ID="C">D0725.M.250.F.B</M>
+<M ID="D">D0725.M.250.F.F</M>
+</MODELS>
+</EVAL>
+<EVAL ID="26">
+<PEER-ROOT>
+/home/pta/projects/nlp/data/DUC2007/systemsMulSaDE
+</PEER-ROOT>
+<MODEL-ROOT>
+/home/pta/projects/nlp/data/DUC2007/models
+</MODEL-ROOT>
+<INPUT-FORMAT TYPE="SPL">
+</INPUT-FORMAT>
+<PEERS>
+<P ID="MulSaDE">D0727G.MulSaDE</P>
+</PEERS>
+<MODELS><M ID="A">D0727.M.250.G.H</M>
+<M ID="B">D0727.M.250.G.G</M>
+<M ID="C">D0727.M.250.G.F</M>
+<M ID="D">D0727.M.250.G.A</M>
+</MODELS>
+</EVAL>
+<EVAL ID="27">
+<PEER-ROOT>
+/home/pta/projects/nlp/data/DUC2007/systemsMulSaDE
+</PEER-ROOT>
+<MODEL-ROOT>
+/home/pta/projects/nlp/data/DUC2007/models
+</MODEL-ROOT>
+<INPUT-FORMAT TYPE="SPL">
+</INPUT-FORMAT>
+<PEERS>
+<P ID="MulSaDE">D0728G.MulSaDE</P>
+</PEERS>
+<MODELS><M ID="A">D0728.M.250.G.G</M>
+<M ID="B">D0728.M.250.G.A</M>
+<M ID="C">D0728.M.250.G.I</M>
+<M ID="D">D0728.M.250.G.H</M>
+</MODELS>
+</EVAL>
+<EVAL ID="28">
+<PEER-ROOT>
+/home/pta/projects/nlp/data/DUC2007/systemsMulSaDE
+</PEER-ROOT>
+<MODEL-ROOT>
+/home/pta/projects/nlp/data/DUC2007/models
+</MODEL-ROOT>
+<INPUT-FORMAT TYPE="SPL">
+</INPUT-FORMAT>
+<PEERS>
+<P ID="MulSaDE">D0729G.MulSaDE</P>
+</PEERS>
+<MODELS><M ID="A">D0729.M.250.G.G</M>
+<M ID="B">D0729.M.250.G.J</M>
+<M ID="C">D0729.M.250.G.A</M>
+<M ID="D">D0729.M.250.G.H</M>
+</MODELS>
+</EVAL>
+<EVAL ID="29">
+<PEER-ROOT>
+/home/pta/projects/nlp/data/DUC2007/systemsMulSaDE
+</PEER-ROOT>
+<MODEL-ROOT>
+/home/pta/projects/nlp/data/DUC2007/models
+</MODEL-ROOT>
+<INPUT-FORMAT TYPE="SPL">
+</INPUT-FORMAT>
+<PEERS>
+<P ID="MulSaDE">D0730G.MulSaDE</P>
+</PEERS>
+<MODELS><M ID="A">D0730.M.250.G.A</M>
+<M ID="B">D0730.M.250.G.C</M>
+<M ID="C">D0730.M.250.G.G</M>
+<M ID="D">D0730.M.250.G.B</M>
+</MODELS>
+</EVAL>
+<EVAL ID="30">
+<PEER-ROOT>
+/home/pta/projects/nlp/data/DUC2007/systemsMulSaDE
+</PEER-ROOT>
+<MODEL-ROOT>
+/home/pta/projects/nlp/data/DUC2007/models
+</MODEL-ROOT>
+<INPUT-FORMAT TYPE="SPL">
+</INPUT-FORMAT>
+<PEERS>
+<P ID="MulSaDE">D0731G.MulSaDE</P>
+</PEERS>
+<MODELS><M ID="A">D0731.M.250.G.A</M>
+<M ID="B">D0731.M.250.G.G</M>
+<M ID="C">D0731.M.250.G.C</M>
+<M ID="D">D0731.M.250.G.H</M>
+</MODELS>
+</EVAL>
+<EVAL ID="31">
+<PEER-ROOT>
+/home/pta/projects/nlp/data/DUC2007/systemsMulSaDE
+</PEER-ROOT>
+<MODEL-ROOT>
+/home/pta/projects/nlp/data/DUC2007/models
+</MODEL-ROOT>
+<INPUT-FORMAT TYPE="SPL">
+</INPUT-FORMAT>
+<PEERS>
+<P ID="MulSaDE">D0732H.MulSaDE</P>
+</PEERS>
+<MODELS><M ID="A">D0732.M.250.H.I</M>
+<M ID="B">D0732.M.250.H.H</M>
+<M ID="C">D0732.M.250.H.J</M>
+<M ID="D">D0732.M.250.H.G</M>
+</MODELS>
+</EVAL>
+<EVAL ID="32">
+<PEER-ROOT>
+/home/pta/projects/nlp/data/DUC2007/systemsMulSaDE
+</PEER-ROOT>
+<MODEL-ROOT>
+/home/pta/projects/nlp/data/DUC2007/models
+</MODEL-ROOT>
+<INPUT-FORMAT TYPE="SPL">
+</INPUT-FORMAT>
+<PEERS>
+<P ID="MulSaDE">D0733H.MulSaDE</P>
+</PEERS>
+<MODELS><M ID="A">D0733.M.250.H.I</M>
+<M ID="B">D0733.M.250.H.F</M>
+<M ID="C">D0733.M.250.H.H</M>
+<M ID="D">D0733.M.250.H.J</M>
+</MODELS>
+</EVAL>
+<EVAL ID="33">
+<PEER-ROOT>
+/home/pta/projects/nlp/data/DUC2007/systemsMulSaDE
+</PEER-ROOT>
+<MODEL-ROOT>
+/home/pta/projects/nlp/data/DUC2007/models
+</MODEL-ROOT>
+<INPUT-FORMAT TYPE="SPL">
+</INPUT-FORMAT>
+<PEERS>
+<P ID="MulSaDE">D0734H.MulSaDE</P>
+</PEERS>
+<MODELS><M ID="A">D0734.M.250.H.E</M>
+<M ID="B">D0734.M.250.H.F</M>
+<M ID="C">D0734.M.250.H.J</M>
+<M ID="D">D0734.M.250.H.H</M>
+</MODELS>
+</EVAL>
+<EVAL ID="34">
+<PEER-ROOT>
+/home/pta/projects/nlp/data/DUC2007/systemsMulSaDE
+</PEER-ROOT>
+<MODEL-ROOT>
+/home/pta/projects/nlp/data/DUC2007/models
+</MODEL-ROOT>
+<INPUT-FORMAT TYPE="SPL">
+</INPUT-FORMAT>
+<PEERS>
+<P ID="MulSaDE">D0735H.MulSaDE</P>
+</PEERS>
+<MODELS><M ID="A">D0735.M.250.H.E</M>
+<M ID="B">D0735.M.250.H.H</M>
+<M ID="C">D0735.M.250.H.B</M>
+<M ID="D">D0735.M.250.H.J</M>
+</MODELS>
+</EVAL>
+<EVAL ID="35">
+<PEER-ROOT>
+/home/pta/projects/nlp/data/DUC2007/systemsMulSaDE
+</PEER-ROOT>
+<MODEL-ROOT>
+/home/pta/projects/nlp/data/DUC2007/models
+</MODEL-ROOT>
+<INPUT-FORMAT TYPE="SPL">
+</INPUT-FORMAT>
+<PEERS>
+<P ID="MulSaDE">D0736H.MulSaDE</P>
+</PEERS>
+<MODELS><M ID="A">D0736.M.250.H.H</M>
+<M ID="B">D0736.M.250.H.G</M>
+<M ID="C">D0736.M.250.H.I</M>
+<M ID="D">D0736.M.250.H.J</M>
+</MODELS>
+</EVAL>
+<EVAL ID="36">
+<PEER-ROOT>
+/home/pta/projects/nlp/data/DUC2007/systemsMulSaDE
+</PEER-ROOT>
+<MODEL-ROOT>
+/home/pta/projects/nlp/data/DUC2007/models
+</MODEL-ROOT>
+<INPUT-FORMAT TYPE="SPL">
+</INPUT-FORMAT>
+<PEERS>
+<P ID="MulSaDE">D0737I.MulSaDE</P>
+</PEERS>
+<MODELS><M ID="A">D0737.M.250.I.G</M>
+<M ID="B">D0737.M.250.I.I</M>
+<M ID="C">D0737.M.250.I.F</M>
+<M ID="D">D0737.M.250.I.E</M>
+</MODELS>
+</EVAL>
+<EVAL ID="37">
+<PEER-ROOT>
+/home/pta/projects/nlp/data/DUC2007/systemsMulSaDE
+</PEER-ROOT>
+<MODEL-ROOT>
+/home/pta/projects/nlp/data/DUC2007/models
+</MODEL-ROOT>
+<INPUT-FORMAT TYPE="SPL">
+</INPUT-FORMAT>
+<PEERS>
+<P ID="MulSaDE">D0738I.MulSaDE</P>
+</PEERS>
+<MODELS><M ID="A">D0738.M.250.I.H</M>
+<M ID="B">D0738.M.250.I.G</M>
+<M ID="C">D0738.M.250.I.I</M>
+<M ID="D">D0738.M.250.I.E</M>
+</MODELS>
+</EVAL>
+<EVAL ID="38">
+<PEER-ROOT>
+/home/pta/projects/nlp/data/DUC2007/systemsMulSaDE
+</PEER-ROOT>
+<MODEL-ROOT>
+/home/pta/projects/nlp/data/DUC2007/models
+</MODEL-ROOT>
+<INPUT-FORMAT TYPE="SPL">
+</INPUT-FORMAT>
+<PEERS>
+<P ID="MulSaDE">D0740I.MulSaDE</P>
+</PEERS>
+<MODELS><M ID="A">D0740.M.250.I.J</M>
+<M ID="B">D0740.M.250.I.H</M>
+<M ID="C">D0740.M.250.I.D</M>
+<M ID="D">D0740.M.250.I.I</M>
+</MODELS>
+</EVAL>
+<EVAL ID="39">
+<PEER-ROOT>
+/home/pta/projects/nlp/data/DUC2007/systemsMulSaDE
+</PEER-ROOT>
+<MODEL-ROOT>
+/home/pta/projects/nlp/data/DUC2007/models
+</MODEL-ROOT>
+<INPUT-FORMAT TYPE="SPL">
+</INPUT-FORMAT>
+<PEERS>
+<P ID="MulSaDE">D0742J.MulSaDE</P>
+</PEERS>
+<MODELS><M ID="A">D0742.M.250.J.D</M>
+<M ID="B">D0742.M.250.J.C</M>
+<M ID="C">D0742.M.250.J.E</M>
+<M ID="D">D0742.M.250.J.J</M>
+</MODELS>
+</EVAL>
+<EVAL ID="40">
+<PEER-ROOT>
+/home/pta/projects/nlp/data/DUC2007/systemsMulSaDE
+</PEER-ROOT>
+<MODEL-ROOT>
+/home/pta/projects/nlp/data/DUC2007/models
+</MODEL-ROOT>
+<INPUT-FORMAT TYPE="SPL">
+</INPUT-FORMAT>
+<PEERS>
+<P ID="MulSaDE">D0743J.MulSaDE</P>
+</PEERS>
+<MODELS><M ID="A">D0743.M.250.J.H</M>
+<M ID="B">D0743.M.250.J.B</M>
+<M ID="C">D0743.M.250.J.J</M>
+<M ID="D">D0743.M.250.J.I</M>
+</MODELS>
+</EVAL>
+<EVAL ID="41">
+<PEER-ROOT>
+/home/pta/projects/nlp/data/DUC2007/systemsMulSaDE
+</PEER-ROOT>
+<MODEL-ROOT>
+/home/pta/projects/nlp/data/DUC2007/models
+</MODEL-ROOT>
+<INPUT-FORMAT TYPE="SPL">
+</INPUT-FORMAT>
+<PEERS>
+<P ID="MulSaDE">D0745J.MulSaDE</P>
+</PEERS>
+<MODELS><M ID="A">D0745.M.250.J.B</M>
+<M ID="B">D0745.M.250.J.D</M>
+<M ID="C">D0745.M.250.J.C</M>
+<M ID="D">D0745.M.250.J.J</M>
+</MODELS>
+</EVAL>
+</ROUGE-EVAL>

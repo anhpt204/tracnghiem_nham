@@ -1,0 +1,17 @@
+./src/sc/MainSC.java
+./src/sc/Population.java
+./src/sc/node.java
+./src/sgx/Population.java
+./src/sgx/MainSGX.java
+./src/sgx/node.java
+./src/common/Const.java
+./src/common/MyRandom.java
+./src/agx/Population.java
+./src/agx/node.java
+./src/agx/MainAGX.java
+./src/rdo/Population.java
+./src/rdo/node.java
+./src/rdo/MainRDO.java
+./src/ssgx/Population.java
+./src/ssgx/node.java
+./src/ssgx/MainSSGX.java

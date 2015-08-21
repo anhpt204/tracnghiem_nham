@@ -1,0 +1,52 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+{% extends 'base.html' %}
+
+
+
+{% block title %}
+Làm bài thi
+{% endblock %}
+
+
+{% block content %}
+<div class="jumbotron">
+  <h1>{{ object.ca_thi.title }}</h1>
+  
+  <h4>Môn thi: {{ object.ca_thi.mon_thi }}</h4>
+  <h4>Họ tên: {{ object.sinh_vien }}</h4>
+  <h4>Lớp: {{ object.ca_thi.lop_thi }}</h4>
+  <h4>Ngày: {{ object.ca_thi.ngay_thi|date:"d/m/Y" }}</h4>
+  <h4>Thời gian bắt đầu: {{ object.ca_thi.tg_bat_dau|time:"H:i" }}</h4>
+  <h4>Thời gian kết thúc: {{ object.ca_thi.tg_ket_thuc|time:"H:i" }}</h4>
+  
+  <form action="finish/" method="POST">
+  	{% csrf_token %}
+	{% for q, answers in questions %}
+		<div class="question">
+		<hr />
+		<h4>Câu {{forloop.counter}}: {{ q.content }}</h5>
+		
+		{% for a in answers %}
+					
+			<input type="radio" name="{{ q.id }}" value="{{ a.id }}"> {{ a.content }} </input>
+			<br />
+		{% empty %}
+		{% endfor %}
+		</div>
+		
+	{% empty %}
+		<li>Không có câu hỏi nào</li>
+	{% endfor %}
+	
+	<br />
+ 	<input class="btn btn-primary btn-lg" type = "submit" name="hoanthanh" value="Hoàn thành" />
+  
+  </form>
+  
+
+</div>
+
+
+
+{% endblock %}

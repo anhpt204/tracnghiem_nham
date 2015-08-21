@@ -1,0 +1,191 @@
+'''
+Created on Mar 19, 2015
+
+@author: pta
+'''
+from oauthlib.uri_validate import reserved
+from duplicity.path import Path
+
+class Route:
+    
+    def __init__(self, setting, path=[], departureTime=None, earlistServiceTime=None, 
+                 earlistArrivalTime=None, latestArrivalTime=None, cost=None, demand=None):
+        self.setting = setting
+        # path, part[0] = deport
+        if(len(path) == 0):
+            self.path = [0]
+        else:
+            self.path = path 
+        # departure time for each request on this route
+        self.departureTime = [0]
+        # earlist service time for each request on this route
+        self.earlistServiceTime = [0]
+        # earlist arrival time of this route
+        self.earlistArrivalTime = 0
+        # latest arrival time for each request on this route
+        self.latestArrivalTime = [setting.requests[0].tw[1]]
+        
+        self.cost = cost
+        self.demand = demand
+        
+        if len(path) > 1:
+            self.update(1)
+        
+    def clone(self):
+        newRoute = Route(self.setting)
+        newRoute.path = self.path[:]
+        newRoute.departureTime = self.departureTime[:]
+        newRoute.earlistServiceTime = self.earlistServiceTime[:]
+        newRoute.earlistArrivalTime = self.earlistArrivalTime
+        newRoute.latestArrivalTime = self.latestArrivalTime
+        newRoute.demand = self.demand
+        newRoute.cost = self.cost
+        
+        return newRoute
+        
+    def twoExchange(self, i, j):
+        # make sure i < j
+        if i > j:
+            i, j = j, i
+        
+        temp = self.path[i+1:j+1]
+        temp.reverse()
+        self.path[i+1:j+1] = temp[:]
+            
+        self.update(i)
+    
+    def relocation(self, i, anotherRoute, j):
+        request_i = self.path.pop(i)
+        anotherRoute.path.insert(j+1, request_i)
+        
+        self.update(i)
+        anotherRoute.update(j+1)
+        
+    def exchange(self, i, anotherRoute, j):
+        self.path[i], anotherRoute.path[j] = anotherRoute.path[j], self.path[i]
+        
+        self.update(i)
+        anotherRoute.update(j)
+        
+    def crossover(self, i, anotherRoute, j):
+        self.path[i+1:], anotherRoute.path[j+1:] = anotherRoute.path[j+1:], self.path[i+1:]
+        
+        self.update(i+1)
+        anotherRoute.update(j+1)
+        
+        
+    def update(self, start_idx):
+        '''
+        update: - departure time
+                - earliest service time
+                - earliest arrival time
+                #- latest arrival time
+                - cost and demand
+        @param start_idx: index that have been changed
+        '''
+        pathLength = len(self.path)
+         
+        # if route is empty
+        if(pathLength <= 1):
+            self.earlistArrivalTime = self.setting.requests[0].tw[0]
+            return
+
+        if start_idx == 1:
+            self.departureTime = [0]*pathLength
+            self.earlistArrivalTime = None
+            self.earlistServiceTime = [0]*pathLength
+#             self.latestArrivalTime = [0]*pathLength
+        
+        else:
+            self.departureTime[start_idx:] = [0]* (pathLength-start_idx)
+            self.earlistServiceTime[start_idx:] = [0]*(pathLength-start_idx)
+            
+        
+#         print len(self.departureTime), len(self.earlistServiceTime)
+        
+        for i in xrange(start_idx, pathLength):
+            req_i = self.path[i]
+            pre_req_i = self.path[i-1]
+            
+            if i == pathLength-1:
+                suc_req_i = self.path[0]
+            else:
+                suc_req_i = self.path[i+1]
+            
+            # deparure time
+            self.departureTime[i] = max(self.departureTime[i-1] + self.setting.costMatrix[pre_req_i.requestId][req_i.requestId], 
+                                        req_i.tw[0]) + req_i.serviceTime
+         
+            # earliest service time
+            self.earlistServiceTime[i] = max(self.departureTime[i-1] + self.setting.costMatrix[pre_req_i.requestId][req_i.requestId],
+                                             req_i.tw[0])
+            
+        self.latestArrivalTime = [0]*pathLength
+        self.latestArrivalTime[0] = self.setting.requests[0].tw[1]
+        
+        for i in xrange(pathLength-1, 0, -1):
+            r_i = self.path[i]
+            i_plus = i + 1
+            if i_plus == pathLength:
+                i_plus = 0
+
+            # latest arrival time
+            self.latestArrivalTime[i] = min(self.latestArrivalTime[i_plus] 
+                                            - self.setting.costMatrix[r_i.requestId][0] - r_i.serviceTime,
+                                            r_i.tw[1])
+        
+        self.earlistArrivalTime = self.departureTime[-1] + self.setting.costMatrix[self.path[-1].requestId][0]
+        
+        self.calCostAndDemand()
+        
+    def calCostAndDemand(self):
+        self.cost = 0
+        self.demand = 0
+        pathLength = len(self.path)
+        
+        # if route is empty
+        if(pathLength <= 1):
+            return
+        
+        for i in xrange(1, pathLength):
+            req_i = self.path[i]
+            pre_req_i = self.path[i-1]
+            
+            self.demand += req_i.demand
+            self.cost += self.setting.costMatrix[pre_req_i.requestId][req_i.requestId]
+            
+        self.cost += self.setting.costMatrix[self.path[-1].requestId][0]
+    
+    def isFeasible(self):
+        '''
+        check if this route is feasible or not
+        
+        @return: True if this route is feasible, False otherwise
+        '''
+        
+        if self.demand > self.setting.vehicleCapacity:
+            return False
+        
+        if self.earlistServiceTime > self.setting.requests[0].tw[1]:
+            return False
+        
+        # check time window of each request
+        for i in xrange(1, len(self.earlistServiceTime)):
+            if self.earlistServiceTime[i] > self.path[i].tw[1]:
+                return False
+            
+        return True
+    
+if __name__ == '__main__':
+    route1 = Route(setting=None, path=[0, 1, 2, 3, 4, 5])
+    route2 = Route(setting=None, path=[0, 6, 7, 8, 9, 10])
+    route3 = route1.clone()
+    
+    
+#     route1.twoExchange(0, 6)
+#     route1.relocation(1, route2, 3)
+#     route1.exchange(1, route2, 3)
+#     route1.crossover(1, route2, 3)
+    
+    print route1.path
+    print route3.path
